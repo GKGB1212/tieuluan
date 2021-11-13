@@ -1,0 +1,231 @@
+.mainLoginForm {
+    transform: translateX(-50%);
+    bottom: 30px;
+    left: 50%;
+    width: 340px;
+    background: white;
+    box-shadow: 0px 0px 8px rgb(0 0 0 / 30%);
+}
+.mainLoginForm {
+    margin-top: 10px;
+    padding: 20px;
+    position: absolute;
+    z-index: 2;
+    top: 0px;
+}
+.loginDiv{
+    margin-top: 32px;
+}
+@media screen and (min-width: 992px){
+    .loginDiv{
+        margin-top: 16px;
+    }
+}
+.loginForm{
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 300px;
+}
+.loginBanner {
+    margin-bottom: 4px;
+    width: 100%;
+}
+.wrapperBanner {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+.titleBanner {
+    display: flex;
+    flex-direction: column;
+}
+.titleBanner > h3 {
+    color: #FFBA00;
+    margin-bottom: 0;
+    font-size: 1.8rem;
+}
+.titleBanner > p {
+    color: #9B9B9B;
+    margin-top: 5px;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+.imageBanner {
+    width: 87px;
+    height: 82px;
+}
+.imageBanner > img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+}
+.inputLoginDiv {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    width: 300px;
+}
+.inputLoginDiv>div{
+    position: relative;
+    width: 100%;
+}
+.inputLoginDiv>div input:-webkit-autofill {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.inputLoginDiv>div>input {
+    width: 100%;
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #CACACA;
+    font-size: 1.3rem;
+    padding: 8px;
+    color: #222222;
+}
+.inputLoginDiv>div > button {
+    background: transparent;
+    outline: none;
+    border: none;
+    height: 32px;
+    min-width: 12px;
+    position: absolute;
+    top: 2px;
+    right: 8px;
+    color: #38699F;
+    background-color: #ffffff;
+}
+.inputLoginDiv>div > button > span.clear {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGc+CiAgICAgICAgICAgIDxnPgogICAgICAgICAgICAgICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTMxOSAtMTc3KSB0cmFuc2xhdGUoMjkgMTY1KSB0cmFuc2xhdGUoMjkwIDEyKSI+CiAgICAgICAgICAgICAgICAgICAgPGNpcmNsZSBjeD0iOCIgY3k9IjgiIHI9IjgiIGZpbGw9IiNDQUNBQ0EiLz4KICAgICAgICAgICAgICAgICAgICA8ZyBzdHJva2U9IiNGRkYiPgogICAgICAgICAgICAgICAgICAgICAgICA8ZyBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIHN0cm9rZS13aWR0aD0iMS42Ij4KICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0wLjE1IDAuMTVMNS44NSA1Ljg1IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0IDQpIHRyYW5zbGF0ZSgxIDEpIi8+CiAgICAgICAgICAgICAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMC4xNSAwLjE1TDUuODUgNS44NSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNCA0KSB0cmFuc2xhdGUoMSAxKSBtYXRyaXgoLTEgMCAwIDEgNiAwKSIvPgogICAgICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICAgICAgICAgIDxwYXRoIHN0cm9rZS13aWR0aD0iLjEiIGQ9Ik0wIDBIOFY4SDB6IiBvcGFjaXR5PSIuMDEiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQgNCkiLz4KICAgICAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgICAgICA8L2c+CiAgICAgICAgICAgIDwvZz4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=);
+}
+.inputLoginDiv>div button > span {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 4px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: #ffffff;
+}
+.prswihc {
+    min-height: 18px;
+    margin: 0;
+    line-height: 17px;
+}
+.buttonLogin.w-normal {
+    font-weight: normal;
+}
+
+.buttonLogin.r-normal {
+    border-radius: 4px;
+}
+.buttonLogin.accent {
+    color: #FFFFFF;
+    background-color: #FE9900;
+    border-color: #FE9900;
+}
+.buttonLogin, .buttonLogin.medium {
+    font-size: 2rem;
+    line-height: 1;
+    padding: 8px 16px;
+}
+.buttonLogin.stretch {
+    width: 100%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+.buttonLogin {
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    text-decoration: none;
+    font-size: 2rem;
+}
+@media screen and (min-width: 992px){
+.loginDiv2 > p {
+    min-height: unset;
+}
+}
+
+.loginDiv2 > p {
+    font-size: 12px;
+    text-align: center;
+    max-width: 300px;
+}
+@media screen and (min-width: 992px){
+.loginDiv2 {
+    padding-top: 8px;
+}
+}
+
+.loginDiv2 {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.loginDiv2> p > a {
+    color: #38699F;
+    text-decoration: none;
+}
+@media screen and (min-width: 992px){
+    .sp7vspb > small {
+        margin-top: 20px;
+    }
+}
+
+.loginDiv2 > small {
+    color: #9B9B9B;
+}
+small {
+    font-size: 1rem;
+}
+
+
+
+/* list button đăng nhập bằng fb google */
+@media screen and (min-width: 992px){
+    .loginDiv2 > ul {
+        margin-bottom: 20px;
+    }
+}
+
+.loginDiv2 > ul {
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    margin-top: 16px;
+}
+
+.iconButton:not(:last-child) {
+    margin-right: 16px;
+}
+.iconButton {
+    cursor: pointer;
+    border-radius: 100%;
+    height: 40px;
+    width: 40px;
+    box-shadow: 0px 0px 8px rgb(0 0 0 / 30%);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.fb{
+    background-image: 'https://static.chotot.com/storage/assets/LOGIN/facebook.svg';
+}
+.gg{
+    background-image: var(--s1w0ft87-1);
+}

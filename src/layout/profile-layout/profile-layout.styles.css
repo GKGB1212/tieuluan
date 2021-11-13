@@ -1,0 +1,33 @@
+
+@media (min-width: 1200px){
+    .container_profile_layout {
+        width: 1170px;
+    }
+}
+.container_profile_layout {
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+    position: relative;
+}
+.profile .content_profile_layout {
+    margin-top: 30px;
+}
+.content_profile_layout {
+    display: inline-block;
+    width: 100%;
+    /* margin-top: 16px; */
+}
+.profile .box-content .box-left {
+    width: 34%;
+    float: left;
+    margin-bottom: 30px;
+}
+.profile .box-content .box-right {
+    width: calc(100% - 34%);
+    float: left;
+    display: inline-block;
+    height: 100%;
+    padding-left: 24px;
+    position: relative;
+}

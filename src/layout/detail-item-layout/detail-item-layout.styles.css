@@ -1,0 +1,123 @@
+@media (min-width: 1200px){
+    .container {
+        width: 980px;
+    }
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+}
+.ct-detail {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-top: none;
+    min-height: 60vh;
+}
+.base {
+    margin: 0 12px;
+}
+.ct-detail .col-md-4.dtView {
+    padding-right: 0!important;
+}
+
+.no-padding {
+    padding: 0!important;
+}
+@media (min-width: 992px){
+    .d-lg-block {
+        display: block!important;
+    }
+}
+
+
+
+
+@media (min-width: 992px){
+    .AdParam_adParamItem__1o-dd {
+        height: 45px;
+    }
+}
+
+.AdParam_adParamItem__1o-dd {
+    display: table;
+    font-size: 13px;
+}
+.no-padding {
+    padding: 0!important;
+}
+
+.AdParam_adMediaParam__3bzmC {
+    align-items: baseline;
+    display: flex;
+}
+.AdParam_adParamIcon__1W6qJ {
+    display: inline-block;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 24px;
+}
+.AdParam_adParamValue__1ayWO {
+    white-space: pre-line;
+}
+
+
+.Styles_reportWrapper_ {
+    display: flex;
+    flex-direction: column-reverse;
+    width: 100%;
+}
+@media only screen and (min-width: 768px){
+    .Styles_reportBtn {
+        margin: 10px 0;
+    }
+}
+
+.Styles_reportBtn {
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
+.Styles_reportBtn button:first-of-type {
+    margin-right: 10px;
+}
+
+.btn-group-xs>.btn, .btn-xs {
+    border-radius: 3px;
+    font-size: 12px;
+    line-height: 1.5;
+    padding: 1px 5px;
+}
+.btn-default {
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn {
+    background-image: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    touch-action: manipulation;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.Styles_buyerProtect {
+    font-size: 85%;
+}
+.fEKhQX {
+    border-top: 1px solid rgb(236, 236, 236);
+    padding: 7px 5px 5px 0px !important;
+}
+.cXqYJC {
+    width: 40px;
+    float: left;
+    padding-right: 5px;
+}
+.iSIcRE {
+    width: 85%;
+    float: left;
+    padding-bottom: 5px;
+}

@@ -1,0 +1,40 @@
+.ct-listing {
+    margin-top: 50px;
+    min-height: calc(100vh - 245px);
+}
+@media (min-width: 992px){
+    .container {
+        width: 980px;
+    }
+}
+.Paging_Paging {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1px 0;
+    padding: 12px 0;
+}
+.Paging_pagingItem {
+    display: inline;
+    margin: 6px;
+}
+.Paging_pagingItem span.Paging_active {
+    background-color: #ffba00;
+    border-color: #ffd100;
+    z-index: 2;
+}
+
+.Paging_pagingItem span {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    color: #000!important;
+    cursor: pointer;
+    float: left;
+    font-size: 15px;
+    height: 32px;
+    line-height: 1.42857143;
+    margin-left: -1px;
+    padding: 5px 12px 6px;
+    position: relative;
+    text-decoration: none;
+}

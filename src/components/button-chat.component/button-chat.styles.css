@@ -1,0 +1,27 @@
+.LeadButton_buttonChatDesktop {
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #3c763d!important;
+    cursor: pointer;
+    display: flex;
+    font-size: 13px;
+    font-weight: 600;
+    justify-content: space-between;
+    padding: 8px 10px;
+    text-align: center;
+}
+.LeadButton_buttonChatDesktop:hover{
+    background-color:#E6E6E6
+}
+.LeadButton_buttonChatDesktop>img {
+    display: inline-block;
+    height: 24px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.LeadButton_chatDesktopButton span {
+    font-size: 14px;
+    font-weight: 700;
+}

@@ -1,0 +1,73 @@
+.list{
+    max-width: 960px;
+    background: white;
+    margin: auto;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+}
+.list h4{
+
+    padding: 20px 10px;
+
+}
+.list .row{
+    width: 100%;
+    margin: auto;
+}
+
+.list .row a{
+    text-decoration: none;
+    color: black;
+}
+.consumerTitle{
+    font-size: 17px;
+    font-weight: bold;
+    margin: 0px;
+    padding: 12px 12px 9px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.41;
+    letter-spacing: normal;
+    color: rgb(34, 34, 34);
+}
+.loadMoreWrapper{
+    height: 44px;
+    width: 100%;
+    text-align: center;
+    padding: 10px 12px 12px;
+    margin: 0px auto;
+}
+.loadMoreWrapper button{
+    cursor: pointer;
+    outline: none;
+    background: none;
+    border: none;
+    display: block;
+    width: 100%;
+    color: rgb(56, 105, 159);
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 20px;
+    margin: 0px auto;
+    appearance: button;
+}
+.oneRowContent{
+    overflow-x: auto;
+    background-color: #fff;
+    display: flex;
+    align-items: flex-start;
+    list-style: none;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+}
+.gridContent{
+    display: flex;
+    border-top: 1px solid rgb(244, 244, 244);
+    border-bottom: 1px solid rgb(244, 244, 244);
+    margin: 2px 0px;
+    padding: 0px 2px;
+}

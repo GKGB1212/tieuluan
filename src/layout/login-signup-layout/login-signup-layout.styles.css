@@ -1,0 +1,28 @@
+@media screen and (min-width: 992px){
+    .LoginSignUpLayout {
+        top: 16px;
+        height: 540px;
+    }
+}
+.LoginSignUpLayout {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 52px);
+}
+@media screen and (min-width: 992px){
+    .LoginSignUpLayout > section {
+        background-size: 50% auto;
+        background-image: url(https://static.chotot.com/storage/assets/LOGIN/login_desktop_background.webp);
+    }
+}
+.LoginSignUpLayout > section {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-image: url(https://static.chotot.com/storage/assets/LOGIN/login_desktop_background.webp);
+}

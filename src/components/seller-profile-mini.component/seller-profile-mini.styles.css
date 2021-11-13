@@ -1,0 +1,79 @@
+.SellerProfile_profileWrapper {
+    border-top: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+    padding: 10px 0;
+}
+.SellerProfile_sellerWrapper {
+    color: #333;
+    display: flex;
+}
+.SellerProfile_profileWrapper a,.SellerProfile_profileWrapper a:hover {
+    text-decoration: none;
+}
+.SellerProfile_profileWrapper a {
+    background-color: initial;
+}
+.SellerProfile_profileWrapper .SellerProfile_nameBounder {
+    flex: 1 1;
+    padding-left: 8px;
+    width: 100%;
+}
+.SellerProfile_profileWrapper .SellerProfile_flexDiv {
+    display: flex;
+}
+.SellerProfile_profileWrapper .SellerProfile_nameDiv {
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    flex: 1 1;
+    font-size: 13px;
+    line-height: 18px;
+    margin: 5px 5px 3px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.SellerProfile_profileWrapper .SellerProfile_secondaryButton {
+    background-color: #fff;
+    border: 1px solid #fe9900;
+    color: #fe9900;
+}
+.SellerProfile_secondaryButton:hover{
+    background-color: #FE9900;
+    border: 1px solid #CC7A00;
+    color: white;
+  }
+.SellerProfile_profileWrapper .SellerProfile_statusOnlineDiv {
+    color: #9b9b9b;
+    display: flex;
+    font-size: 11px;
+}
+.SellerProfile_onlineBullet {
+    color: #589f39;
+    font-size: 30px;
+    line-height: 21px;
+    margin-right: 5px;
+}
+.SellerProfile_offlineBullet {
+    color: #9b9b9b;
+    font-size: 30px;
+    line-height: 21px;
+    margin-right: 5px;
+}
+
+
+.Avatar_imageWrapper {
+    background: url(https://static.chotot.com/storage/default_images/default-avatar.webp) no-repeat;
+    background-color: #fff;
+    background-size: contain;
+    border: 2px solid #e5e5e5;
+    display: inline-block;
+    padding: 0;
+    vertical-align: middle;
+}
+.Avatar_defaultSize{
+    height: 50px;
+    width: 50px;
+}
+.img-circle {
+    border-radius: 50%;
+}

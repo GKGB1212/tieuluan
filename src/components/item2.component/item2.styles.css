@@ -1,0 +1,191 @@
+.AdItem_wrapperAdItem:first-child, .AdItem_wrapperOwnerAdItem:first-child {
+    margin-top: 0;
+}
+
+.AdItem_wrapperAdItem:last-child, .AdItem_wrapperOwnerAdItem:last-child {
+    margin-bottom: 0;
+}
+@media only screen and (min-width: 768px){
+    .AdItem_big.AdItem_wrapperOwnerAdItem, .AdItem_wrapperAdItem.AdItem_big {
+        min-height: 144px;
+        padding: 8px 12px;
+    }
+}
+.AdItem_wrapperAdItem .AdItem_adItem, .AdItem_wrapperOwnerAdItem .AdItem_adItem {
+    background: 0 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+.Layout_left{
+    display: inline-block;
+    margin-right: 12px;
+    width: auto;
+}
+@media only screen and (min-width: 768px){
+    .AdThumbnail_AdThumbnail.AdThumbnail_big {
+        height: 128px;
+        width: 128px;
+    }
+}
+.AdThumbnail_AdThumbnail {
+    background-image: url(data:image/webp;base64,UklGRmQFAABXRUJQVlA4IFgFAADwLACdASpKAe0APlEok0ajoqIhInNYUHAKCWlu4XYBG9vaxuc7Pvrdgux2l/STRX2T8AL8a258AHdTzPvB+vVGbRlPOYyW7GwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwfGwe6v5MkozTXZQcSebB8bB8XCroklP2iZS3l56Xa7y5xWu8jacwPv0KAA5qTO0Kg5pp4KDyxuXIcp0v+bB8bAHpt9z17TaOztYI/fXSl8IBJCy90Y9YvpzpA+zvv6+mEEhZTobql4iMghdNNqKNhininjYe5C+y2/93WTAOuiUOd3HM+/M9WqXQ3PyHwldk8DZMMLm+qb+gBd6e61y2CUkCwk2TV3qqx3FbkcrhZ+N1/JM2nurmoVjWzyKUecxktxrxpgxOmzaTcbmMluxsHzIc+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+/M+2AAD+/8aEAAAAwQ2N+m8pZbWN1OdmhckGIMNzXnmcfopC7FqVGWyv6jZX1TWYZbBsDhzSP2xLLsCA5ssMtPDU0KbC+QeaVDkTPrKFzR9K2tEHO1l060tMe5mukyrctBEF9dqaf8iqVLsNyMpqK2/dfRKu+ECUelgwL3lBP0IphhVm7eFck3uGN0KK+09mnbrfcM4sl+RAFNOYgc/Gx9Y5PwhZvjfr4vVsrDlfnCc+XdhQMH4oXeqLFUpAdV9RRKQboPNnFkhxdtL0Rs1rb5GqRwFv1XlsDa82Xa9yCw2JBZb1dcKWiPam+JLGXvLwixOWZ1gN/dkkB+7pV6iSzkxNWS/G9jqIXx43AnTDrGfQRqLMZBChFLt1fNrM1HjVX1mL8tKesGa9dlWGGxpGzrW/otr4ih1SM6P/i9tXGT3IY1uvJ3M28nDqRzxex5PPx0EnsgqM/G2zHMi7lvGVwqDY9HVx/eGiPmYmN1BoQS6ud+PHZuvMhhJ5DgnnA6JtqN68b808KHDKzpZ+zBD6eg/goBO773u+qftyZOGiyi1zxQx3eUxYPzAm2RXv6aeCHrT2ZH58C8DYdfmy15oFltGvi694Ew/+FRRra0dGYhQ6tN67Zq4QAZnJR51Ea/4GdS8OvbddCgCv97cROZ+qkeucLcm296xE10gokKSisNiZTz5f/6MB2Y0L8+K+LO+qm/8hpJVfhTmVlrLMeDU97ZfGVpcTFPLl05MsSGHGdCD9ITieJCIU6/ZZaTIJkXFl+sR/DIVybpj4PVy9lP14vYpQkpKJb443XXd4lXweBiTso+wlsCuXAYKmN3c9Yr9n3UYDvuq2QpmQF+ZsbK/pMmLlRHvRDYbjjF2s6aJge/hA8eNJLxwosQPkeXd4NWS22pUzcfz8bYWM8YNbYPKdF1D8tRE+mBHjbraW4jq3CHS2dCFZgiJpaZOt5DE9IR4O/LvuG+zuviL3pTirxnhxr83iJQzht3Jkn9Zv1CKslOy0B+8GXZRCkzUqGDdfWBO/pdCzwhtHaZ20Gjc8h39GscV/y7xW5H/01KfeIMvaqMZwzN0DmFLwlMaGIFEq6WDjJ0ldCKFfruXjS6LmjYCwufiB5f5cY1as2zKPpp82vFajTDSf0FvspAwT+6nNLcIxDzVgRLC/y+R4wjSEb7XwgaAjjwtbTuyWliQYkfo0QvBp5nDpAohHmmOEAg/Fj7UCVTIeE/ktc1apfMhot2JyXzdyN0tBshPQLcR29GhnwSszW88qRXMpiBc8P82rFTzyVtoABl8wLcrfiwqzsv2VCHGsMFZAGyJbE3zeZsqI4kWnjqXF3fugAAAAAAA=);
+    background-position: 50%;
+    background-size: cover!important;
+    border-radius: 2px;
+    max-width: 200px;
+    overflow: hidden;
+    position: relative;
+}
+.AdThumbnail_AdThumbnail .AdThumbnail_imageGroup {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.AdThumbnail_AdThumbnail div+div {
+    margin-top: 5px;
+}
+.AdThumbnail_AdThumbnail .AdThumbnail_imageNum {
+    align-items: center;
+    background: url(https://static.chotot.com/storage/chotot-icons/svg/number-image.svg) no-repeat;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    font-family: Helvetica,Arial,sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    height: 20px;
+    justify-content: center;
+    width: 25px;
+}
+.Layout_right {
+    display: inline-block;
+    width: calc(100% - 110px);
+}
+@media only screen and (max-width: 767px){
+    .AdBody_AdBody{
+        padding-right: 0;
+    }
+    
+}
+.AdBody_AdBody {
+    display: flex;
+    flex: 1 1;
+    flex-direction: column;
+    min-height: 55px;
+}
+@media only screen and (max-width: 767px){
+    .commonStyle_adTitleGrid, .commonStyle_adTitle {
+        font-size: 14px;
+        line-height: 1.43;
+        max-height: 40px;
+    }
+}
+
+.commonStyle_adTitleGrid, .commonStyle_adTitle {
+    color: #222;
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    margin: 0;
+    overflow: hidden;
+}
+.AdBody_AdBody .AdBody_adUpperBody .AdBody_adItemCondition {
+    color: #9b9b9b;
+    display: block;
+    font-size: 14px;
+    line-height: 1.43;
+    max-width: 98%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media only screen and (max-width: 767px){
+    .AdBody_AdBody .AdBody_adUpperBody {
+        padding-top: 2px;
+    }
+}
+.AdBody_AdBody .AdBody_adUpperBody .AdBody_adItemNoPrice, .AdBody_AdBody .AdBody_adUpperBody .AdBody_adItemPrice {
+    color: #c90927;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.33;
+}
+
+.AdBody_AdBody .AdBody_adUpperBody .AdBody_adItemNoPrice .AdBody_adPriceNormal, .AdBody_AdBody .AdBody_adUpperBody .AdBody_adItemPrice .AdBody_adPriceNormal {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+    max-width: calc(100% - 15px);
+    overflow: visible!important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+@media (max-width: 768px){
+    .Layout_bottom__3h6pN {
+        left: 130px;
+        max-width: calc(100% - 147px);
+    }
+    
+}
+.Layout_bottom__3h6pN {
+    bottom: 8px;
+    position: absolute;
+    width: 100%;
+}
+.Text_text {
+    background-color: initial;
+    display: inline-block;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.AdItemFooter_wrapperFooter {
+    color: #9b9b9b;
+    display: flex;
+    font-size: 12px;
+    position: relative;
+}
+@media (max-width: 767px){
+    .AdItemFooter_wrapperFooter .AdItemFooter_item {
+        font-size: 11px;
+    }
+}
+
+.AdItemFooter_wrapperFooter .AdItemFooter_item {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+    white-space: nowrap;
+}
+.commonStyle_deviderWrapper {
+    display: inline-block;
+}
+@media only screen and (max-width: 767px){
+    .SaveAd_saveAdWrapper{
+        right: 5px;
+    }
+}
+
+.SaveAd_saveAdWrapper {
+    bottom: -3px;
+    position: absolute;
+}
+.SaveAd_saveAdWrapper .SaveAd_btnSavedAdFull, .SaveAd_saveAdWrapper .SaveAd_btnSavedAd {
+    background: 0 0;
+    border: none;
+    cursor: pointer;
+    outline: 0;
+    padding: 0;
+}
+.styles_listViewWrapper button {
+    border-radius: 0;
+    color: #222;
+    font-size: 12px;
+    height: 35px;
+}

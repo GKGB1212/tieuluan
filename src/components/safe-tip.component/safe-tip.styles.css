@@ -1,0 +1,31 @@
+/* .d-none {
+    display: none!important;
+}
+
+.d-none {
+    display: none!important;
+} */
+.SafeTips_SafeTipsWrapper{
+    background-color: #fff;
+    margin-bottom: 10px;
+    min-height: 108px;
+    padding: 3px;
+}
+.SafeTips_SafeTipsWrapper img {
+    margin-right: 15px;
+}
+.pull-left {
+    float: left!important;
+}
+.SafeTips_TipText{
+    font-size: 13px;
+    font-style: italic;
+    padding-top: 20px;
+    text-align: left;
+}
+.SafeTips_SafeTipsWrapper a {
+    color: #fe9900;
+    font-size: 13px;
+    margin-top: 5px;
+    text-align: left;
+}

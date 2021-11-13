@@ -1,0 +1,60 @@
+.box{
+    width: 200px;
+    box-sizing: border-box;
+    padding: 15px;
+    border: 1px solid rgb(244, 244, 244);
+    font-size: 14px;
+    margin-top: 5px;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: white;
+}
+.box .image{
+    position: relative;
+}
+
+.box .image img{
+    object-fit: cover;
+    width: 170px;
+    height: 170px;
+}
+
+.box .image .icon{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    font-size: 20px;
+}
+
+.box p{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.box .title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+    -webkit-box-orient: vertical;
+}
+
+
+.box .details{
+    color: rgb(155, 155, 155);
+    font-size: 13px;
+}
+
+.box .price{
+    color: rgb(208, 2, 27);
+    font-weight: 600;
+}
+
+.box .time{
+    margin-top: 13px;
+    font-size: 11px;
+    color: rgb(155, 155, 155);
+}
+.box:hover{
+    border: 1.2px solid rgba(0,0,0,0.2);
+}

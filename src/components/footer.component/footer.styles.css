@@ -1,0 +1,55 @@
+.footerContainer{
+    margin: 0px auto;
+    padding: 32px 12px 12px;
+    background-color: transparent;
+}
+.descriptionWrapper{
+    line-height: 1.5;
+    position: relative;
+}
+.descriptionWrapper *{
+    font-size: 12px;
+    text-align:justify;
+}
+.descriptionWrapper p {
+    margin: 0px 0px 5px;
+    color: rgb(119, 119, 119);
+}
+.descriptionWrapper ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.descriptionWrapper ul li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.descriptionContent{
+    text-overflow: ellipsis;
+    text-align: justify;
+    /* height: auto; */
+    overflow: hidden;
+}
+.descriptionWrapper .row.block5, .descriptionContent .row .block4, .row.block3 {
+    display: flex;
+}
+h2 {
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}

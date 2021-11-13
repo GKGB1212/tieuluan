@@ -1,0 +1,20 @@
+.left, .right{
+    height: 400px;
+}
+.left{
+    background: blue;
+    float: left;
+    width: 60%;
+}
+.right{
+    background: red;
+    float: right;
+    width: 40%;
+}
+@media only screen and (max-width: 768px){
+    .left, .right{
+        background: yellow;
+        float: none;
+        width: 100%;
+    }
+}

@@ -1,0 +1,90 @@
+.AdDecription_adDecriptionWrapper{
+    margin-top: 10px;
+}
+.AdDecription_adTitle{
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.AdDecription_priceWrapper {
+    align-items: center;
+    background-color: initial;
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+}
+.AdDecription_adDecriptionWrapper meta {
+    display: none;
+}
+.AdDecription_adDecriptionWrapper .AdDecription_priceWrapper .AdDecription_adPrice {
+    color: #c90927;
+    font-size: 16px;
+    font-weight: 700;
+}
+.AdDecription_adDecriptionWrapper .AdDecription_priceWrapper {
+    align-items: center;
+    background-color: initial;
+    display: flex;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: pre-wrap;
+}
+.AdDecription_adDecriptionWrapper .AdDecription_priceWrapper .AdDecription_price {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+/* button lưu tin */
+.AdDecription_adDecriptionWrapper .AdDecription_priceWrapper .AdDecription_saveAd {
+    bottom: auto;
+    position: relative;
+    right: auto;
+}
+.SaveAd_saveAdViewDetail {
+    background: 0 0;
+    border: 1px solid #c90927;
+    border-radius: 20px;
+    color: #c90927;
+    cursor: pointer;
+    display: flex;
+    outline: 0;
+    padding: 5px 10px;
+}
+.kARpok {
+    font-family: Helvetica;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    width: inherit;
+}
+.kARpok .announementContent img {
+    vertical-align: text-bottom;
+    margin-right: 8px;
+}
+.kARpok .announementContent .infoIcon {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 8px;
+}
+.AdParam_address:active, .AdParam_address:focus {
+    outline-width: 0;
+}
+
+.AdParam_addressClickable {
+    color: #38699f;
+    cursor: pointer;
+}
+.AdDecription_adDecriptionWrapper .AdDecription_adBody {
+    margin-bottom: 10px;
+    overflow-wrap: break-word;
+    padding-top: 10px;
+    text-align: justify;
+    white-space: pre-line;
+}

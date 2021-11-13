@@ -1,0 +1,7 @@
+.content{
+    background-image: url("../../images/background.jpeg");
+    background-attachment: fixed;
+    width: 100%;
+    background-size: cover;
+
+}

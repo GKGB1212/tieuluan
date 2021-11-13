@@ -1,0 +1,164 @@
+
+/* ---header--- */
+
+.header{
+    /* background: rgb(255, 186, 0);
+    position: fixed;
+    width: 100%;
+    z-index: 100; */
+
+    font-family: Helvetica, Arial, sans-serif;
+    position: sticky;
+    background-color: rgb(255, 186, 0);
+    border-color: rgb(255, 161, 0);
+    top: 0px;
+    width: 100%;
+    font-size: 14px;
+    z-index: 1000;
+    user-select: none;
+    transition-property: height;
+    transition-duration: 0.2s;
+    height: 100px;
+}
+
+.header .nav{
+    width: 1000px;
+
+    margin: auto;
+    
+    box-sizing: content-box;
+    display: flex;
+    justify-content: space-between;
+    line-height: 40px;
+} 
+
+.header .nav img{
+    display: inline-block;
+    width: 70px;
+    height:40px ;
+    margin: 5px 10px;
+}
+.header .nav-links{
+    display: inline;
+    font-size: 14px;
+    
+}
+
+.nav-links ul{
+    list-style: none;
+}
+
+.nav-links ul li{
+    display: inline-block;
+    padding: 5px 20px;
+    
+}
+
+.nav-links ul li a{
+    text-decoration: none;
+    color: black;
+}
+
+.nav-links ul li a:hover{
+    text-decoration: none;
+    color: rgb(101, 74, 0);
+}
+
+.nav-links ul li i{
+    font-size: 20px;
+    margin: 0 3px;
+}
+
+.nav-links ul li:hover{
+    color: rgb(85, 83, 83);
+    
+}
+
+
+.menu{
+    width: 90%;
+    
+    background: black;
+    margin: auto;
+    text-align: center;
+
+}
+
+
+.menu ul li{
+    list-style: none;
+    line-height: 50px;
+    display: inline-block;
+    padding: 0 40px;
+    border: 1px solid black;
+}
+
+.info {
+    width: 1000px;
+    /* background-color: royalblue; */
+    
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    box-sizing: content-box;
+    display: flex;
+    justify-content: space-between;
+    line-height: 40px;
+}
+
+.info a{
+    text-decoration: none;
+}
+
+.info .search{
+    flex-basis: 55%;
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 4px;
+
+}
+
+.info .search input{
+    padding: 3px;
+
+    border:2px solid black;
+}
+
+.info .login{
+    flex-basis: 15%;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.info .login:hover{
+    color: rgb(101, 74, 0);
+}
+
+.info .login .fa{
+    font-size: 29px;
+    margin-right: 10px;
+}
+
+.info .btn{
+    flex-basis: 14%;
+    text-decoration: none;
+    display: inline-block;
+    background-color: rgb(252, 152, 7);
+    margin-right: 10px;
+    text-align: center;
+    color: white;
+    border-radius: 4px;
+    
+}
+
+.info .btn:hover{
+    background-color: rgb(230, 141, 12);
+}
+
+.info .btn .fa{
+    font-size: 18px;
+    margin-right: 5px;
+    
+}
