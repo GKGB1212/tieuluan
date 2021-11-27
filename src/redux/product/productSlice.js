@@ -4,7 +4,8 @@ import jsonServer from "../../api/jsonServer";
 const initialState = {
     loading: false,
     products: {},
-    err: ''
+    err: '',
+    product:{}
 };
 
 
@@ -22,6 +23,20 @@ export const fetchPosts = createAsyncThunk(
     }
 )
 
+//hàm lấy posts
+export const fetchPostById = createAsyncThunk(
+    'product/fetchPostById',
+    async (id) => {
+        var result;
+        await fetch(`https://localhost:44376/api/Posts/${id}`)
+            .then(res => res.json())
+            .then((data) => {
+                result = data;
+            })
+        return result;
+    }
+)
+
 //hàm inset 1 post
 export const fetchInsertPost = createAsyncThunk(
     'product/fetchInsertPost',
@@ -29,7 +44,7 @@ export const fetchInsertPost = createAsyncThunk(
         var result;
         var formData = new FormData();
         var images=objPost.imageList;
-        console.log("độ dài",objPost.imageList.length);
+        console.log("độ dài",objPost);
         formData.append('title', objPost.title);
         images.forEach(element => {console.log("2222222222");formData.append('imageList',element,element.name)});
         // formData.append('imageList', objPost.imageList);
@@ -44,7 +59,7 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('directionID', objPost.directionID);
         formData.append('details', objPost.details);
         formData.append('paperID', objPost.paperID);
-        formData.append('creatorID', 1);
+        formData.append('creatorID', 'c20f2181-f439-444f-ba4e-31eb207605a5');
         formData.append('postTypeID', 1);
         formData.append('categoryID', objPost.categoryID);
 
@@ -55,7 +70,7 @@ export const fetchInsertPost = createAsyncThunk(
             redirect: 'follow'
         };
 
-        fetch("https://localhost:44376/api/Posts", requestOptions)
+       await fetch("https://localhost:44376/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -77,22 +92,42 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: {
         [fetchPosts.pending]: (state, action) => {
+            console.log("đã vàooo")
             state.loading = true
         },
         [fetchPosts.fulfilled]: (state, action) => {
+            console.log("thành công", action.payload)
             state.loading = false
             state.products = action.payload
         },
         [fetchPosts.rejected]: (state, action) => {
+            console.log("thất bại")
             state.err = action.err
         },
         [fetchInsertPost.pending]: (state, action) => {
+            console.log("đã vàooo")
             state.loading = true
         },
         [fetchInsertPost.fulfilled]: (state, action) => {
+            console.log("thành công", action.payload)
             state.loading = false
         },
         [fetchInsertPost.rejected]: (state, action) => {
+            console.log("thất bại", action.error)
+            state.loading = false
+            state.err = action.err
+        },
+        [fetchPostById.pending]: (state, action) => {
+            console.log("đã vàooo")
+            state.loading = true
+        },
+        [fetchPostById.fulfilled]: (state, action) => {
+            console.log("Sản phẩm", action.payload)
+            state.loading = false;
+            state.product=action.payload;
+        },
+        [fetchInsertPost.rejected]: (state, action) => {
+            console.log("thất bại", action.error)
             state.loading = false
             state.err = action.err
         }

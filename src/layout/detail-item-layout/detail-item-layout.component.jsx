@@ -1,4 +1,5 @@
-import React from "react";
+import React,{useEffect} from "react";
+import { useParams } from "react-router";
 import './detail-item-layout.styles.css';
 import SliderImages from "../../components/slider-images.component/slider-images.component";
 import AdDecriptionWrapper from "../../components/ad-decription-wrapper.styles.css/ad-decription-wrapper.component";
@@ -6,17 +7,29 @@ import SellerProfileMini from '../../components/seller-profile-mini.component/se
 import ButtonPhone from "../../components/button-phone.component.jsx/button-phone.component";
 import ButtonChat from "../../components/button-chat.component/button-chat.component";
 import SafeTip from "../../components/safe-tip.component/safe-tip.component";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPostById } from "../../redux/product/productSlice";
 
 const DetailItemLayout = () => {
-    return (
+    const { id } = useParams();
+    const dispatch=useDispatch();
+    const loading=useSelector(state=>state.product.loading)
+    const post=useSelector(state=>state.product.product)
+    useEffect(() => {
+        dispatch(fetchPostById(id));
+    },[])
+    useEffect(()=>{
+        console.log(post)
+    },[post])
+    return !loading?(
         <div class="container">
             {/* <div class="ct-detail adview"> */}
                 <div class="row base">
                     <div style={{ margin: "10px 0px" }}><div></div></div>
                     <div class="col-md-8">
                         <div class="AdImage_adImageWrapper">
-                            <SliderImages />
-                            <AdDecriptionWrapper />
+                            <SliderImages imageUrls={post.imageUrls}/>
+                            <AdDecriptionWrapper item={post} />
                             <div style={{ margin: "5px 0px 15px 0px" }}></div>
                             <div class="col-xs-12 no-padding">
                                 <div class="col-md-6 no-padding AdParam_adParamItem__1o-dd" data-testid="param-item">
@@ -79,24 +92,20 @@ const DetailItemLayout = () => {
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
 
                     </div>
                     <div class="col-md-4 no-padding dtView">
                         <div class="d-lg-block d-none">
-                            <SellerProfileMini />
+                            <SellerProfileMini name={post.creatorName} id={post.creatorID}/>
                         </div>
-                        <ButtonPhone />
+                        <ButtonPhone phone={post.creatorPhone}/>
                         <ButtonChat />
                         <SafeTip />
                     </div>
                 </div>
             {/* </div> */}
         </div>
-    )
+    ):''
 }
 export default DetailItemLayout;

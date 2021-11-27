@@ -1,12 +1,15 @@
 //thông tin chi tiết của 1 sản phẩm
-import React from 'react';
+import React,{useEffect} from 'react';
 import './ad-decription-wrapper.styles.css';
 
-const AdDecriptionWrapper = () => {
-    return (
+const AdDecriptionWrapper = ({item}) => {
+    useEffect(()=>{
+        console.log("1111",item)
+    },[item])
+    return item?(
         <div class="AdDecription_adDecriptionWrapper" style={{  width: "600px" }}>
             <h1 class="AdDecription_adTitle" itemprop="name">
-                1% HOA HỒNG NHÀ 5 LẦU HẺM XE HƠI THÔNG TIỆN KD
+               {item.title}
             </h1>
             <div class="AdDecription_priceWrapper">
                 <meta itemprop="position" content="1" />
@@ -15,7 +18,7 @@ const AdDecriptionWrapper = () => {
                         <div>
                             <span class="AdDecription_priceWrapper">
                                 <span class="AdDecription_price">
-                                    <span itemprop="price">7,5 tỷ
+                                    <span itemprop="price">{item.price}
                                         <span class="AdDecription_squareMetre">
                                             <sup>2</sup>
                                         </span>
@@ -35,18 +38,6 @@ const AdDecriptionWrapper = () => {
                     </button>
                 </div>
             </div>
-            <div>
-                <div class="d-block col-xs-12 no-padding">
-                    <div class="kARpok">
-                        <div class="announementContent">
-                            <img alt="" src="https://static.chotot.com/storage/react-common/bank_icon.svg" />Trả góp <strong>70 triệu/tháng</strong>, trả trước 1.5 tỷ<i style={{color: "rgb(155, 155, 155)"}}> (Gói vay tham khảo từ Chợ Tốt)</i>
-                            <div class="infoIcon" role="button" tabindex="0" id="btn_loans_pty_info">
-                                <img alt="" src="https://static.chotot.com/storage/react-common/infoIcon2.svg" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <div class="d-lg-none d-block col-xs-12 no-padding">
             </div>
             <div>
@@ -62,13 +53,9 @@ const AdDecriptionWrapper = () => {
                 </div>
             </div>
             <p class="AdDecription_adBody" itemprop="description">
-                💥1% HOA HỒNG NHẬN ĐỦ nhờ 5000 Anh em Gò Vấp chạy phụ nhé!
-                🍏Chính thức lên sóng căn nhà phố 5 lầu cho Gia đình có Anh em đông tông chủ đạo XANH DƯƠNG NHẸ.
-                🍎1 trệt 5 lầu Full Nội Thất cao cấp giá 7,5 tỷ 2 xe hơi né nhau hẻm Thông kinh doanh buôn bán, mở Spa, Công ty...
-                🍏Diện tích thực tế 4,6x16m. Gara xe hơi 7 chỗ hẻm thông trước nhà 2 xe hơi né nhau
-                👉Địa chỉ 467/126 Lê Đức Thọ, p16, Gò Vấp (rẻ phải hẻm 126 là thấy nhà đẹp nhất xóm ;p )
+                {item.details}
             </p>
         </div>
-    )
+    ):''
 }
 export default AdDecriptionWrapper;

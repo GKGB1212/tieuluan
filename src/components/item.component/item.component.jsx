@@ -1,4 +1,5 @@
 import React,{useEffect} from "react";
+import { Link } from "react-router-dom";
 import './item.styles.css';
 
 const Item = ({item}) => {
@@ -7,7 +8,7 @@ const Item = ({item}) => {
     }, [])
     //src={item.imageUrls[0]}
     return (
-        <a href="">
+        <Link to={{pathname:`products/${item.id}`}}>
             <div class="box">
                 <div class="image">
                     <img alt="" />
@@ -20,7 +21,7 @@ const Item = ({item}) => {
                 <p class="price">{item.price}</p>
                 <p class="time">5 giờ trước . Hà Nội</p>
             </div>
-        </a>
+        </Link>
     );
 }
 

@@ -27,7 +27,7 @@
     background-color:#3B8122
 }
 .ijabWE {
-    display: flex;
+    /* display: flex; */
     -webkit-box-pack: justify;
     justify-content: space-between;
     -webkit-box-align: center;

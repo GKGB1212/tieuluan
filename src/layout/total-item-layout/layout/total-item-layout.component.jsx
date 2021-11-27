@@ -9,12 +9,13 @@ const TotalItemLayout = (props) => {
     const items = DATA;
     const type=props.location.type;
     return (
-        type?(
+        // type?(
         <div className="container ct-listing">
             <DynamicFilter />
             <h1>{props.location.type}</h1>
             <TotalItemContainer items={items} />
-        </div>):<Redirect to='/'/>
+        </div>
+        // ):<Redirect to='/'/>
     )
 }
 export default TotalItemLayout;

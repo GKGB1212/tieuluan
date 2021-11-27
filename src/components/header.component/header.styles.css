@@ -21,6 +21,22 @@
     height: 100px;
 }
 
+.btnSearch {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    z-index: 1;
+    width: 22px;
+    float: right;
+    height: 100%;
+    padding: 0px;
+    color: #FE9900;
+    font-size: 1.25rem;
+    box-shadow: none;
+    display: none;
+}
+
 .header .nav{
     width: 1000px;
 
@@ -115,6 +131,7 @@
     background-color: white;
     margin-left: 10px;
     border-radius: 4px;
+    position: relative;
 
 }
 
@@ -161,4 +178,37 @@
     font-size: 18px;
     margin-right: 5px;
     
+}
+
+@media (min-width: 768px){
+    .btnSearch {
+        display: inline-block;
+    }
+}
+.s116vlok {
+    border: none;
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    margin-left: 0px;
+    transition-property: width,margin-left;
+    transition-duration: 0.2s;
+}
+@media (min-width: 768px){
+    .a1ywrhtc {
+        right: 8px;
+        width: 100px;
+    }
+}
+
+.a1ywrhtc {
+    top: 0px;
+    position: absolute;
+    float: right;
+    z-index: 1;
+    height: 100%;
+    background: #FFFFFF;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
 }

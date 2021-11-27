@@ -1,27 +1,27 @@
 import './sliderimages.styles.css';
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import BtnSlider from './BtnSlider'
 import dataSlider from './dataSlider'
 
-export default function Slider() {
+export default function Slider({ imageUrls }) {
 
     const [slideIndex, setSlideIndex] = useState(1)
 
     const nextSlide = () => {
-        if(slideIndex !== dataSlider.length){
+        if (slideIndex !== imageUrls.length) {
             setSlideIndex(slideIndex + 1)
-        } 
-        else if (slideIndex === dataSlider.length){
+        }
+        else if (slideIndex === imageUrls.length) {
             setSlideIndex(1)
         }
     }
 
     const prevSlide = () => {
-        if(slideIndex !== 1){
+        if (slideIndex !== 1) {
             setSlideIndex(slideIndex - 1)
         }
-        else if (slideIndex === 1){
-            setSlideIndex(dataSlider.length)
+        else if (slideIndex === 1) {
+            setSlideIndex(imageUrls.length)
         }
     }
 
@@ -29,31 +29,37 @@ export default function Slider() {
         setSlideIndex(index)
     }
 
-    return (
+    return imageUrls && imageUrls.length > 0 ? (
         <div className="container-slider">
-            {dataSlider.map((obj, index) => {
+            {imageUrls.map((obj, index) => {
                 return (
                     <div
-                    key={obj.id}
-                    className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
+                        key={index}
+                        className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
                     >
-                        <img 
-                        src={process.env.PUBLIC_URL + `/Imgs/img${index + 1}.jpg`} 
+                        <img
+                            src={obj}
                         />
                     </div>
                 )
             })}
-            <BtnSlider moveSlide={nextSlide} direction={"next"} />
-            <BtnSlider moveSlide={prevSlide} direction={"prev"}/>
+            {
+                imageUrls.length > 1 ? (
+                    <div>
+                        <BtnSlider moveSlide={nextSlide} direction={"next"} />
+                        <BtnSlider moveSlide={prevSlide} direction={"prev"} />
+                    </div>
+                ) : ''
+            }
 
             <div className="container-dots">
-                {Array.from({length: 5}).map((item, index) => (
-                    <div 
-                    onClick={() => moveDot(index + 1)}
-                    className={slideIndex === index + 1 ? "dot active" : "dot"}
+                {Array.from({ length: imageUrls.length }).map((item, index) => (
+                    <div
+                        onClick={() => moveDot(index + 1)}
+                        className={slideIndex === index + 1 ? "dot active" : "dot"}
                     ></div>
                 ))}
             </div>
         </div>
-    )
+    ) : ''
 }

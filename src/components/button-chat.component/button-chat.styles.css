@@ -1,27 +1,27 @@
-.LeadButton_buttonChatDesktop {
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #3c763d!important;
-    cursor: pointer;
-    display: flex;
-    font-size: 13px;
-    font-weight: 600;
-    justify-content: space-between;
-    padding: 8px 10px;
-    text-align: center;
-}
-.LeadButton_buttonChatDesktop:hover{
-    background-color:#E6E6E6
-}
-.LeadButton_buttonChatDesktop>img {
-    display: inline-block;
-    height: 24px;
-    margin-right: 10px;
-    vertical-align: middle;
-}
+
 .LeadButton_chatDesktopButton span {
     font-size: 14px;
     font-weight: 700;
+}
+.btnReport {
+    display: block;
+    margin-bottom: 0px;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 10px;
+    line-height: 1.42857;
+    border-radius: 4px;
+    user-select: none;
+    font-size: 13px;
+    transition: background-color 200ms ease-in-out 0s;
+    color: rgb(255, 255, 255);
+    background-color: #EE404C
+}
+.btnReport:hover{
+    background-color: #D43943
 }
