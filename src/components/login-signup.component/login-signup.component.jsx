@@ -5,21 +5,24 @@ import * as helper from '../../common/helper';
 import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSignIn } from "../../redux/user/userSlice";
+import { useHistory } from "react-router";
 
 const LoginSignupForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('0386863521');
     const [passWord, setPassWord] = useState('Binholala@123');
     const [confirmPassword, setConfirmPassword] = useState('Binholala@123');
     const [name, setName] = useState('Bình');
+    const history=useHistory();
     const dispatch = useDispatch();
     const curentUser = useSelector(state => state.user.curentUser);
-
+    const error = useSelector(state => state.user.error)
+    const succeeded=useSelector(state=>state.user.succeeded)
     const handleChangePhoneNum = (phoneNum) => {
         setPhoneNumber(phoneNum);
     }
     const changeTypePassWord = (type) => {
         var idChange;
-        type==1?idChange="pass":idChange="confirmPass"
+        type == 1 ? idChange = "pass" : idChange = "confirmPass"
         document.getElementById(idChange).type == "text" ? document.getElementById(idChange).type = "password" : document.getElementById(idChange).type = "text";
     }
     const signIn = () => {
@@ -27,66 +30,84 @@ const LoginSignupForm = () => {
             toast.notifyError("Vui lòng nhập đủ thông tin!")
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
-        } else{
-            dispatch(fetchSignIn({name,passWord,confirmPassword,phoneNumber}))
+        } else {
+            dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }))
         }
     }
     useEffect(() => {
         console.log(curentUser)
     }, [curentUser])
+    useEffect(() => {
+        if (succeeded == true) {
+            history.push({
+                pathname:  "/otp",
+                state:{
+                    name, passWord, confirmPassword, phoneNumber
+                }
+            });
+        }
+    }, [succeeded])
     return (
         <main class="mainLoginForm">
             <div class="loginDiv">
-                    <div class="loginBanner">
-                        <div class="wrapperBanner">
-                            <div class="titleBanner">
-                                <h3>Đăng kí</h3>
-                                <p>Tạo tài khoản Chợ Tốt ngay</p>
-                            </div>
-                            <div class="imageBanner">
-                                <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
-                            </div>
+                <div class="loginBanner">
+                    <div class="wrapperBanner">
+                        <div class="titleBanner">
+                            <h3>Đăng kí</h3>
+                            <p>Tạo tài khoản Chợ Tốt ngay</p>
                         </div>
-                    </div>
-                    <div class="inputLoginDiv">
-                        <div>
-                            <input class="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value)} autocomplete="nope" />
+                        <div class="imageBanner">
+                            <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
                         </div>
-                        <p class="prswihc">
-                        </p>
+                    </div>{
+                        error
+                            ? (
+                                <div class="e66t3pu error">
+                                    {error}
+                                </div>
+                            )
+                            : ''
+                    }
+                </div>
+                <div class="inputLoginDiv">
+                    <div>
+                        <input class="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value)} autocomplete="nope" />
                     </div>
-                    <div class="inputLoginDiv">
-                        <div>
-                            <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" />
-                            <button tabindex="-1" type="button">
-                                <span class="clear">
-                                </span>
-                            </button>
-                        </div>
-                        <p class="prswihc">
-                        </p>
+                    <p class="prswihc">
+                    </p>
+                </div>
+                <div class="inputLoginDiv">
+                    <div>
+                        <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" />
+                        <button tabindex="-1" type="button">
+                            <span class="clear">
+                            </span>
+                        </button>
                     </div>
-                    <div class="inputLoginDiv">
-                        <div>
-                            <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" />
-                            <button tabindex="-1" type="button" onClick={()=>changeTypePassWord(1)}>
-                                Hiện
-                            </button>
-                        </div>
-                        <p class="prswihc">
-                        </p>
+                    <p class="prswihc">
+                    </p>
+                </div>
+                <div class="inputLoginDiv">
+                    <div>
+                        <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" />
+                        <button tabindex="-1" type="button" onClick={() => changeTypePassWord(1)}>
+                            Hiện
+                        </button>
                     </div>
-                    <div class="inputLoginDiv">
-                        <div>
-                            <input type="password" id="confirmPass" class="i1pbvj0j" placeholder="Xác nhận mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autocomplete="nope" />
-                            <button tabindex="-1" type="button" onClick={()=>changeTypePassWord(2)}>
-                                Hiện
-                            </button>
-                        </div>
-                        <p class="prswihc">
-                        </p>
+                    <p class="prswihc">
+                    </p>
+                </div>
+                <div class="inputLoginDiv">
+                    <div>
+                        <input type="password" id="confirmPass" class="i1pbvj0j" placeholder="Xác nhận mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autocomplete="nope" />
+                        <button tabindex="-1" type="button" onClick={() => changeTypePassWord(2)}>
+                            Hiện
+                        </button>
                     </div>
-                    <button class="buttonLogin accent r-normal medium w-normal i-left stretch" type="submit" onClick={signIn}>Đăng ký</button>
+                    <p class="prswihc">
+                    </p>
+                </div>
+                <button class="buttonLogin accent r-normal medium w-normal i-left stretch" type="submit" onClick={signIn}>Đăng ký</button>
                 <div class="loginDiv2">
                     <p> Bằng việc nhấn đăng ký, bạn đã đồng ý với
                         <a href="/forget-password">Điều khoản sử dụng</a>

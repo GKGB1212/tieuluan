@@ -5,6 +5,7 @@ import * as helper from '../../common/helper';
 import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin } from "../../redux/user/userSlice";
+import { useHistory } from "react-router";
 
 const LoginForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('0386863521');
@@ -12,6 +13,7 @@ const LoginForm = () => {
     const currentUser = useSelector(state => state.user.currentUser)
     const error = useSelector(state => state.user.error)
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleChangePhoneNum = (phoneNum) => {
         setPhoneNumber(phoneNum);
     }
@@ -27,9 +29,9 @@ const LoginForm = () => {
     }
     useEffect(() => {
         if (currentUser != null) {
-            console.log(currentUser)
-        } else {
-            toast.notifyError(error)
+            history.push({
+                pathname:  "/"
+            });
         }
     }, [currentUser])
     return (
@@ -46,6 +48,14 @@ const LoginForm = () => {
                             <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
                         </div>
                     </div>
+                    {
+                        error
+                        ?(
+                            <div class="e66t3pu error">
+                    Số điện thoại hoặc mật khẩu chưa đúng, vui lòng kiểm tra lại.
+                    </div>
+                        ):''
+                    }
                 </div>
                 <div class="inputLoginDiv">
                     <div>
