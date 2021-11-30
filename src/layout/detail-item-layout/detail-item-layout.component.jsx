@@ -77,10 +77,6 @@ const DetailItemLayout = () => {
                             {/* báo cáo */}
                             <div class="IntersectBox col-xs-12 no-padding">
                                 <div class="Styles_reportWrapper">
-                                    <div class="Styles_reportBtn">
-                                        <button type="button" class="btn btn-default btn-xs Styles_reportBad">Báo tin không hợp lệ</button>
-                                        <button type="button" class="btn btn-default btn-xs Styles_reportBad">Báo tin đã bán</button>
-                                    </div>
                                     <div class="Styles_buyerProtect">
                                         <div class="sc-chPdSV fEKhQX">
                                             <img src="https://static.chotot.com.vn/storage/marketplace/shield-iconx4.png" alt="mua bán an toàn" class="sc-kgoBCf cXqYJC" />
@@ -100,7 +96,6 @@ const DetailItemLayout = () => {
                             <SellerProfileMini name={post.creatorName} id={post.creatorID}/>
                         </div>
                         <ButtonPhone phone={post.creatorPhone}/>
-                        <ButtonChat />
                         <SafeTip />
                     </div>
                 </div>

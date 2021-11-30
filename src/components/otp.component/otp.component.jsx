@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './otp.style.css'
 import * as helper from '../../common/helper';
 import * as toast from '../../common/toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { fetchSignIn } from "../../redux/user/userSlice";
 
@@ -11,6 +11,7 @@ const OTPForm = () => {
     const [otp, setOTP] = useState('');
     const dispatch = useDispatch();
     const location = useLocation();
+    const succeeded= useSelector(state=>state.user.succeeded);
     const name=location.state.name;
     const phoneNumber=location.state.phoneNumber;
     const passWord=location.state.passWord;
@@ -20,9 +21,12 @@ const OTPForm = () => {
         if(otp==''){
             toast.notifyError("Vui lòng nhập OTP");
         }else{
-            dispatch(fetchSignIn({name}))
+            dispatch(fetchSignIn({name,phoneNumber,passWord,confirmPassword,otp}))
         }
     }
+    useEffect(()=>{
+        console.log(succeeded)
+    },[succeeded])
     return (
         <div className="ovz7pbq">
         <main class="mainLoginForm">
@@ -32,7 +36,8 @@ const OTPForm = () => {
                         <b>{phoneNumber}</b>&nbsp;&nbsp;
                     </p>
                     <div class="ofix8cq">
-                        <input type="tel" value="" style={{"caretColor": "transparent"}} />
+                        <input type="number" value="ggggggggggg" style={{"caretColor": "transparent"}} onChange={(e)=>setOTP(e.target.value)}/>
+                        <input value={otp} onChange={(e)=>setOTP(e.target.value)}/>
                         <p class="error">Mã OTP bạn vừa nhập không đúng</p>
                     </div>
                     <button class="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={otpSubmit}>Tiếp tục</button>

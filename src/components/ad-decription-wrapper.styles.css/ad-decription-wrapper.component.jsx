@@ -3,9 +3,6 @@ import React,{useEffect} from 'react';
 import './ad-decription-wrapper.styles.css';
 
 const AdDecriptionWrapper = ({item}) => {
-    useEffect(()=>{
-        console.log("1111",item)
-    },[item])
     return item?(
         <div class="AdDecription_adDecriptionWrapper" style={{  width: "600px" }}>
             <h1 class="AdDecription_adTitle" itemprop="name">

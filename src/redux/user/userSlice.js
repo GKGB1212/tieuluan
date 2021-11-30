@@ -34,6 +34,27 @@ export const fetchLogin = createAsyncThunk(
     }
 )
 
+export const fetchLoginWithToken = createAsyncThunk(
+    'user/fetchLoginWithToken',
+    async () => {
+        var res;
+        var accessToken = localStorage.getItem('accessToken');
+        var refreshToken = localStorage.getItem('refreshToken');
+        if (accessToken && refreshToken) {
+            return;
+        } else {
+            var decoded = jwtDecode(accessToken);
+            var decodedRf = jwtDecode(refreshToken);
+            //Thời gian hiện tại
+            var currentTime = new Date();
+            //Thời gian của token
+            var tokenTime = new Date(decoded.exp * 1000);
+            //Thời gian hết hạn của refresttoken
+            var refreshTokentime = new Date(decodedRf.exp * 1000);
+        }
+    }
+)
+
 export const fetchSignIn = createAsyncThunk(
     'user/fetchSignIn',
     async (objSignIn) => {
@@ -46,7 +67,8 @@ export const fetchSignIn = createAsyncThunk(
             "name": objSignIn.name,
             "phoneNumber": objSignIn.phoneNumber,
             "password": objSignIn.passWord,
-            "confirmPassword": objSignIn.passWord
+            "confirmPassword": objSignIn.passWord,
+            "code": objSignIn.otp
         });
 
         var requestOptions = {
@@ -72,7 +94,7 @@ const userSlice = createSlice({
     initialState: {
         error: '',
         currentUser: null,
-        succeeded:false
+        succeeded: false
     },
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {},

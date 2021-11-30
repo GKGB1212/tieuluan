@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jsonServer from "../../api/jsonServer";
+import jwtDecode from "jwt-decode";
 
 const initialState = {
     loading: false,
     products: {},
     err: '',
-    product:{}
+    product: {},
+    //Lấy danh sách tin đã được duyệt
+    lstPostByUser:{}
 };
 
 
@@ -37,17 +40,104 @@ export const fetchPostById = createAsyncThunk(
     }
 )
 
+//hàm lấy post theo id user
+export const fetchPostByIdUser = createAsyncThunk(
+    'product/fetchPostByIdUser',
+    async (id, thunkAPI) => {
+        var result;
+
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        await fetch(`https://localhost:44376/api/Posts/GetPostsByUser?id=${id}`, requestOptions)
+            .then(response => result = response.json())
+            // Displaying results to console
+            .then(json => { result = json })
+            .catch(error => console.log('error', error));
+
+        return result;
+    }
+)
+
+
+//hàm lấy post theo user hiện tại
+export const fetchPostByCurrentUser = createAsyncThunk(
+    'product/fetchPostByCurrentUser',
+    async (id, thunkAPI) => {
+        var result;
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2YWYzNzk1LWVkY2QtNDVjYi05NGQxLWRmOTM3MzBmYjRmZiIsInVzZXJuYW1lIjoiMDM4Njg2MzUyMSIsIm5hbWUiOiJhYWFhYWFhYWFhYWFhYWFhYWFhYSIsIm5iZiI6MTYzODIwODE3OCwiZXhwIjoxNjM4MjA5OTc4LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3NiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0Mzc2In0.v2_LTslwI7RJteOerr_ARCQLmfj__PnUVGtMOhRiL5Y");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+          };
+        
+        await fetch('https://localhost:44376/api/Posts/GetPostsByUserCurrent', requestOptions)
+            .then(response => result = response.json())
+            // Displaying results to console
+            .then(json => { result = json })
+            .catch(error => console.log('error', error));
+
+        return result;
+    }
+)
+
 //hàm inset 1 post
 export const fetchInsertPost = createAsyncThunk(
     'product/fetchInsertPost',
     async (objPost, thunkAPI) => {
         var result;
+
+        var accessToken = localStorage.getItem('accessToken');
+        var refreshToken = localStorage.getItem('refreshToken');
+        var decoded = jwtDecode(accessToken);
+        var decodedRf = jwtDecode(refreshToken)
+        //Thời gian hiện tại
+        var currentTime = new Date();
+        //Thời gian của token
+        var tokenTime = new Date(decoded.exp * 1000)
+        //Thời gian hết hạn của refresttoken
+        var refreshTokentime = new Date(decodedRf.exp * 1000);
+
+        if (refreshTokentime > currentTime && tokenTime < currentTime) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "refreshToken": refreshToken
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            await fetch("https://localhost:44376/api/Auths/Refresh", requestOptions)
+                // Converting to JSON
+                .then(response => result = response.json())
+                // Displaying results to console
+                .then(json => {
+                    localStorage.setItem('refreshToken', json.refreshToken);
+                    localStorage.setItem('accessToken', json.accessToken);
+                    accessToken = localStorage.getItem('accessToken');
+                })
+                .catch(error => console.log('error', error));
+        }
+
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+
         var formData = new FormData();
-        var images=objPost.imageList;
-        console.log("độ dài",objPost);
+        var images = objPost.imageList;
+        console.log("độ dài", objPost);
         formData.append('title', objPost.title);
-        images.forEach(element => {console.log("2222222222");formData.append('imageList',element,element.name)});
-        // formData.append('imageList', objPost.imageList);
+        images.forEach(element => { formData.append('imageList', element, element.name) });
         formData.append('provinceID', objPost.provinceID);
         formData.append('districtID', objPost.districtID);
         formData.append('wardID', objPost.wardID);
@@ -59,18 +149,19 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('directionID', objPost.directionID);
         formData.append('details', objPost.details);
         formData.append('paperID', objPost.paperID);
-        formData.append('creatorID', 'c20f2181-f439-444f-ba4e-31eb207605a5');
+        formData.append('creatorID', 'd6af3795-edcd-45cb-94d1-df93730fb4ff');
         formData.append('postTypeID', 1);
         formData.append('categoryID', objPost.categoryID);
 
-        console.log(formData.values);
         var requestOptions = {
             method: 'POST',
+            headers: myHeaders,
             body: formData,
             redirect: 'follow'
         };
 
-       await fetch("https://localhost:44376/api/Posts", requestOptions)
+
+        await fetch("https://localhost:44376/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -124,15 +215,25 @@ const productSlice = createSlice({
         [fetchPostById.fulfilled]: (state, action) => {
             console.log("Sản phẩm", action.payload)
             state.loading = false;
-            state.product=action.payload;
+            state.product = action.payload;
         },
-        [fetchInsertPost.rejected]: (state, action) => {
+        [fetchPostById.rejected]: (state, action) => {
+            console.log("thất bại", action.error)
+            state.loading = false
+            state.err = action.err
+        },
+        [fetchPostByIdUser.pending]: (state, action) => {
+            state.loading = true
+        },
+        [fetchPostByIdUser.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.lstPostByUser = action.payload;
+        },
+        [fetchPostByIdUser.rejected]: (state, action) => {
             console.log("thất bại", action.error)
             state.loading = false
             state.err = action.err
         }
-
-
     }
 });
 

@@ -5,10 +5,13 @@ import * as helper from '../../common/helper';
 import * as toast from '../../common/toast'
 import { fetchInsertPost } from "../../redux/product/productSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router";
 
 
 const PostCreate = () => {
     const dispatch = useDispatch();
+
+    const currentUser=useSelector(state=>state.user.currentUser);
 
     const [lstTotal, setLstTotal] = useState([]);
     const [lstCity, setLstCity] = useState([]);
@@ -128,6 +131,10 @@ const PostCreate = () => {
         // if (typeRealEstate == 1 || typeRealEstate == 3) {
         //     if (address == '' || imageList.length < 3)
         //         err = 1;
+        // }else if(typeRealEstate == 2 || typeRealEstate == 4){
+        //     setAddress('');
+        //     setImageList([]);
+        //     setImageToShowList([]);
         // }
         // if (err == 0) {
         //     dispatch(fetchInsertPost({ title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }))
@@ -137,7 +144,7 @@ const PostCreate = () => {
         // }
 
     }
-    return (
+    return currentUser?(
         <div id="product_create_app" class="product-create">
             <div>
                 <div class="container">
@@ -354,6 +361,6 @@ const PostCreate = () => {
                 </div>
             </div>
         </div >
-    )
+    ):(<Redirect to="/login"/>)
 }
 export default PostCreate;

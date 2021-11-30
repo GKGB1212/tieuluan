@@ -9,7 +9,7 @@ import { useHistory } from "react-router";
 
 const LoginForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('0386863521');
-    const [passWord, setPassWord] = useState('Binholala123@');
+    const [passWord, setPassWord] = useState('AAthumai12@');
     const currentUser = useSelector(state => state.user.currentUser)
     const error = useSelector(state => state.user.error)
     const dispatch = useDispatch();

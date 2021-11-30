@@ -2,18 +2,21 @@ import React from "react";
 import './header.styles.css';
 import logo from '../../logo.webp';
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 const HeaderM = () => {
+    const history=useHistory();
+    const goBackHome=()=>{
+        history.push('/')
+    }
     return (
         <>
             <section class="header">
                 <div class="nav">
-                    <img src={logo} alt="" />
+                    <img src={logo} alt="" onClick={goBackHome}/>
                     <div class="nav-links">
                         <ul>
-                            <li><a href=""><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</a></li>
+                            <li><Link to='/'><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
                             <li><a href=""><i class="fa fa-user-o" aria-hidden="true"></i> Quản lý tin</a></li>
-                            <li><a href=""><i class="fa fa-commenting-o" aria-hidden="true"></i> Chat</a></li>
-                            <li><a href=""><i class="fa fa-bell-o" aria-hidden="true"></i> Thông báo</a> </li>
                             <li><a href=""><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</a></li>
                         </ul>
                     </div>
