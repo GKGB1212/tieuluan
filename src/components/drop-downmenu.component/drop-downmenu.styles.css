@@ -1,0 +1,103 @@
+.appWrapper-Header-menuMore-listItemWrapper {
+    padding: 0 10px;
+}
+.appWrapper-Header-menu {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 45px);
+    background: #fff;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 5px 0;
+    z-index: 1001;
+    right: -5px;
+}
+.appWrapper-UserMenuItem {
+    position: relative;
+    padding: 10px;
+}
+.appWrapper-UserMenuItem-left {
+    display: block;
+    background-image: url(https://static.chotot.com/storage/marketplace/common/png/default_user.png);
+    background-size: 100% 100%;
+    border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    float: left;
+}
+.appWrapper-UserMenuItem-avatar {
+    max-height: 60px;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    object-fit: cover;
+}
+.appWrapper-UserMenuItem-right {
+    float: left;
+    margin-left: 10px;
+    margin-top: 5px;
+    width: calc(100% - 100px);
+}
+.appWrapper-UserMenuItem-above {
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.appWrapper-UserMenuItem-below {
+    color: #9b9b9b;
+    display: block;
+    font-size: 12px;
+    padding: 15px 0;
+    text-decoration: none;
+    line-height: normal;
+}
+.appWrapper-Layout-clearFix {
+    clear: both;
+}
+.appWrapper-Header-menuListItem {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    line-height: 38px;
+    text-decoration: none;
+    color: #000000;
+}
+.appWrapper-Header-menuLeftItem {
+    float: left;
+    margin: 0 10px;
+}
+.appWrapper-Header-icon--size30 {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+.appWrapper-Header-menuRightItem {
+    float: left;
+}
+@media (min-width: 768px){
+    .appWrapper-Header-menu {
+        position: absolute;
+        width: 300px;
+        height: auto;
+        max-height: calc(100vh - 45px);
+        right: 4%;
+        top: 40px;
+        left: auto;
+        background: #fff;
+        padding: 10px 0;
+        border: 1px solid rgba(0,0,0,0.15);
+        -webkit-box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+        box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+        border-top: none;
+    }
+}
+@media (min-width: 768px){
+    .appWrapper-Header-menuMore-listItemWrapper {
+        padding: 0;
+    }
+}

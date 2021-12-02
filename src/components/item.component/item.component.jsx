@@ -10,8 +10,14 @@ const Item = ({item}) => {
     return (
         <Link to={{pathname:`products/${item.id}`}}>
             <div class="box">
-                <div class="image">
-                    <img alt="" />
+                <div class="image">{
+                    item.imageUrls.length>0
+                    ?(
+                        <img alt="" src={item.imageUrls[0]}/>
+                    ):(
+                        <img alt="" src="https://www.ad4travel.com/wp-content/uploads/2017/01/Real-Estate-SEO.jpg"/>
+                    )
+                }
                     <div class="icon"><i class="fa fa-heart-o"></i></div>
                 </div>
                 <div class="title">

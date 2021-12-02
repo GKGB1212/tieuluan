@@ -79,7 +79,6 @@ function App() {
           </Route>
           <Route path='/postcreate' component={PostCreate} />
         </Switch>
-        <Footer />
       </BrowserRouter>
     </div>
   );

@@ -8,8 +8,35 @@ const initialState = {
     err: '',
     product: {},
     //Lấy danh sách tin đã được duyệt
-    lstPostByUser:{}
+    lstPostByUser: {},
+    //danh sách sản phẩm tìm kiếm
+    lstPostSearch: {}
 };
+
+//hàm filter post
+export const fetchFilterPosts = createAsyncThunk(
+    'product/fetchFilterPosts',
+    async (objSearch, thunkAPI) => {
+        var result;
+        console.log(objSearch)
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        var query = "https://localhost:44376/api/Posts/Search?"
+        for (var key in objSearch) {
+            var temp = `${key}=${objSearch[key]}&`;
+            query = query + temp
+        }
+        console.log(query)
+        await fetch(query, requestOptions)
+            .then(response => result = response.json())
+            // Displaying results to console
+            .then(json => { result = json ;})
+            .catch(error => console.log('error', error));
+        return result;
+    }
+)
 
 
 //hàm lấy posts
@@ -75,8 +102,8 @@ export const fetchPostByCurrentUser = createAsyncThunk(
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
-          };
-        
+        };
+
         await fetch('https://localhost:44376/api/Posts/GetPostsByUserCurrent', requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
@@ -97,6 +124,7 @@ export const fetchInsertPost = createAsyncThunk(
         var refreshToken = localStorage.getItem('refreshToken');
         var decoded = jwtDecode(accessToken);
         var decodedRf = jwtDecode(refreshToken)
+        console.log(decoded)
         //Thời gian hiện tại
         var currentTime = new Date();
         //Thời gian của token
@@ -149,7 +177,7 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('directionID', objPost.directionID);
         formData.append('details', objPost.details);
         formData.append('paperID', objPost.paperID);
-        formData.append('creatorID', 'd6af3795-edcd-45cb-94d1-df93730fb4ff');
+        formData.append('creatorID', '5f1a8115-4744-4a9d-8385-1e2eba684aac');
         formData.append('postTypeID', 1);
         formData.append('categoryID', objPost.categoryID);
 
@@ -231,6 +259,18 @@ const productSlice = createSlice({
         },
         [fetchPostByIdUser.rejected]: (state, action) => {
             console.log("thất bại", action.error)
+            state.loading = false
+            state.err = action.err
+        },
+        [fetchFilterPosts.pending]: (state, action) => {
+            console.log('đã ào')
+            state.loading = true
+        },
+        [fetchFilterPosts.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.lstPostSearch = action.payload;
+        },
+        [fetchFilterPosts.rejected]: (state, action) => {
             state.loading = false
             state.err = action.err
         }

@@ -36,7 +36,6 @@ const LoginForm = () => {
     }, [currentUser])
     return (
         <main class="mainLoginForm">
-            <button onClick={() => console.log(currentUser)}>ffffffff</button>
             <div class="loginDiv">
                 <div class="loginBanner">
                     <div class="wrapperBanner">
