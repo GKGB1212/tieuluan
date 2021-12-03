@@ -9,21 +9,19 @@ import { useHistory } from "react-router";
 const ProfileLayout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const currentUser=useSelector(state=>state.user.currentUser)
     const loading = useSelector(state => state.product.loading);
     const post = useSelector(state => state.product.lstPostByUser);
     const history=useHistory()
     useEffect(() => {
+        if(id)
         dispatch(fetchPostByIdUser(id));
     }, []);
-    const hihi = () => {
-        console.log(post);
-    }
     const handleClickToPost=(itemId)=>{
         history.push(`/products/${itemId}`);
     }
     return post ? (
         <div className="main-content">
-            <button onClick={hihi}>dô nè má</button>
             <div className="container WrapperContainer">
                 <div className="PaperContainer contactInfo false" style={{ paddingTop: "10px" }}>
                     <div className="PaperInfoWrapper">

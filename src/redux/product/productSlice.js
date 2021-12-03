@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jsonServer from "../../api/jsonServer";
 import jwtDecode from "jwt-decode";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
     loading: false,
@@ -92,11 +93,12 @@ export const fetchPostByIdUser = createAsyncThunk(
 //hàm lấy post theo user hiện tại
 export const fetchPostByCurrentUser = createAsyncThunk(
     'product/fetchPostByCurrentUser',
-    async (id, thunkAPI) => {
+    async () => {
         var result;
-
+        var accessToken = localStorage.getItem('accessToken');
+        var refreshToken = localStorage.getItem('refreshToken');
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ2YWYzNzk1LWVkY2QtNDVjYi05NGQxLWRmOTM3MzBmYjRmZiIsInVzZXJuYW1lIjoiMDM4Njg2MzUyMSIsIm5hbWUiOiJhYWFhYWFhYWFhYWFhYWFhYWFhYSIsIm5iZiI6MTYzODIwODE3OCwiZXhwIjoxNjM4MjA5OTc4LCJpc3MiOiJodHRwczovL2xvY2FsaG9zdDo0NDM3NiIsImF1ZCI6Imh0dHBzOi8vbG9jYWxob3N0OjQ0Mzc2In0.v2_LTslwI7RJteOerr_ARCQLmfj__PnUVGtMOhRiL5Y");
+        myHeaders.append("Authorization", "Bearer "+accessToken);
 
         var requestOptions = {
             method: 'GET',
@@ -211,42 +213,33 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: {
         [fetchPosts.pending]: (state, action) => {
-            console.log("đã vàooo")
             state.loading = true
         },
         [fetchPosts.fulfilled]: (state, action) => {
-            console.log("thành công", action.payload)
             state.loading = false
             state.products = action.payload
         },
         [fetchPosts.rejected]: (state, action) => {
-            console.log("thất bại")
             state.err = action.err
         },
         [fetchInsertPost.pending]: (state, action) => {
-            console.log("đã vàooo")
             state.loading = true
         },
         [fetchInsertPost.fulfilled]: (state, action) => {
-            console.log("thành công", action.payload)
             state.loading = false
         },
         [fetchInsertPost.rejected]: (state, action) => {
-            console.log("thất bại", action.error)
             state.loading = false
             state.err = action.err
         },
         [fetchPostById.pending]: (state, action) => {
-            console.log("đã vàooo")
             state.loading = true
         },
         [fetchPostById.fulfilled]: (state, action) => {
-            console.log("Sản phẩm", action.payload)
             state.loading = false;
             state.product = action.payload;
         },
         [fetchPostById.rejected]: (state, action) => {
-            console.log("thất bại", action.error)
             state.loading = false
             state.err = action.err
         },
@@ -258,12 +251,10 @@ const productSlice = createSlice({
             state.lstPostByUser = action.payload;
         },
         [fetchPostByIdUser.rejected]: (state, action) => {
-            console.log("thất bại", action.error)
             state.loading = false
             state.err = action.err
         },
         [fetchFilterPosts.pending]: (state, action) => {
-            console.log('đã ào')
             state.loading = true
         },
         [fetchFilterPosts.fulfilled]: (state, action) => {
@@ -271,6 +262,17 @@ const productSlice = createSlice({
             state.lstPostSearch = action.payload;
         },
         [fetchFilterPosts.rejected]: (state, action) => {
+            state.loading = false
+            state.err = action.err
+        },
+        [fetchPostByCurrentUser.pending]: (state, action) => {
+            state.loading = true
+        },
+        [fetchPostByCurrentUser.fulfilled]: (state, action) => {
+            state.loading = false;
+            state.lstPostByUser = action.payload;
+        },
+        [fetchPostByCurrentUser.rejected]: (state, action) => {
             state.loading = false
             state.err = action.err
         }

@@ -22,6 +22,7 @@ import ProfileEditMainLayout from './layout/profile-edit-main-layout/profile-edi
 import PostsSaved from './layout/posts-saved-layout/posts-saved-layout.components';
 
 import DropDownMenu from './components/drop-downmenu.component/drop-downmenu.component';
+import ProfileCurrentUserLayout from './layout/profile-current-user-layout/profile-current-user-layout.component';
 
 import { useSelector } from 'react-redux';
 
@@ -38,7 +39,8 @@ function App() {
         <Switch>
           <Route exact path='/' component={MainLayout} />
           <Route exact path='/dd' component={DropDownMenu} />
-          <Route exact path='/user/:id' component={ProfileLayout} />
+          <Route path='/user/:id' component={ProfileLayout} />
+          <Route exact path='/user' component={ProfileCurrentUserLayout} />
           <Route exact path='/postssaved' component={PostsSaved} />
           <Route exact path='/totalItem' component={TotalItemLayout} />
           <Route exact path='/dashboard/profile' component={ProfileEditLayout} />

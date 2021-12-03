@@ -55,7 +55,7 @@ const HeaderM = () => {
                     {
                         currentUser != null
                             ? (
-                                <Link to="/Login">
+                                <Link to="/user">
                                     <div class="login">
                                         {
                                             currentUser.avatar!= "empty"?(
@@ -64,7 +64,7 @@ const HeaderM = () => {
                                                 <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="http://365.chotot.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt={currentUser.name} />
                                             )
                                         }
-                                        <div><Link to='/Login'>{currentUser.name}</Link></div>
+                                        <div><Link to='/user'>{currentUser.name}</Link></div>
                                     </div>
                                 </Link>
                             ) : (
