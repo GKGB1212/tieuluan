@@ -8,10 +8,10 @@ import { fetchSignIn } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
 
 const LoginSignupForm = () => {
-    const [phoneNumber, setPhoneNumber] = useState('0386863521');
-    const [passWord, setPassWord] = useState('Binholala@123');
-    const [confirmPassword, setConfirmPassword] = useState('Binholala@123');
-    const [name, setName] = useState('Bình');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [passWord, setPassWord] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [name, setName] = useState('');
     const history = useHistory();
     const dispatch = useDispatch();
     const curentUser = useSelector(state => state.user.curentUser);

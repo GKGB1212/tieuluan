@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jsonServer from "../../api/jsonServer";
 import jwtDecode from "jwt-decode";
 import { act } from "react-dom/test-utils";
+import { useSelector } from "react-redux";
 
 const initialState = {
     loading: false,
@@ -33,7 +34,7 @@ export const fetchFilterPosts = createAsyncThunk(
         await fetch(query, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
-            .then(json => { result = json ;})
+            .then(json => { result = json; })
             .catch(error => console.log('error', error));
         return result;
     }
@@ -98,7 +99,7 @@ export const fetchPostByCurrentUser = createAsyncThunk(
         var accessToken = localStorage.getItem('accessToken');
         var refreshToken = localStorage.getItem('refreshToken');
         var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer "+accessToken);
+        myHeaders.append("Authorization", "Bearer " + accessToken);
 
         var requestOptions = {
             method: 'GET',
@@ -121,7 +122,6 @@ export const fetchInsertPost = createAsyncThunk(
     'product/fetchInsertPost',
     async (objPost, thunkAPI) => {
         var result;
-
         var accessToken = localStorage.getItem('accessToken');
         var refreshToken = localStorage.getItem('refreshToken');
         var decoded = jwtDecode(accessToken);
@@ -179,7 +179,7 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('directionID', objPost.directionID);
         formData.append('details', objPost.details);
         formData.append('paperID', objPost.paperID);
-        formData.append('creatorID', '5f1a8115-4744-4a9d-8385-1e2eba684aac');
+        formData.append('creatorID', decoded.id);
         formData.append('postTypeID', 1);
         formData.append('categoryID', objPost.categoryID);
 
@@ -210,7 +210,8 @@ const productSlice = createSlice({
     name: "product",  // Tên của slice
     initialState,
     // Reducers chứa các hàm xử lý cập nhật state
-    reducers: {},
+    reducers: {
+    },
     extraReducers: {
         [fetchPosts.pending]: (state, action) => {
             state.loading = true
@@ -226,11 +227,14 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchInsertPost.fulfilled]: (state, action) => {
+
+            console.log("tc ", action.payload)
             state.loading = false
         },
         [fetchInsertPost.rejected]: (state, action) => {
+            console.log("tc ", action.error)
             state.loading = false
-            state.err = action.err
+            state.err = action.error
         },
         [fetchPostById.pending]: (state, action) => {
             state.loading = true
