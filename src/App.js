@@ -28,10 +28,8 @@ import { useSelector } from 'react-redux';
 function App() {
   const currentUser = useSelector(state => state.user.currentUser)
   useEffect(() => {
-    alert("Đã tải lại trang")
     var accessToken = localStorage.getItem('accessToken');
     var refreshToken = localStorage.getItem('refreshToken');
-    alert(accessToken+'   '+refreshToken)
   }, [])
   return (
     <div className="App">
@@ -47,7 +45,12 @@ function App() {
           <Route exact path='/products/:id' component={DetailItemLayout} />
           <Route exact path='/dashboard/ads' component={PostManagementLayout} />
           <Route exact path='/dashboard/profile/edit' component={ProfileEditMainLayout} />
-          <Route exact path='/otp' component={OTPForm} />
+          <Route exact path='/otp'
+            render={() => (
+              <LoginSignUpLayout>
+                <OTPForm />
+              </LoginSignUpLayout>
+            )} />
           <Route
             exact
             path='/login'

@@ -1,8 +1,35 @@
 //thông tin chi tiết của 1 sản phẩm
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import './ad-decription-wrapper.styles.css';
 
 const AdDecriptionWrapper = ({item}) => {
+
+    const [province,setProvince]=useState('');
+    const [district,setDistrict]=useState('');
+    const [ward,setWard]=useState('');
+
+    useEffect(()=>{
+        fetch(`https://provinces.open-api.vn/api/p/${item.provinceID}?depth=3`)
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Lỗi, mã lỗi ' + response.status);
+                    return;
+                }
+                // parse response data
+                response.json().then(data => {
+                    console.log(data)
+                    setProvince(data.name);
+                    let indexD=data.districts.findIndex((x)=>x.code==item.districtID);
+                    if(indexD>-1){
+                        setDistrict(data.districts[indexD].name);
+                        let indexW=data.districts[indexD].wards.findIndex((x)=>x.code==item.wardID);
+                        if(indexW>-1){
+                            setWard(data.districts[indexD].wards[indexW].name);
+                        }
+                    }
+                })
+            })
+    },[])
     return item?(
         <div class="AdDecription_adDecriptionWrapper" style={{  width: "600px" }}>
             <h1 class="AdDecription_adTitle" itemprop="name">
@@ -15,7 +42,7 @@ const AdDecriptionWrapper = ({item}) => {
                         <div>
                             <span class="AdDecription_priceWrapper">
                                 <span class="AdDecription_price">
-                                    <span itemprop="price">{item.price}
+                                    <span itemprop="price">Giá: {item.price}VNĐ - {item.area}m
                                         <span class="AdDecription_squareMetre">
                                             <sup>2</sup>
                                         </span>
@@ -44,7 +71,7 @@ const AdDecriptionWrapper = ({item}) => {
                             <img class="AdParam_adParamIcon" alt="location" src="https://static.chotot.com/storage/icons/logos/ad-param/location.svg" />
                         </div>
                         <div class="media-body media-middle AdParam_address AdParam_addressClickable" role="button" tabindex="0">
-                            <span class="fz13">Đường Lê Đức Thọ, Phường 16, Quận Gò Vấp, Tp Hồ Chí Minh</span>
+                            <span className="fz13">{item.address}, {ward}, {district}, {province}</span>
                         </div>
                     </div>
                 </div>

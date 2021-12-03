@@ -23,7 +23,7 @@ export const fetchFilterPosts = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        var query = "https://localhost:44376/api/Posts/Search?"
+        var query = "http://localhost:50804/api/Posts/Search?"
         for (var key in objSearch) {
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
@@ -44,7 +44,7 @@ export const fetchPosts = createAsyncThunk(
     'product/fetchPosts',
     async () => {
         var result;
-        await fetch('https://localhost:44376/api/Posts')
+        await fetch('http://localhost:50804/api/Posts')
             .then(res => res.json())
             .then((data) => {
                 result = data;
@@ -58,7 +58,7 @@ export const fetchPostById = createAsyncThunk(
     'product/fetchPostById',
     async (id) => {
         var result;
-        await fetch(`https://localhost:44376/api/Posts/${id}`)
+        await fetch(`http://localhost:50804/api/Posts/${id}`)
             .then(res => res.json())
             .then((data) => {
                 result = data;
@@ -78,7 +78,7 @@ export const fetchPostByIdUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch(`https://localhost:44376/api/Posts/GetPostsByUser?id=${id}`, requestOptions)
+        await fetch(`http://localhost:50804/api/Posts/GetPostsByUser?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -104,7 +104,7 @@ export const fetchPostByCurrentUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch('https://localhost:44376/api/Posts/GetPostsByUserCurrent', requestOptions)
+        await fetch('http://localhost:50804/api/Posts/GetPostsByUserCurrent', requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -146,7 +146,7 @@ export const fetchInsertPost = createAsyncThunk(
                 body: raw,
                 redirect: 'follow'
             };
-            await fetch("https://localhost:44376/api/Auths/Refresh", requestOptions)
+            await fetch("http://localhost:50804/api/Auths/Refresh", requestOptions)
                 // Converting to JSON
                 .then(response => result = response.json())
                 // Displaying results to console
@@ -189,7 +189,7 @@ export const fetchInsertPost = createAsyncThunk(
         };
 
 
-        await fetch("https://localhost:44376/api/Posts", requestOptions)
+        await fetch("http://localhost:50804/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 

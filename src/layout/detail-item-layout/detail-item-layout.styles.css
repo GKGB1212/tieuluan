@@ -24,6 +24,16 @@
 .no-padding {
     padding: 0!important;
 }
+.fjPyzM {
+    cursor: pointer;
+    margin: 10px 5px 0px 10px;
+    display: inline-block;
+}
+@media (min-width: 480px){
+    .fjPyzM {
+        margin: 10px 10px 0px;
+    }
+}
 @media (min-width: 992px){
     .d-lg-block {
         display: block!important;
@@ -53,10 +63,10 @@
 }
 .AdParam_adParamIcon__1W6qJ {
     display: inline-block;
-    height: 24px;
+    height: 40px;
     margin-right: 10px;
     vertical-align: middle;
-    width: 24px;
+    width: 40px;
 }
 .AdParam_adParamValue__1ayWO {
     white-space: pre-line;

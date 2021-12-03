@@ -12,11 +12,11 @@ const LoginSignupForm = () => {
     const [passWord, setPassWord] = useState('Binholala@123');
     const [confirmPassword, setConfirmPassword] = useState('Binholala@123');
     const [name, setName] = useState('Bình');
-    const history=useHistory();
+    const history = useHistory();
     const dispatch = useDispatch();
     const curentUser = useSelector(state => state.user.curentUser);
     const error = useSelector(state => state.user.error)
-    const succeeded=useSelector(state=>state.user.succeeded)
+    const succeeded = useSelector(state => state.user.succeeded);
     const handleChangePhoneNum = (phoneNum) => {
         setPhoneNumber(phoneNum);
     }
@@ -25,27 +25,31 @@ const LoginSignupForm = () => {
         type == 1 ? idChange = "pass" : idChange = "confirmPass"
         document.getElementById(idChange).type == "text" ? document.getElementById(idChange).type = "password" : document.getElementById(idChange).type = "text";
     }
-    const signIn = () => {
+    const signIn = async () => {
         if (phoneNumber == '' || passWord == '' || name == '' || confirmPassword == '') {
             toast.notifyError("Vui lòng nhập đủ thông tin!")
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
         } else {
-            dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }))
+
+
+            await dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }));
+            console.log("1 "+succeeded)
+            if (succeeded == true) {
+                history.push({
+                    pathname: "/otp",
+                    state: {
+                        name, passWord, confirmPassword, phoneNumber
+                    }
+                });
+            }
         }
     }
     useEffect(() => {
         console.log(curentUser)
     }, [curentUser])
     useEffect(() => {
-        if (succeeded == true) {
-            history.push({
-                pathname:  "/otp",
-                state:{
-                    name, passWord, confirmPassword, phoneNumber
-                }
-            });
-        }
+        console.log("2 "+succeeded)
     }, [succeeded])
     return (
         <main class="mainLoginForm">

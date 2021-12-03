@@ -3,20 +3,21 @@ import './header.styles.css';
 import logo from '../../logo.webp';
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts } from "../../redux/product/productSlice";
 import { fetchFilterPosts } from "../../redux/product/productSlice";
 const HeaderM = () => {
-    const [Search,setSearch]=useState('');
-    const history=useHistory();
-    const dispatch=useDispatch();
-    const goBackHome=()=>{
+    const [Search, setSearch] = useState('');
+    const history = useHistory();
+    const dispatch = useDispatch();
+    const currentUser = useSelector(state => state.user.currentUser)
+    const goBackHome = () => {
         history.push('/')
     }
-    const handleClickSearch=()=>{
+    const handleClickSearch = () => {
         dispatch(fetchFilterPosts({
             Search,
-            Page:  1 ,
+            Page: 1,
             Size: 24
         }));
         history.push({
@@ -28,7 +29,7 @@ const HeaderM = () => {
         <>
             <section class="header">
                 <div class="nav">
-                    <img src={logo} alt="" onClick={goBackHome}/>
+                    <img src={logo} alt="" onClick={goBackHome} />
                     <div class="nav-links">
                         <ul>
                             <li><Link to='/'><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
@@ -48,14 +49,32 @@ const HeaderM = () => {
                                     </svg>
                                 </button>
                             </div>
-                            <input autocomplete="off" value={Search} onChange={(e)=>setSearch(e.target.value)} placeholder="Tìm kiếm bất động sản" id="__inputItemProps" type="text" class="t1o0834r"/>
+                            <input autocomplete="off" value={Search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm kiếm bất động sản" id="__inputItemProps" type="text" class="t1o0834r" />
                         </div>
                     </div>
-                    <Link to="/Login">
-                        <div class="login">
-                            <div class="fa fa-user-circle-o" ></div><div><Link to='/Login'>Đăng nhập</Link></div>
-                        </div>
-                    </Link>
+                    {
+                        currentUser != null
+                            ? (
+                                <Link to="/Login">
+                                    <div class="login">
+                                        {
+                                            currentUser.avatar!= "empty"?(
+                                                <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="https://cdn.chotot.com/uac2/21119808" alt={currentUser.name} />
+                                            ):(
+                                                <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="http://365.chotot.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt={currentUser.name} />
+                                            )
+                                        }
+                                        <div><Link to='/Login'>{currentUser.name}</Link></div>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <Link to="/Login">
+                                    <div class="login">
+                                        <div class="fa fa-user-circle-o" ></div><div><Link to='/Login'>Đăng nhập</Link></div>
+                                    </div>
+                                </Link>
+                            )
+                    }
                     <Link to="/PostCreate" className="btn"><i class="fa fa-pencil-square-o" ></i>ĐĂNG TIN</Link>
                 </div>
             </section>

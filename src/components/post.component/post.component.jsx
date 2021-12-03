@@ -281,11 +281,7 @@ const PostCreate = () => {
                                                 <option value="3">Sổ trắng</option>
                                                 <option value="4">Giấy chứng nhận quyền sở hữu</option>
                                                 <option value="5">Giấy tờ hợp lệ</option>
-                                                <option value="6">Giấy phép xây dựng</option>
-                                                <option value="7">Giấy phép kinh doanh</option>
-                                                <option value="8">Giấy viết tay</option>
-                                                <option value="9">Đang hợp thức hóa</option>
-                                                <option value="10">Chưa xác định</option>
+                                                <option value="6">Chưa xác định</option>
                                             </select>
                                         </div>
                                     </div>

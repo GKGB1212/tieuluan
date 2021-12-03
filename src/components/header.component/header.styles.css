@@ -218,3 +218,15 @@
 .t1o0834r:focus{
     border: none !important;
 }
+
+.appWrapper-Header-icon-circle-avatar {
+    height: 30px;
+    width: 30px;
+}
+.appWrapper-Header-icon-circle {
+    border-radius: 50%;
+    text-indent: -9999px;
+    white-space: nowrap;
+    vertical-align: middle;
+    margin-right: 10px;
+}
