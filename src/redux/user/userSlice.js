@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
+import { act } from "react-dom/test-utils";
 
 //hàm lấy posts
 export const fetchLogin = createAsyncThunk(
@@ -23,6 +24,69 @@ export const fetchLogin = createAsyncThunk(
         };
 
         await fetch("http://localhost:50804/api/Auths/Login", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result)
+                res = JSON.parse(result);
+            })
+            .catch(error => console.log('error', error));
+        return res;
+
+    }
+)
+
+
+//hàm lấy thông tin nguười dùng
+export const fetchChangePassword = createAsyncThunk(
+    'user/fetchChangePassword',
+    async (objPassword) => {
+        var res;
+        var accessToken = localStorage.getItem('accessToken');
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+            "oldPassword": objPassword.oldPassword,
+            "password": objPassword.password,
+            "confirmPassword": objPassword.confirmPassword
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        await fetch("http://localhost:50804/api/Auths/ChangePassword", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result)
+                res = JSON.parse(result);
+            })
+            .catch(error => console.log('error', error));
+        return res;
+
+    }
+)
+
+//hàm lấy thông tin nguười dùng
+export const fetchInfoUser = createAsyncThunk(
+    'user/fetchInfoUser',
+    async () => {
+        var res;
+        var accessToken = localStorage.getItem('accessToken');
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        await fetch("http://localhost:50804/api/Auths/Info", requestOptions)
             .then(response => response.text())
             .then(result => {
                 console.log(result)
@@ -93,13 +157,14 @@ const userSlice = createSlice({
     initialState: {
         error: '',
         currentUser: null,
-        succeeded: false
+        succeeded: false,
+        infoUser: null
     },
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {},
     extraReducers: {
         [fetchLogin.pending]: (state, action) => {
-            state.error=null
+            state.error = null
         },
         [fetchLogin.fulfilled]: (state, action) => {
             if (action.payload.refreshToken) {
@@ -107,9 +172,9 @@ const userSlice = createSlice({
                 localStorage.setItem('accessToken', action.payload.accessToken);
                 var decoded = jwtDecode(action.payload.accessToken);
                 state.currentUser = decoded;
-                state.error=null
+                state.error = null
             } else {
-                state.succeeded=false;
+                state.succeeded = false;
                 state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
                 state.currentUser = null
             }
@@ -120,17 +185,17 @@ const userSlice = createSlice({
             state.currentUser = null
         },
         [fetchSignIn.pending]: (state, action) => {
-            state.error=null;
-            state.succeeded=false;
+            state.error = null;
+            state.succeeded = false;
         },
         [fetchSignIn.fulfilled]: (state, action) => {
             if (action.payload.succeeded == true) {
-                state.succeeded=true;
-                state.error=null;
+                state.succeeded = true;
+                state.error = null;
                 console.log(state.succeeded)
                 alert("Đăng kí thành công")
-            }else if (action.payload.errors!=null) {
-                state.succeeded=false;
+            } else if (action.payload.errors != null) {
+                state.succeeded = false;
                 state.error = action.payload.errors;
                 alert("Lỗi đăng kí")
             }
@@ -138,7 +203,42 @@ const userSlice = createSlice({
         [fetchSignIn.rejected]: (state, action) => {
             state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
             state.currentUser = null
-            state.succeeded=false;
+            state.succeeded = false;
+        },
+        [fetchInfoUser.pending]: (state, action) => {
+            state.error = null;
+            state.succeeded = false;
+        },
+        [fetchInfoUser.fulfilled]: (state, action) => {
+            console.log("Thành công", action.payload);
+            state.succeeded = true;
+            state.error = null;
+            state.infoUser = action.payload
+        },
+        [fetchInfoUser.rejected]: (state, action) => {
+            state.error = 'Không thể lấy thông tin người dùng'
+            state.infoUser = null
+            state.succeeded = false;
+        },
+        [fetchChangePassword.pending]: (state, action) => {
+            state.error = null;
+            state.succeeded = false;
+        },
+        [fetchChangePassword.fulfilled]: (state, action) => {
+            if (act.payload.succeeded == false) {
+                state.succeeded = false;
+                state.error = action.payload.errors;
+            }else{
+                state.succeeded = true;
+                state.error = null;
+            }
+            console.log("Thành công", action.payload);
+            state.succeeded = true;
+            state.error = null;
+        },
+        [fetchChangePassword.rejected]: (state, action) => {
+            state.error = 'Không thể đổi mật khẩu'
+            state.succeeded = false;
         }
 
     }

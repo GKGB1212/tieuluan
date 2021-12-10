@@ -20,6 +20,7 @@ import ProfileEditLayout from './layout/profile-edit-layout/profile-edit-layout.
 import TotalItemLayout from './layout/total-item-layout/layout/total-item-layout.component';
 import ProfileEditMainLayout from './layout/profile-edit-main-layout/profile-edit-main-layout.component';
 import PostsSaved from './layout/posts-saved-layout/posts-saved-layout.components';
+import ChangePasswordLayout from './layout/change-password-layout/change-password-layout.component';
 
 import DropDownMenu from './components/drop-downmenu.component/drop-downmenu.component';
 import ProfileCurrentUserLayout from './layout/profile-current-user-layout/profile-current-user-layout.component';
@@ -37,6 +38,7 @@ function App() {
       <BrowserRouter>
         <HeaderM />
         <Switch>
+          <Route exact path='/profile/password' component={ChangePasswordLayout}/>
           <Route exact path='/' component={MainLayout} />
           <Route exact path='/dd' component={DropDownMenu} />
           <Route path='/user/:id' component={ProfileLayout} />

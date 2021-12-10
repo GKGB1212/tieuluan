@@ -33,7 +33,7 @@ const ProfileCurrentUserLayout = () => {
                                         <div><b>{post.followedCount}</b> Đang theo dõi</div>
                                     </div>
                                     <div class="UltiRow">
-                                        <button class="MainFunctionButton Follow"> Theo dõi</button>
+                                        <button class="MainFunctionButton Follow" onClick={()=>history.push('/dashboard/profile')}>Chỉnh sửa thông tin cá nhân</button>
                                     </div>
                                 </div>
                             </div>

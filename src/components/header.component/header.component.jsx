@@ -29,7 +29,7 @@ const HeaderM = () => {
         <>
             <section class="header">
                 <div class="nav">
-                    <img src={logo} alt="" onClick={goBackHome} />
+                    <img src="https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Editable-Real-Estate-Logo-Design-PNG-Transparent.png" alt="" onClick={goBackHome} />
                     <div class="nav-links">
                         <ul>
                             <li><Link to='/'><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
