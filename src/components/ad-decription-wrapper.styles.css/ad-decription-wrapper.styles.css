@@ -57,6 +57,10 @@
     outline: 0;
     padding: 5px 10px;
 }
+.SaveAd_saveAdViewDetail_liked{
+    background: #F7665F;
+    color: #fff;
+}
 .kARpok {
     font-family: Helvetica;
     font-size: 14px;

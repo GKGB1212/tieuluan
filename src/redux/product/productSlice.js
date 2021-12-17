@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import jsonServer from "../../api/jsonServer";
 import jwtDecode from "jwt-decode";
-import { act } from "react-dom/test-utils";
-import { useSelector } from "react-redux";
 
 const initialState = {
     loading: false,
@@ -12,7 +9,11 @@ const initialState = {
     //Lấy danh sách tin đã được duyệt
     lstPostByUser: {},
     //danh sách sản phẩm tìm kiếm
-    lstPostSearch: {}
+    lstPostSearch: {},
+    //danh sách sp mua bán
+    lstPostPurchase:[],
+    //danh sách sp cho thuê
+    lstPostLease:[],
 };
 
 //hàm filter post
@@ -40,6 +41,30 @@ export const fetchFilterPosts = createAsyncThunk(
     }
 )
 
+export const fetchFilterPostsForMainLayout = createAsyncThunk(
+    'product/fetchFilterPostsForMainLayout',
+    async (objSearch, thunkAPI) => {
+        var result;
+        console.log(objSearch)
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        var query = "http://localhost:50804/api/Posts/Search?"
+        for (var key in objSearch) {
+            var temp = `${key}=${objSearch[key]}&`;
+            query = query + temp
+        }
+        console.log(query)
+        await fetch(query, requestOptions)
+            .then(response => result = response.json())
+            // Displaying results to console
+            .then(json => { result = json; })
+            .catch(error => console.log('error', error));
+        return {result,objSearch};
+    }
+)
+
 
 //hàm lấy posts
 export const fetchPosts = createAsyncThunk(
@@ -58,9 +83,16 @@ export const fetchPosts = createAsyncThunk(
 //hàm lấy posts
 export const fetchPostById = createAsyncThunk(
     'product/fetchPostById',
-    async (id) => {
+    async (objRequest) => {
         var result;
-        await fetch(`http://localhost:50804/api/Posts/${id}`)
+        console.log("obj",objRequest)
+        var res='';
+        if(objRequest.userId!=null){
+            res=`http://localhost:50804/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
+        }else{
+            res=`http://localhost:50804/api/Posts/${objRequest.id}`
+        }
+        await fetch(res)
             .then(res => res.json())
             .then((data) => {
                 result = data;
@@ -72,15 +104,14 @@ export const fetchPostById = createAsyncThunk(
 //hàm lấy post theo id user
 export const fetchPostByIdUser = createAsyncThunk(
     'product/fetchPostByIdUser',
-    async (id, thunkAPI) => {
+    async (objRequest, thunkAPI) => {
         var result;
 
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
         };
-
-        await fetch(`http://localhost:50804/api/Posts/GetPostsByUser?id=${id}`, requestOptions)
+        await fetch(`http://localhost:50804/api/Posts/GetPostsByUser?id=${objRequest.id}&userCurrentID=${objRequest.userCurrentID}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -279,7 +310,25 @@ const productSlice = createSlice({
         [fetchPostByCurrentUser.rejected]: (state, action) => {
             state.loading = false
             state.err = action.err
-        }
+        },
+        [fetchFilterPostsForMainLayout.pending]: (state, action) => {
+            state.loading = true
+        },
+        [fetchFilterPostsForMainLayout.fulfilled]: (state, action) => {
+            console.log(action.payload)
+            state.loading = false;
+            if(action.payload.objSearch.PostTypeID==1){
+                console.log('loại 1')
+                state.lstPostPurchase=action.payload.result.posts;
+            }else if(action.payload.objSearch.PostTypeID==2){
+                console.log('loại 2')
+                state.lstPostLease=action.payload.result.posts;
+            }
+        },
+        [fetchFilterPostsForMainLayout.rejected]: (state, action) => {
+            state.loading = false
+            state.err = action.err
+        },
     }
 });
 

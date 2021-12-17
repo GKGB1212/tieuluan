@@ -150,6 +150,47 @@ export const fetchSignIn = createAsyncThunk(
     }
 )
 
+//hàm inset 1 post
+export const fetchChangeInfo = createAsyncThunk(
+    'user/fetchChangeInfo',
+    async (objUser, thunkAPI) => {
+        var result;
+        console.log("fffffff", objUser)
+        var accessToken = localStorage.getItem('accessToken');
+        console.log("accessToken", accessToken)
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+
+        var formdata = new FormData();
+        formdata.append("Name", objUser.name);
+        if(objUser.image!=null){
+            formdata.append('Image', objUser.image, objUser.image.name);
+        }
+        if(objUser.imageUrl!=''){
+            formdata.append('ImageUrl', objUser.imageUrl);
+        }
+        formdata.append('Gender', objUser.gender);
+        formdata.append('Birthday', objUser.birthday);
+        formdata.append('Address', objUser.address);
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        await fetch("http://localhost:50804/api/Auths/ChangeInfo", requestOptions)
+            // Converting to JSON
+            .then(response => result = response.json())
+
+            // Displaying results to console
+            .then(json => { console.log(json); })
+
+            .catch(error => console.log('error', error));
+        return result;
+    }
+)
+
 
 // Cấu hình slice
 const userSlice = createSlice({
@@ -228,7 +269,7 @@ const userSlice = createSlice({
             if (act.payload.succeeded == false) {
                 state.succeeded = false;
                 state.error = action.payload.errors;
-            }else{
+            } else {
                 state.succeeded = true;
                 state.error = null;
             }
@@ -239,7 +280,29 @@ const userSlice = createSlice({
         [fetchChangePassword.rejected]: (state, action) => {
             state.error = 'Không thể đổi mật khẩu'
             state.succeeded = false;
-        }
+        },
+        [fetchChangeInfo.pending]: (state, action) => {
+            state.error = null;
+            state.succeeded = false;
+        },
+        [fetchChangeInfo.fulfilled]: (state, action) => {
+            console.log("đã thực hiện 2")
+            // if (act.payload.succeeded == false) {
+            //     state.succeeded = false;
+            //     state.error = action.payload.errors;
+            // }else{
+            //     state.succeeded = true;
+            //     state.error = null;
+            // }
+            // console.log("Thành công", action.payload);
+            // state.succeeded = true;
+            // state.error = null;
+        },
+        [fetchChangeInfo.rejected]: (state, action) => {
+            state.error = 'Không thể đổi mật khẩu'
+            state.succeeded = false;
+        },
+
 
     }
 });

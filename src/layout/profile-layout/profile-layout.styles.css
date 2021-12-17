@@ -55,6 +55,12 @@
     border: 1px solid transparent;
 }
 
+.contactInfo .PaperInfoWrapper .BasicInfo .InfoWrapper .UltiRow .MainFunctionButton.Followed {
+    background-color: #fff;
+    color: #fe9900;
+    border: 2px solid #fe9900;
+}
+
 .contactInfo .PaperInfoWrapper .BasicInfo .InfoWrapper .UltiRow .MainFunctionButton {
     cursor: pointer;
     text-align: center;

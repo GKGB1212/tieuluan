@@ -9,15 +9,37 @@ import SmallDetail from "./item-detail.component";
 import SafeTip from "../../components/safe-tip.component/safe-tip.component";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostById } from "../../redux/product/productSlice";
+import ButtonChat from "../../components/button-chat.component/button-chat.component";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { fetchLike } from "../../redux/likePost/likePostSlice";
 
 const DetailItemLayout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const history=useHistory();
     const loading = useSelector(state => state.product.loading)
     const post = useSelector(state => state.product.product)
+    const currentUser=useSelector(state=>state.user.currentUser);
     useEffect(() => {
-        dispatch(fetchPostById(id));
+        if(currentUser!=null){
+            dispatch(fetchPostById({id,userId:currentUser.id}));
+        }else{
+            dispatch(fetchPostById({id,userId:''}));
+        }
     }, [])
+
+    const handleSavePost = async() => {
+        if (currentUser == null) {
+            history.push('/Login')
+        } else {
+            await dispatch(fetchLike(post.id));
+            if(currentUser!=null){
+                dispatch(fetchPostById({id,userId:currentUser.id}));
+            }else{
+                dispatch(fetchPostById({id,userId:''}));
+            }
+        }
+    }
 
     const lstPaper = [
         {
@@ -61,7 +83,7 @@ const DetailItemLayout = () => {
                 <div class="col-md-8">
                     <div class="AdImage_adImageWrapper">
                         <SliderImages imageUrls={post.imageUrls} />
-                        <AdDecriptionWrapper item={post} />
+                        <AdDecriptionWrapper item={post} handleSavePost={handleSavePost}/>
                         <div style={{ margin: "5px 0px 15px 0px" }}></div>
                         <div class="col-xs-12 no-padding">
                             <SmallDetail img="https://cdn-icons.flaticon.com/png/512/5736/premium/5736652.png?token=exp=1638518555~hmac=bb67ec8fd1aa82ae9d5277443cf3c70e" title="Loại bất động sản: " value={lstCategory[post.categoryID - 1]} />
@@ -124,6 +146,10 @@ const DetailItemLayout = () => {
                         <SellerProfileMini name={post.creatorName} id={post.creatorID} />
                     </div>
                     <ButtonPhone phone={post.creatorPhone} />
+                    {
+                        currentUser!=null&&currentUser.id==post.creatorID
+                        ?(<ButtonChat/>):('')
+                    }
                     <SafeTip />
                 </div>
             </div>

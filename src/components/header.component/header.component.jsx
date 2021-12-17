@@ -33,7 +33,9 @@ const HeaderM = () => {
                     <div class="nav-links">
                         <ul>
                             <li><Link to='/'><i class="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
-                            <li><a href=""><i class="fa fa-user-o" aria-hidden="true"></i> Quản lý tin</a></li>
+                            {currentUser != null
+                                ? (<li><Link to="/postssaved"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)
+                                : (<li><Link to="/Login"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)}
                             <li><a href=""><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</a></li>
                         </ul>
                     </div>
@@ -58,9 +60,9 @@ const HeaderM = () => {
                                 <Link to="/user">
                                     <div class="login">
                                         {
-                                            currentUser.avatar!= "empty"?(
-                                                <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="https://cdn.chotot.com/uac2/21119808" alt={currentUser.name} />
-                                            ):(
+                                            currentUser.avatar != "empty" ? (
+                                                <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src={currentUser.avatar} alt={currentUser.name} />
+                                            ) : (
                                                 <img class="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="http://365.chotot.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt={currentUser.name} />
                                             )
                                         }

@@ -28,7 +28,6 @@ const Item = ({ item }) => {
                             <img alt="" src="https://www.ad4travel.com/wp-content/uploads/2017/01/Real-Estate-SEO.jpg" />
                         )
                 }
-                    <div class="icon"><i class="fa fa-heart-o"></i></div>
                 </div>
                 <div class="title">
                     {item.title}

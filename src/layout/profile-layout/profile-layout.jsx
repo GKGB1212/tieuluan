@@ -3,24 +3,51 @@ import './profile-layout.styles.css';
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { fetchPostByIdUser } from "../../redux/product/productSlice";
+import { fetchLike } from "../../redux/likePost/likePostSlice";
+import { fetchFollow } from "../../redux/follows/followsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { Redirect } from "react-router-dom";
 
 const ProfileLayout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const currentUser=useSelector(state=>state.user.currentUser)
+    const currentUser = useSelector(state => state.user.currentUser)
     const loading = useSelector(state => state.product.loading);
     const post = useSelector(state => state.product.lstPostByUser);
-    const history=useHistory()
+    const lstFollow = useSelector(state => state.follow.lstFollow);
+    const lstFollowed = useSelector(state => state.follow.lstFollowed);
+    const history = useHistory()
     useEffect(() => {
-        if(id)
-        dispatch(fetchPostByIdUser(id));
+        if (id) {
+            if (currentUser != null) {
+                dispatch(fetchPostByIdUser({ id, userCurrentID: currentUser.id }));
+            }
+            else {
+                dispatch(fetchPostByIdUser({ id, userCurrentID: '' }));
+            }
+        }
     }, []);
-    const handleClickToPost=(itemId)=>{
+    const handleClickToPost = (itemId) => {
         history.push(`/products/${itemId}`);
     }
-    return post ? (
+    const handleLike = async (idPost) => {
+        if (currentUser == null) {
+            history.push('/Login');
+        } else{
+            await dispatch(fetchLike(idPost));
+            dispatch(fetchPostByIdUser({ id, userCurrentID: currentUser.id }));
+        }
+    }
+    const handleFollowClick = () => {
+        if (currentUser == null) {
+            history.push('/Login');
+        }
+        else {
+            dispatch(fetchFollow(id));
+        }
+    }
+    return (currentUser == null || (currentUser.id != id)) ? (post ? (
         <div className="main-content">
             <div className="container WrapperContainer">
                 <div className="PaperContainer contactInfo false" style={{ paddingTop: "10px" }}>
@@ -37,7 +64,10 @@ const ProfileLayout = () => {
                                         <div><b>{post.followedCount}</b> Đang theo dõi</div>
                                     </div>
                                     <div class="UltiRow">
-                                        <button class="MainFunctionButton Follow"> Theo dõi</button>
+                                        <button class="MainFunctionButton Follow" onClick={handleFollowClick}> Theo dõi</button>
+                                    </div>
+                                    <div class="UltiRow">
+                                        <button class="MainFunctionButton Followed" onClick={handleFollowClick}> Hủy theo dõi</button>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +87,7 @@ const ProfileLayout = () => {
                                                     <div style={{ marginLeft: "10px" }}>
                                                         <ul className="sc-csuQGl jdmbsx">
                                                             <li>
-                                                                <div onClick={()=>{handleClickToPost(item.id)}}>
+                                                                <div onClick={() => { handleClickToPost(item.id) }}>
                                                                     <div className="ctAdItemContainer">
                                                                         <div className="sc-Rmtcm jYrOeG">
                                                                             <div className="sc-kgoBCf dPyyiW">
@@ -82,10 +112,14 @@ const ProfileLayout = () => {
                                                                     </div>
                                                                 </div>
                                                                 <div className="divLike" style={{ marginRight: "20px" }}>
-                                                                    <button className="sc-cHGsZl bwQGTK">
-                                                                        <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart.png" alt="like" />
-                                                                        {/* khi đã nhấn like */}
-                                                                        <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
+                                                                    <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
+                                                                        {
+                                                                            item.like == true ? (
+                                                                                <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
+                                                                            ) : (
+                                                                                <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart.png" alt="like" />
+                                                                            )
+                                                                        }
                                                                     </button>
                                                                 </div>
                                                             </li>
@@ -102,7 +136,7 @@ const ProfileLayout = () => {
                 </div>
             </div>
         </div>
-    ) : ''
+    ) : '') : (<Redirect to={"/user"} />)
 }
 
 export default ProfileLayout;

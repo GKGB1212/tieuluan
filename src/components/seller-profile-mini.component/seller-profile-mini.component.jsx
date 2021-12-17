@@ -2,11 +2,18 @@
 import React from "react";
 import './seller-profile-mini.styles.css';
 import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 const SellerProfileMini = ({name, id}) => {
+    const dispatch=useDispatch();
+    const currentUser=useSelector(state=>state.user.currentUser);
     const history=useHistory();
     const handleClickToUser=()=>{
-        history.push(`/user/${id}`);
+        if(currentUser!=null&&currentUser.id==id){
+            history.push(`/user`);
+        }else{
+            history.push(`/user/${id}`);
+        }
     }
     return (
         <div class="SellerProfile_profileWrapper" itemprop="seller" itemscope="" itemtype="http://schema.org/Person">

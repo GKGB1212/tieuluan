@@ -3,12 +3,16 @@ import './profile-edit.layout.styles.css';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchInfoUser } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
+import imgAvt from '../../assets/images/avatar.png';
+import { fetchChangeInfo } from "../../redux/user/userSlice";
 const ProfileEditLayout = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const infoUser = useSelector(state => state.user.infoUser);
     const [name, setName] = useState('');
-    const [imageUrl, setImageUrl] = useState(null);
+    const [imageUrltemp, setImageUrltemp] = useState(null);
+    const [image, setImage] = useState(null);
+    const [imageUrl,setImageUrl]=useState('');
     const [gender, setGender] = useState(0);
     const [birthday, setBirthday] = useState(new Date());
     const [address, setAddress] = useState('');
@@ -18,16 +22,28 @@ const ProfileEditLayout = () => {
     useEffect(() => {
         if (infoUser != null) {
             setName(infoUser.name);
-            setImageUrl(infoUser.imageUrl);
             setGender(infoUser.gender);
             //xử lý ngày sinh
             var arrBirthday = ((new Date(infoUser.birthday)).toLocaleDateString()).split("/");
             console.log(arrBirthday);
             setBirthday(arrBirthday[2] + "-" + arrBirthday[1] + "-" + arrBirthday[0]);
             setAddress(infoUser.address);
-            console.log(infoUser)
+            if(infoUser.imageUrl!=null){
+                setImageUrltemp(infoUser.imageUrl);
+            }else{
+                setImageUrltemp(imgAvt);
+            }
+            setImageUrl(infoUser.imageUrl);
         }
     }, [infoUser]);
+    const handleChangeAVT=(e)=>{
+        let img=URL.createObjectURL(e.target.files[0]);
+        setImageUrltemp(img);
+        setImage(e.target.files[0]);
+    }
+    const handleUpdateInfo=()=>{
+        dispatch(fetchChangeInfo({name,gender,birthday,address,image,imageUrl}));
+    }
     return (
         <div className="container">
             <div className="row">
@@ -38,15 +54,9 @@ const ProfileEditLayout = () => {
                     <div class="_3wam_fc0n3F8W2D-BvqYNK">
                         <div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12">
                             <div class="T8j5wxsOm0H3gemUZxWlK">
-                                {
-                                    imageUrl!=null
-                                    ?(<img src="https://cdn.chotot.com/uac2/21119808"/>)
-                                    :(<img src="https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Editable-Real-Estate-Logo-Design-PNG-Transparent.png"/>)
-                                }
-                                <div class="_1pmT8qcvx0jh6SDXWZ2jsw"><i class="_14Aqs4U4nJSw2OoFWbQwDl">
-                                </i>
-                                    <input type="file" multiple="" accept="image/jpeg, image/png" />
-                                </div>
+                                <img src={imageUrltemp}/>
+                                <label class="btnChangeAvt" for="upload-photo">Chọn ảnh</label>
+                                <input type="file" name="photo" id="upload-photo" onChange={(e)=>handleChangeAVT(e)} />
                             </div>
                         </div>
                         <div class="_2Gk5p4qAwMuLpxIDlMdkCv col-md-9 col-sm-12">
@@ -99,7 +109,7 @@ const ProfileEditLayout = () => {
                                         </li>
                                         <li>
                                             <div class="_30EYSdf_NK78GgsJAB8_3I">
-                                                <button>Cập nhật thông tin</button>
+                                                <button onClick={handleUpdateInfo}>Cập nhật thông tin</button>
                                             </div>
                                         </li>
                                     </ul>

@@ -8,7 +8,7 @@ const ButtonChat = () => {
                 <div class="btnReport">
                     <div class="ijabWE">
                         <span style={{display:"block"}}>
-                            Báo cáo tin xấu!
+                            Chỉnh sửa bài viết
                         </span>
                     </div>
                 </div>
