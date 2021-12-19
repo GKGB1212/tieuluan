@@ -6,7 +6,6 @@ import { act } from "react-dom/test-utils";
 export const fetchLogin = createAsyncThunk(
     'user/fetchLogin',
     async (objLogin) => {
-        console.log(objLogin)
         var res;
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
@@ -26,7 +25,6 @@ export const fetchLogin = createAsyncThunk(
         await fetch("http://localhost:50804/api/Auths/Login", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
                 res = JSON.parse(result);
             })
             .catch(error => console.log('error', error));
@@ -62,7 +60,6 @@ export const fetchChangePassword = createAsyncThunk(
         await fetch("http://localhost:50804/api/Auths/ChangePassword", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
                 res = JSON.parse(result);
             })
             .catch(error => console.log('error', error));
@@ -89,7 +86,6 @@ export const fetchInfoUser = createAsyncThunk(
         await fetch("http://localhost:50804/api/Auths/Info", requestOptions)
             .then(response => response.text())
             .then(result => {
-                console.log(result)
                 res = JSON.parse(result);
             })
             .catch(error => console.log('error', error));
@@ -155,18 +151,16 @@ export const fetchChangeInfo = createAsyncThunk(
     'user/fetchChangeInfo',
     async (objUser, thunkAPI) => {
         var result;
-        console.log("fffffff", objUser)
         var accessToken = localStorage.getItem('accessToken');
-        console.log("accessToken", accessToken)
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer " + accessToken);
 
         var formdata = new FormData();
         formdata.append("Name", objUser.name);
-        if(objUser.image!=null){
+        if (objUser.image != null) {
             formdata.append('Image', objUser.image, objUser.image.name);
         }
-        if(objUser.imageUrl!=''){
+        if (objUser.imageUrl != '') {
             formdata.append('ImageUrl', objUser.imageUrl);
         }
         formdata.append('Gender', objUser.gender);
@@ -202,7 +196,17 @@ const userSlice = createSlice({
         infoUser: null
     },
     // Reducers chứa các hàm xử lý cập nhật state
-    reducers: {},
+    reducers: {
+        setUp(state) {
+            state.succeeded=false
+        },
+        signOut(state) {
+            state.error= '';
+            state.currentUser= null;
+            state.succeeded= false;
+            state.infoUser= null;
+        }
+    },
     extraReducers: {
         [fetchLogin.pending]: (state, action) => {
             state.error = null
@@ -233,12 +237,9 @@ const userSlice = createSlice({
             if (action.payload.succeeded == true) {
                 state.succeeded = true;
                 state.error = null;
-                console.log(state.succeeded)
-                alert("Đăng kí thành công")
             } else if (action.payload.errors != null) {
                 state.succeeded = false;
                 state.error = action.payload.errors;
-                alert("Lỗi đăng kí")
             }
         },
         [fetchSignIn.rejected]: (state, action) => {
@@ -251,7 +252,6 @@ const userSlice = createSlice({
             state.succeeded = false;
         },
         [fetchInfoUser.fulfilled]: (state, action) => {
-            console.log("Thành công", action.payload);
             state.succeeded = true;
             state.error = null;
             state.infoUser = action.payload
@@ -286,7 +286,6 @@ const userSlice = createSlice({
             state.succeeded = false;
         },
         [fetchChangeInfo.fulfilled]: (state, action) => {
-            console.log("đã thực hiện 2")
             // if (act.payload.succeeded == false) {
             //     state.succeeded = false;
             //     state.error = action.payload.errors;
@@ -307,6 +306,6 @@ const userSlice = createSlice({
     }
 });
 
-
+export const { setUp, signOut } = userSlice.actions
 // Export reducer để nhúng vào Store
 export default userSlice.reducer;

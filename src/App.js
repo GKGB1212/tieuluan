@@ -26,6 +26,7 @@ import DropDownMenu from './components/drop-downmenu.component/drop-downmenu.com
 import ProfileCurrentUserLayout from './layout/profile-current-user-layout/profile-current-user-layout.component';
 
 import { useSelector } from 'react-redux';
+import FollowLayout from './layout/followed-follow-layout/followed-follow-layout.component';
 
 function App() {
   const currentUser = useSelector(state => state.user.currentUser)
@@ -38,17 +39,24 @@ function App() {
       <BrowserRouter>
         <HeaderM />
         <Switch>
-          <Route exact path='/profile/password' component={ChangePasswordLayout}/>
+          <Route exact path='/profile/password' component={ChangePasswordLayout} />
           <Route exact path='/' component={MainLayout} />
           <Route exact path='/dd' component={DropDownMenu} />
           <Route path='/user/:id' component={ProfileLayout} />
-          <Route exact path='/user' component={ProfileCurrentUserLayout} />
           <Route exact path='/postssaved' component={PostsSaved} />
           <Route exact path='/totalItem' component={TotalItemLayout} />
           <Route exact path='/dashboard/profile' component={ProfileEditLayout} />
           <Route exact path='/products/:id' component={DetailItemLayout} />
           <Route exact path='/dashboard/ads' component={PostManagementLayout} />
           <Route exact path='/dashboard/profile/edit' component={ProfileEditMainLayout} />
+          <Route exact path='/follow' component={FollowLayout} />
+          <Route exact path='/user'
+            render={() => currentUser ? (
+              <ProfileCurrentUserLayout />
+            ) : (
+              <Redirect to='/' />
+            )}
+          />
           <Route exact path='/otp'
             render={() => (
               <LoginSignUpLayout>
@@ -84,7 +92,12 @@ function App() {
               <ForgotPasswordForm />
             </LoginSignUpLayout>
           </Route>
-          <Route path='/postcreate' component={PostCreate} />
+          <Route path='/postcreate'
+            render={() => currentUser ? (
+              <PostCreate />
+            ) : (
+              <Redirect to='/Login' />
+            )} />
         </Switch>
       </BrowserRouter>
     </div>

@@ -5,7 +5,7 @@ import * as helper from '../../common/helper';
 import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { fetchSignIn } from "../../redux/user/userSlice";
+import { fetchSignIn, setUp } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
 
 const OTPForm = () => {
@@ -20,16 +20,21 @@ const OTPForm = () => {
     const confirmPassword = location.state.confirmPassword;
     const error = useSelector(state => state.user.error);
 
-    const otpSubmit = async() => {
+    const otpSubmit = () => {
         if (otp == '') {
             toast.notifyError("Vui lòng nhập OTP");
         } else {
-            await dispatch(await fetchSignIn({ name, phoneNumber, passWord, confirmPassword, otp }));
-            if(succeeded==true){
-                history.push('/Login')
-            }
+            dispatch(fetchSignIn({ name, phoneNumber, passWord, confirmPassword, otp }));
         }
     }
+    useEffect(()=>{
+        console.log(name,passWord, confirmPassword,phoneNumber)
+        if(succeeded==true){
+            toast.notifySuccess("Đăng kí tài khoản thành công!")
+            history.push('/Login');
+            dispatch(setUp());
+        }
+    },[succeeded])
     return (
         <main class="mainLoginForm">
             <div class="loginDiv">

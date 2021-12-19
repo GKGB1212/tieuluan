@@ -6,8 +6,11 @@ import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts } from "../../redux/product/productSlice";
 import { fetchFilterPosts } from "../../redux/product/productSlice";
+import { setUp, signOut } from "../../redux/user/userSlice";
+import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component'
 const HeaderM = () => {
     const [Search, setSearch] = useState('');
+    const [hidden, sethHidden] = useState(true);
     const history = useHistory();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser)
@@ -36,7 +39,7 @@ const HeaderM = () => {
                             {currentUser != null
                                 ? (<li><Link to="/postssaved"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)
                                 : (<li><Link to="/Login"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)}
-                            <li><a href=""><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</a></li>
+                            <li onClick={() => sethHidden(!hidden)}><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</li>
                         </ul>
                     </div>
                 </div>
@@ -79,6 +82,11 @@ const HeaderM = () => {
                     }
                     <Link to="/PostCreate" className="btn"><i class="fa fa-pencil-square-o" ></i>ĐĂNG TIN</Link>
                 </div>
+                {
+                    hidden ?
+                        null :
+                        <DropDownMenu setHidden={sethHidden}/>
+                }
             </section>
         </>
     );

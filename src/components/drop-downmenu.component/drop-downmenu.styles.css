@@ -1,6 +1,9 @@
 .appWrapper-Header-menuMore-listItemWrapper {
     padding: 0 10px;
 }
+.appWrapper-Header-menuMore-listItemWrapper:hover {
+    background-color: #f4f4f4;
+}
 .appWrapper-Header-menu {
     position: fixed;
     left: 0;
@@ -12,6 +15,12 @@
     padding: 5px 0;
     z-index: 1001;
     right: -5px;
+}
+.login-right{
+    float: left;
+    margin-left: 8px;
+    margin-top: 24px;
+    width: calc(100% - 100px);
 }
 .appWrapper-UserMenuItem {
     position: relative;
@@ -52,7 +61,6 @@
     color: #9b9b9b;
     display: block;
     font-size: 12px;
-    padding: 15px 0;
     text-decoration: none;
     line-height: normal;
 }

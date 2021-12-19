@@ -4,6 +4,7 @@ import { fetchPostByCurrentUser } from "../../redux/product/productSlice";
 import { fetchLike } from "../../redux/likePost/likePostSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import default_avt from '../../assets/images/default_user.png'
 
 const ProfileCurrentUserLayout = () => {
     const dispatch = useDispatch();
@@ -17,10 +18,10 @@ const ProfileCurrentUserLayout = () => {
     const handleClickToPost = (itemId) => {
         history.push(`/products/${itemId}`);
     }
-    const handleLike = async(id) => {
-        if(currentUser==null){
+    const handleLike = async (id) => {
+        if (currentUser == null) {
             history.push('/Login');
-        }else{
+        } else {
             await dispatch(fetchLike(id));
             dispatch(fetchPostByCurrentUser());
         }
@@ -33,7 +34,14 @@ const ProfileCurrentUserLayout = () => {
                         <div className="row">
                             <div className="BasicInfo">
                                 <div className="AvatarWrapper">
-                                    <img size="80" alt={post.name} src="https://cdn.chotot.com/uac2/2839754" className="imgAvt" />
+                                    {
+                                        currentUser.avatar != "empty"
+                                            ? (
+                                                <img size="80" alt={post.name} src={currentUser.avatar} className="imgAvt" />
+                                            ) : (
+                                                <img size="80" alt={post.name} src={default_avt} className="imgAvt" />
+                                            )
+                                    }
                                 </div>
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>

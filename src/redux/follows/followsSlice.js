@@ -3,8 +3,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
     loading: false,
     err: '',
-    lstFollow:[],
-    lstFollowed:[]
+    lstFollow: [],
+    lstFollowed: [],
+    checkFollow: false
 };
 
 //hàm follow
@@ -21,8 +22,7 @@ export const fetchFollow = createAsyncThunk(
             method: 'POST',
             headers: myHeaders,
             redirect: 'follow'
-          };
-          
+        };
         await fetch(`http://localhost:50804/api/Follows?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
@@ -42,7 +42,7 @@ export const fetchGetFollowed = createAsyncThunk(
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
-          };
+        };
         await fetch(`http://localhost:50804/api/Follows/GetFollowed?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
@@ -70,6 +70,23 @@ export const fetchGetFollow = createAsyncThunk(
         return result;
     }
 )
+//Kiểm tra thử người dùng 1 có theo dõi người dùng 2 không
+export const fetchCheckFollow = createAsyncThunk(
+    'follow/fetchCheckFollow',
+    async (objSearch, thunkAPI) => {
+        var result;
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+
+        await fetch(`http://localhost:50804/api/Follows/CheckFollow?idUser1=${objSearch.userCurrentID}&idUser2=${objSearch.id}`, requestOptions)
+            .then(response => result = response.json())
+            .then(json => { result = json; })
+            .catch(error => console.log('error', error));
+        return result;
+    }
+)
 const followSlice = createSlice({
     name: "follow",  // Tên của slice
     initialState,
@@ -79,6 +96,7 @@ const followSlice = createSlice({
     extraReducers: {
         [fetchFollow.pending]: (state, action) => {
             state.loading = true
+            state.err = ''
         },
         [fetchFollow.fulfilled]: (state, action) => {
             state.loading = false;
@@ -89,27 +107,43 @@ const followSlice = createSlice({
         },
         [fetchGetFollowed.pending]: (state, action) => {
             state.loading = true
+            state.err = ''
         },
         [fetchGetFollowed.fulfilled]: (state, action) => {
             state.loading = false
-            state.lstFollowed=action.payload
+            state.lstFollowed = action.payload
             console.log(action.payload);
         },
         [fetchGetFollowed.rejected]: (state, action) => {
             state.err = action.err
-            state.lstFollowed=[]
+            state.lstFollowed = []
         },
         [fetchGetFollow.pending]: (state, action) => {
             state.loading = true
+            state.err = ''
         },
         [fetchGetFollow.fulfilled]: (state, action) => {
             state.loading = false
-            state.lstFollow=action.payload
+            state.lstFollow = action.payload
             console.log(action.payload);
         },
         [fetchGetFollow.rejected]: (state, action) => {
             state.err = action.err
-            state.lstFollow=[]
+            state.lstFollow = []
+        },
+        [fetchCheckFollow.pending]: (state, action) => {
+            state.loading = true;
+            state.err = ''
+            state.checkFollow = false
+        },
+        [fetchCheckFollow.fulfilled]: (state, action) => {
+            state.loading = false
+            state.checkFollow = action.payload
+            console.log(action.payload);
+        },
+        [fetchCheckFollow.rejected]: (state, action) => {
+            state.err = action.err
+            state.checkFollow = false
         }
     }
 })

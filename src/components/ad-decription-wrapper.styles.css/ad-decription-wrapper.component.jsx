@@ -12,19 +12,17 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
     const [province, setProvince] = useState('');
     const [district, setDistrict] = useState('');
     const [ward, setWard] = useState('');
-    const [like, setLike] = useState(false);
 
 
     useEffect(() => {
+        console.log(item);
         fetch(`https://provinces.open-api.vn/api/p/${item.provinceID}?depth=3`)
             .then(function (response) {
                 if (response.status !== 200) {
-                    console.log('Lỗi, mã lỗi ' + response.status);
                     return;
                 }
                 // parse response data
                 response.json().then(data => {
-                    console.log(data)
                     setProvince(data.name);
                     let indexD = data.districts.findIndex((x) => x.code == item.districtID);
                     if (indexD > -1) {
@@ -37,9 +35,6 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                 })
             })
     }, [])
-    useEffect(() => {
-        setLike(item.like)
-    }, [item.like])
     return item ? (
         <div class="AdDecription_adDecriptionWrapper" style={{ width: "600px" }}>
             <h1 class="AdDecription_adTitle" itemprop="name">
@@ -67,14 +62,14 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                 </div>
                 <div class="SaveAd_saveAdWrapper AdDecription_saveAd">
                     {
-                        like ? (
-                            <button type="button" class="SaveAd_saveAdViewDetail" onClick={handleSavePost}>
-                                <p style={{ margin: "0px" }}>Lưu tin </p>
+                        item.like ? (
+                            <button type="button" class="SaveAd_saveAdViewDetail SaveAd_saveAdViewDetail_liked" onClick={handleSavePost}>
+                                <p style={{ margin: "0px" }}>Hủy lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />
                             </button>
                         ):(
-                            <button type="button" class="SaveAd_saveAdViewDetail SaveAd_saveAdViewDetail_liked" onClick={handleSavePost}>
-                                <p style={{ margin: "0px" }}>Hủy lưu tin </p>
+                            <button type="button" class="SaveAd_saveAdViewDetail" onClick={handleSavePost}>
+                                <p style={{ margin: "0px" }}>Lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />
                             </button>
                         )

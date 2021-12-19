@@ -144,7 +144,7 @@ const PostCreate = () => {
         // }
 
     }
-    return currentUser?(
+    return (
         <div id="product_create_app" class="product-create">
             <div>
                 <div class="container">
@@ -356,7 +356,6 @@ const PostCreate = () => {
                     <button id="cmd_post" onClick={handleSubmitCreatePost} class="btn-submit">ĐĂNG TIN</button>
                 </div>
             </div>
-        </div >
-    ):(<Redirect to="/login"/>)
+        </div >)
 }
 export default PostCreate;

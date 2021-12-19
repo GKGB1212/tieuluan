@@ -4,10 +4,11 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { fetchPostByIdUser } from "../../redux/product/productSlice";
 import { fetchLike } from "../../redux/likePost/likePostSlice";
-import { fetchFollow } from "../../redux/follows/followsSlice";
+import { fetchFollow, fetchCheckFollow } from "../../redux/follows/followsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Redirect } from "react-router-dom";
+import default_avt from '../../assets/images/default_user.png'
 
 const ProfileLayout = () => {
     const { id } = useParams();
@@ -17,11 +18,13 @@ const ProfileLayout = () => {
     const post = useSelector(state => state.product.lstPostByUser);
     const lstFollow = useSelector(state => state.follow.lstFollow);
     const lstFollowed = useSelector(state => state.follow.lstFollowed);
-    const history = useHistory()
+    const checkFollow = useSelector(state => state.follow.checkFollow);
+    const history = useHistory();
     useEffect(() => {
         if (id) {
             if (currentUser != null) {
                 dispatch(fetchPostByIdUser({ id, userCurrentID: currentUser.id }));
+                dispatch(fetchCheckFollow({ userCurrentID: currentUser.id, id }))
             }
             else {
                 dispatch(fetchPostByIdUser({ id, userCurrentID: '' }));
@@ -34,17 +37,18 @@ const ProfileLayout = () => {
     const handleLike = async (idPost) => {
         if (currentUser == null) {
             history.push('/Login');
-        } else{
+        } else {
             await dispatch(fetchLike(idPost));
             dispatch(fetchPostByIdUser({ id, userCurrentID: currentUser.id }));
         }
     }
-    const handleFollowClick = () => {
+    const handleFollowClick = async() => {
         if (currentUser == null) {
             history.push('/Login');
         }
         else {
-            dispatch(fetchFollow(id));
+            await dispatch(fetchFollow(id));
+            dispatch(fetchCheckFollow({ userCurrentID: currentUser.id, id }));
         }
     }
     return (currentUser == null || (currentUser.id != id)) ? (post ? (
@@ -55,20 +59,34 @@ const ProfileLayout = () => {
                         <div className="row">
                             <div className="BasicInfo">
                                 <div className="AvatarWrapper">
-                                    <img size="80" alt={post.name} src="https://cdn.chotot.com/uac2/2839754" className="imgAvt" />
+                                    {
+                                        post.avatar!=null
+                                        ?(
+                                            <img size="80" alt={post.name} src={post.avatar} className="imgAvt" />
+                                        ):(
+                                            <img size="80" alt={post.name} src={default_avt} className="imgAvt" />
+                                        )
+                                    }
                                 </div>
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>
                                     <div className="FollowRow">
-                                        <div style={{ marginRight: "10px" }}><b>{post.followCount}</b> Người theo dõi</div>
-                                        <div><b>{post.followedCount}</b> Đang theo dõi</div>
+                                        <div style={{ marginRight: "10px" }}><Link><b>{post.followCount}</b> Người theo dõi</Link></div>
+                                        <div><Link><b>{post.followedCount}</b> Đang theo dõi</Link></div>
                                     </div>
-                                    <div class="UltiRow">
-                                        <button class="MainFunctionButton Follow" onClick={handleFollowClick}> Theo dõi</button>
-                                    </div>
-                                    <div class="UltiRow">
-                                        <button class="MainFunctionButton Followed" onClick={handleFollowClick}> Hủy theo dõi</button>
-                                    </div>
+                                    {
+                                        checkFollow
+                                            ? (
+                                                <div class="UltiRow">
+                                                    <button class="MainFunctionButton Followed" onClick={handleFollowClick}> Hủy theo dõi</button>
+                                                </div>
+                                            )
+                                            : (
+                                                <div class="UltiRow">
+                                                    <button class="MainFunctionButton Follow" onClick={handleFollowClick}> Theo dõi</button>
+                                                </div>
+                                            )
+                                    }
                                 </div>
                             </div>
                         </div>

@@ -6,24 +6,33 @@ import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSignIn } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
+import { setUp } from "../../redux/user/userSlice";
 
 const LoginSignupForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [passWord, setPassWord] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
+    const [textBtn1, setTextBtn1] = useState('Hiện');
+    const [textBtn2, setTextBtn2] = useState('Hiện');
     const history = useHistory();
     const dispatch = useDispatch();
     const curentUser = useSelector(state => state.user.curentUser);
     const error = useSelector(state => state.user.error)
     const succeeded = useSelector(state => state.user.succeeded);
     const handleChangePhoneNum = (phoneNum) => {
-        setPhoneNumber(phoneNum);
+        setPhoneNumber(phoneNum.substring(0, 10));
     }
     const changeTypePassWord = (type) => {
         var idChange;
         type == 1 ? idChange = "pass" : idChange = "confirmPass"
-        document.getElementById(idChange).type == "text" ? document.getElementById(idChange).type = "password" : document.getElementById(idChange).type = "text";
+        if (document.getElementById(idChange).type == "text") {
+            document.getElementById(idChange).type = "password";
+            type == 1 ? setTextBtn1('Hiện') : setTextBtn2('Hiện');
+        } else {
+            document.getElementById(idChange).type = "text";
+            type == 1 ? setTextBtn1('Ẩn') : setTextBtn2('Ẩn')
+        }
     }
     const signIn = async () => {
         if (phoneNumber == '' || passWord == '' || name == '' || confirmPassword == '') {
@@ -31,25 +40,27 @@ const LoginSignupForm = () => {
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
         } else {
-
-
-            await dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }));
-            console.log("1 "+succeeded)
-            if (succeeded == true) {
-                history.push({
-                    pathname: "/otp",
-                    state: {
-                        name, passWord, confirmPassword, phoneNumber
-                    }
-                });
+            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+            if (regex.test(passWord)) {
+                await dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }));
+                if (succeeded == true) {
+                    history.push({
+                        pathname: "/otp",
+                        state: {
+                            name, passWord, confirmPassword, phoneNumber
+                        }
+                    });
+                }
+            }else{
+                toast.notifyError("Mật khẩu yêu cầu bao gồm chữ hoa, chữ thường, số và có độ dài ít nhất là 6")
             }
         }
     }
     useEffect(() => {
-        console.log(curentUser)
-    }, [curentUser])
-    useEffect(() => {
-        console.log("2 "+succeeded)
+        if(succeeded==true){
+            history.push({pathname:"/otp", state:{name,passWord,phoneNumber,confirmPassword}})
+            dispatch(setUp());
+        }
     }, [succeeded])
     return (
         <main class="mainLoginForm">
@@ -58,7 +69,7 @@ const LoginSignupForm = () => {
                     <div class="wrapperBanner">
                         <div class="titleBanner">
                             <h3>Đăng kí</h3>
-                            <p>Tạo tài khoản Chợ Tốt ngay</p>
+                            <p>Tạo tài khoản bất động sản ngay</p>
                         </div>
                         <div class="imageBanner">
                             <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
@@ -95,7 +106,7 @@ const LoginSignupForm = () => {
                     <div>
                         <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" />
                         <button tabindex="-1" type="button" onClick={() => changeTypePassWord(1)}>
-                            Hiện
+                            {textBtn1}
                         </button>
                     </div>
                     <p class="prswihc">
@@ -105,7 +116,7 @@ const LoginSignupForm = () => {
                     <div>
                         <input type="password" id="confirmPass" class="i1pbvj0j" placeholder="Xác nhận mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autocomplete="nope" />
                         <button tabindex="-1" type="button" onClick={() => changeTypePassWord(2)}>
-                            Hiện
+                            {textBtn2}
                         </button>
                     </div>
                     <p class="prswihc">
@@ -115,14 +126,14 @@ const LoginSignupForm = () => {
                 <div class="loginDiv2">
                     <p> Bằng việc nhấn đăng ký, bạn đã đồng ý với
                         <a href="/forget-password">Điều khoản sử dụng</a>
-                        của trang web XXX
+                        của trang web bất động sản
                     </p>
-                    <small>Hoặc đăng nhập với</small>
+                    {/* <small>Hoặc đăng nhập với</small>
                     <ul>
                         <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" class="iconButton fb" ></li>
                         <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" class="iconButton gg"></li>
-                    </ul>
-                    <p>Bạn đã có tài khoản
+                    </ul> */}
+                    <p>Bạn đã có tài khoản<br />
                         <Link to="/Login">Đăng nhập</Link>
                     </p>
                 </div>
