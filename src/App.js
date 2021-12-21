@@ -35,21 +35,28 @@ function App() {
     var refreshToken = localStorage.getItem('refreshToken');
   }, [])
   return (
-    <div className="App" style={{marginBottom:"50px"}}>
+    <div className="App" style={{ marginBottom: "50px" }}>
       <BrowserRouter>
         <HeaderM />
         <Switch>
           <Route exact path='/profile/password' component={ChangePasswordLayout} />
           <Route exact path='/' component={MainLayout} />
-          <Route exact path='/dd' component={DropDownMenu} />
           <Route path='/user/:id' component={ProfileLayout} />
           <Route exact path='/postssaved' component={PostsSaved} />
-          <Route exact path='/totalItem' component={TotalItemLayout} />
-          <Route exact path='/dashboard/profile' component={ProfileEditLayout} />
+          <Route exact path='/mua-ban-bds' component={TotalItemLayout} />
+          <Route exact path='/cho-thue-bds' component={TotalItemLayout} />
+          <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
           <Route exact path='/products/:id' component={DetailItemLayout} />
           <Route exact path='/dashboard/ads' component={PostManagementLayout} />
           <Route exact path='/dashboard/profile/edit' component={ProfileEditMainLayout} />
           <Route exact path='/follow' component={FollowLayout} />
+          <Route exact path='/dashboard/profile'
+            render={() => currentUser ? (
+              <ProfileEditLayout />
+            ) : (
+              <Redirect to='/' />
+            )}
+          />
           <Route exact path='/user'
             render={() => currentUser ? (
               <ProfileCurrentUserLayout />

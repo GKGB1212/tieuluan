@@ -83,7 +83,7 @@ const ProfileEditLayout = () => {
                                                 <span>Giới tính</span>
                                             </div>
                                             <div class="_30EYSdf_NK78GgsJAB8_3I">
-                                                <select value={gender} onChange={(e) => setGender(e.target.value)}>
+                                                <select className="selectEditProfile" value={gender} onChange={(e) => setGender(e.target.value)}>
                                                     <option>Nam</option>
                                                     <option>Nữ</option>
                                                 </select>

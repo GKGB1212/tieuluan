@@ -5,23 +5,34 @@ import TotalItemContainer from "../components/total-item-container.component/tot
 import DATA from "../../../trials/data";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
+import { useParams } from "react-router";
+import { fetchFilterPosts } from "../../../redux/product/productSlice";
 
 const TotalItemLayout = (props) => {
-    const type = props.location.type;
     const dispatch = useDispatch();
     const location = useLocation();
-    const search=location.search;
-    var Search = '';
-    try {
-        Search = location.state.Search;
-    } catch (e) {
-    }
+    const Search = location.search;
     const lstPostSearch = useSelector(state => state.product.lstPostSearch);
     const [lstCity, setLstCity] = useState([]);
-
+    const [type, setType] = useState(null);
 
     useEffect(() => {
-        console.log(search)
+        try {
+            setType(location.state.type);
+        } catch {
+
+        }
+        if (location.pathname == '/tim-kiem-bds') {
+            if (type != null) {
+                dispatch(fetchFilterPosts({
+                    PostTypeID: type,
+                    Page: 1,
+                    Size: 24
+                }))
+            }
+        }
+    }, [type])
+    useEffect(() => {
         fetch('https://provinces.open-api.vn/api/?depth=3&fbclid=IwAR1OGuDDmUlDdkyoYmh6umuMeiP9PcIGENaOgFsM0vX_6TAju5D8BLUAz9o')
             .then(function (response) {
                 if (response.status !== 200) {
@@ -30,7 +41,6 @@ const TotalItemLayout = (props) => {
                 }
                 // parse response data
                 response.json().then(data => {
-                    console.log(data)
                     setLstCity(data);
                 })
             })
@@ -39,7 +49,7 @@ const TotalItemLayout = (props) => {
     return (
         // type?(
         <div className="container ct-listing">
-            <DynamicFilter lstCity={lstCity} Search={Search} />
+            <DynamicFilter lstCity={lstCity} Search={Search} type={type} />
             <h1>{props.location.type}</h1>
             <TotalItemContainer lstPostSearch={lstPostSearch} Search={Search} />
         </div>

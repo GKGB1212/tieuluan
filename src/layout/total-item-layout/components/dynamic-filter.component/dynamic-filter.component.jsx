@@ -3,14 +3,16 @@ import './dynamic-filter.styles.css'
 import { useDispatch } from "react-redux";
 import { fetchFilterPosts } from "../../../../redux/product/productSlice";
 
-const DynamicFilter = ({ lstCity, Search }) => {
+const DynamicFilter = ({ lstCity, Search, type }) => {
     const dispatch=useDispatch()
-    useEffect(() => {
-        console.log("aaaa", lstCity)
-    }, [])
     const [ProvinceID, setProvinceID] = useState(0);
     const [PostTypeID, setPostTypeID] = useState(0);
     const [CategoryID, setCategoryID] = useState(0);
+    useEffect(() => {
+        if(type!=null){
+            setPostTypeID(type)
+        }
+    }, [type])
     const handleClickSearch = () => {
         var objSearch={Search};
         if(ProvinceID!=0){
@@ -38,7 +40,7 @@ const DynamicFilter = ({ lstCity, Search }) => {
                         </select>
                     </div>
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
-                        <select class="form-input" onChange={(e) => setPostTypeID(e.target.value)}>
+                        <select class="form-input" value={PostTypeID} onChange={(e) => setPostTypeID(e.target.value)}>
                             <option value="0">Chọn loại bài đăng</option>
                             <option value="1">Mua bán</option>
                             <option value="2">Cho thuê</option>

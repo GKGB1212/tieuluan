@@ -327,6 +327,7 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchFilterPosts.fulfilled]: (state, action) => {
+            console.log("connn",action.payload)
             state.loading = false;
             state.lstPostSearch = action.payload;
         },

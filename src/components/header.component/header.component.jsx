@@ -24,8 +24,8 @@ const HeaderM = () => {
             Size: 24
         }));
         history.push({
-            pathname: '/totalItem',
-            state: { Search }
+            pathname: `/tim-kiem-bds`,
+            search:Search
         })
     }
     return (
