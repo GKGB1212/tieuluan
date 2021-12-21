@@ -1,7 +1,20 @@
-import React from "react";
+import React,{useEffect} from "react";
 import './category.styles.css';
+import { useSelector,useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { fetchGetPostTypeNumber } from "../../redux/product/productSlice";
 
 const Category = () => {
+    const history=useHistory();
+    const dispatch=useDispatch();
+    const postTypeNumber=useSelector(state=>state.product.postTypeNumber );
+    useEffect(()=>{
+        console.log(postTypeNumber)
+        dispatch(fetchGetPostTypeNumber())
+    },[]);
+    useEffect(()=>{
+        console.log(postTypeNumber)
+    },[postTypeNumber]);
     const handleMouseOverInLi = (num) => {
         num === 1 ? document.getElementById("num1").style.display = 'block' : document.getElementById("num2").style.display = 'block';
     }
@@ -19,7 +32,7 @@ const Category = () => {
                         </div>
                         <div class="flex flex-col flex-auto flex-text">
                             <span class="categoryText">Mua bán</span>
-                            <span class="categorySubText"><span><b>114.795</b> tin đăng mua bán</span></span>
+                            <span class="categorySubText"><span><b>{postTypeNumber.muaBan}</b> tin đăng mua bán</span></span>
                         </div>
                     </a>
                     <div class="categoriesDropdownContent dropdown-content" id="num1">
@@ -36,7 +49,7 @@ const Category = () => {
                         </div>
                         <div class="flex flex-col flex-auto flex-text">
                             <span class="categoryText">Cho thuê</span>
-                            <span class="categorySubText"><span><b>114.795</b> tin đăng cho thuê</span></span>
+                            <span class="categorySubText"><span><b>{postTypeNumber.thue}</b> tin đăng cho thuê</span></span>
                         </div>
                     </a>
                     <div class="categoriesDropdownContent dropdown-content" id="num2">

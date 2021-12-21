@@ -7,6 +7,11 @@ const initialState = {
     err: '',
     success: false,
     product: {},
+    //hiển thi số bài viết mỗi laoij(mua bán,cho thuê)
+    postTypeNumber: {
+        muaBan: 0,
+        thue: 0
+    },
     //Lấy danh sách tin đã được duyệt
     lstPostByUser: {},
     //danh sách sản phẩm tìm kiếm
@@ -148,6 +153,29 @@ export const fetchPostByCurrentUser = createAsyncThunk(
     }
 )
 
+export const fetchGetPostTypeNumber = createAsyncThunk(
+    'product/fetchGetPostTypeNumber',
+    async (thunkAPI) => {
+        var res;
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        await fetch("http://localhost:50804/api/Posts/GetPostTypeNumber", requestOptions)
+            .then(response => response.text())
+            .then(result => res = JSON.parse(result))
+            .catch(error => console.log('error', error));
+        return res;
+    }
+)
+
+
+
 //hàm inset 1 post
 export const fetchInsertPost = createAsyncThunk(
     'product/fetchInsertPost',
@@ -205,10 +233,10 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('area', objPost.area);
         formData.append('price', objPost.price);
         if (objPost.typeRealEstate == 1 && (objPost.categoryID == 1 || objPost.categoryID == 2)) {
-            if(objPost.bedrooms!=null){
+            if (objPost.bedrooms != null) {
                 formData.append('bedrooms', objPost.bedrooms);
             }
-            if(objPost.bathrooms!=null){
+            if (objPost.bathrooms != null) {
                 formData.append('bathrooms', objPost.bathrooms);
             }
         }
@@ -248,7 +276,7 @@ const productSlice = createSlice({
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
         resetSuccess(state) {
-            state.success=false;
+            state.success = false;
         }
     },
     extraReducers: {
@@ -330,6 +358,20 @@ const productSlice = createSlice({
             }
         },
         [fetchFilterPostsForMainLayout.rejected]: (state, action) => {
+            state.loading = false
+            state.err = action.err
+        },
+        [fetchGetPostTypeNumber.pending]: (state, action) => {
+            state.loading = true;
+            state.postTypeNumber = {
+                muaBan: 0,
+                thue: 0
+            };
+        },
+        [fetchGetPostTypeNumber.fulfilled]: (state, action) => {
+            state.postTypeNumber = action.payload;
+        },
+        [fetchGetPostTypeNumber.rejected]: (state, action) => {
             state.loading = false
             state.err = action.err
         },
