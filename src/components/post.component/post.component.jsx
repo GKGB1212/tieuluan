@@ -6,12 +6,15 @@ import * as toast from '../../common/toast'
 import { fetchInsertPost } from "../../redux/product/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
+import { useHistory } from "react-router-dom";
+import { resetSuccess } from "../../redux/product/productSlice";
 
 
 const PostCreate = () => {
     const dispatch = useDispatch();
-
+    const history=useHistory();
     const currentUser=useSelector(state=>state.user.currentUser);
+    const success=useSelector(state=>state.product.success);
 
     const [lstTotal, setLstTotal] = useState([]);
     const [lstCity, setLstCity] = useState([]);
@@ -44,9 +47,9 @@ const PostCreate = () => {
     const [wardID, setWardID] = useState(-1);
 
     //phòng ngủ
-    const [bedrooms, setBedrooms] = useState();
+    const [bedrooms, setBedrooms] = useState(null);
     //phòng tắm
-    const [bathrooms, setBathrooms] = useState();
+    const [bathrooms, setBathrooms] = useState(null);
 
 
     //hàm xử lí khi nhấn xóa một bức hình
@@ -77,12 +80,6 @@ const PostCreate = () => {
             setImageList(tempImageObjLst);
         }
     }
-
-    const checkPhoto = () => {
-        if (imageToShowList.length == 8) {
-            alert("Đã đủ hình")
-        }
-    }
     useEffect(() => {
         fetch('https://provinces.open-api.vn/api/?depth=3&fbclid=IwAR1OGuDDmUlDdkyoYmh6umuMeiP9PcIGENaOgFsM0vX_6TAju5D8BLUAz9o')
             .then(function (response) {
@@ -92,7 +89,6 @@ const PostCreate = () => {
                 }
                 // parse response data
                 response.json().then(data => {
-                    console.log(data)
                     setLstTotal(data);
                 })
             })
@@ -107,6 +103,12 @@ const PostCreate = () => {
         })
         setLstCity(temp);
     }, [lstTotal])
+    useEffect(() => {
+        if(success==true){
+            dispatch(resetSuccess());
+            history.push("/user");
+        }
+    }, [success])
     const handleOnChangeCurrentCity = (codeCity) => {
         var temp = [];
         setProvinceID(codeCity);
@@ -122,26 +124,31 @@ const PostCreate = () => {
     const handleChangeRealEstate = (type) => {
         setTypeRealEstate(type);
     }
-    const handleSubmitCreatePost = () => {
-        dispatch(fetchInsertPost({ title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }))
-        // var err = 0;
-        // if (typeRealEstate == 0 || categoryID == 0 || provinceID == -1 || districtID == -1 || wardID == -1 || !price || !area || title == '' || area == 0 || price == 0 || details == '') {
-        //     err = 1;
-        // }
-        // if (typeRealEstate == 1 || typeRealEstate == 3) {
-        //     if (address == '' || imageList.length < 3)
-        //         err = 1;
-        // }else if(typeRealEstate == 2 || typeRealEstate == 4){
-        //     setAddress('');
-        //     setImageList([]);
-        //     setImageToShowList([]);
-        // }
-        // if (err == 0) {
-        //     dispatch(fetchInsertPost({ title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }))
-        // }
-        // else {
-        //     toast.notifyError("Vui lòng nhập đầy đủ thông tin trường *")
-        // }
+    const handleSubmitCreatePost = async() => {
+        //dispatch(fetchInsertPost({ title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }))
+        var err = 0;
+        let tempDetails=details;
+        let tempTitle=details;
+        let tempAddress=address;
+        if (typeRealEstate == 0 || categoryID == 0 || provinceID == -1 || districtID == -1 || wardID == -1 || !price || !area || tempTitle.trim() == '' || area == 0 || price == 0 || tempDetails.trim() == '') {
+            err = 1;
+        }
+        if (typeRealEstate == 1 || typeRealEstate == 3) {
+            if (tempAddress.trim() == '' || imageList.length < 3)
+                err = 1;
+        }else if(typeRealEstate == 2 || typeRealEstate == 4){
+            setAddress(null);
+            setImageList([]);
+            setImageToShowList([]);
+            setBathrooms(null);
+            setBedrooms(null);
+        }
+        if (err == 0) {
+            await dispatch(fetchInsertPost({ typeRealEstate,title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }));
+        }
+        else {
+            toast.notifyError("Vui lòng nhập đầy đủ thông tin trường *")
+        }
 
     }
     return (
@@ -327,7 +334,7 @@ const PostCreate = () => {
                                             </p>
                                             <label className="btn-add-image">
                                                 <img src="https://static.homedy.com/src/images/explore/upload.svg" width="32" />
-                                                <input type="file" multiple="multiple" accept="image/*" onClick={checkPhoto} onChange={onImageChange} />
+                                                <input type="file" multiple="multiple" accept="image/*" onChange={onImageChange} />
                                                 Thêm ảnh
                                             </label>
                                             <div class="image-list">
@@ -347,7 +354,7 @@ const PostCreate = () => {
                                                         )) : ''}
                                                 </div>
                                             </div>
-                                            <p class="alert alert-warning">* Lưu ý: Ảnh tải lên không được là ảnh sao chép trên Internet, không chứa logo, thông tin của website khác, kích thước ảnh tối thiểu 300 x 300px</p>
+                                            <div class="alert alert-warning" style={{height:'80px'}}></div>
                                         </div>
                                     </div>
                                 </div>

@@ -35,7 +35,8 @@ const LoginSignupForm = () => {
         }
     }
     const signIn = async () => {
-        if (phoneNumber == '' || passWord == '' || name == '' || confirmPassword == '') {
+        let temp=name;
+        if (phoneNumber == '' || passWord == '' || temp.trim() == '' || confirmPassword == '') {
             toast.notifyError("Vui lòng nhập đủ thông tin!")
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
@@ -86,7 +87,7 @@ const LoginSignupForm = () => {
                 </div>
                 <div class="inputLoginDiv">
                     <div>
-                        <input class="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value)} autocomplete="nope" />
+                        <input class="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value.substring(0,50))} autocomplete="nope" />
                     </div>
                     <p class="prswihc">
                     </p>

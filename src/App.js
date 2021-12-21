@@ -35,7 +35,7 @@ function App() {
     var refreshToken = localStorage.getItem('refreshToken');
   }, [])
   return (
-    <div className="App">
+    <div className="App" style={{marginBottom:"50px"}}>
       <BrowserRouter>
         <HeaderM />
         <Switch>

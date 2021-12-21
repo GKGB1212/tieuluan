@@ -5,15 +5,16 @@ const initialState = {
     loading: false,
     products: {},
     err: '',
+    success: false,
     product: {},
     //Lấy danh sách tin đã được duyệt
     lstPostByUser: {},
     //danh sách sản phẩm tìm kiếm
     lstPostSearch: {},
     //danh sách sp mua bán
-    lstPostPurchase:[],
+    lstPostPurchase: [],
     //danh sách sp cho thuê
-    lstPostLease:[],
+    lstPostLease: [],
 };
 
 //hàm filter post
@@ -61,7 +62,7 @@ export const fetchFilterPostsForMainLayout = createAsyncThunk(
             // Displaying results to console
             .then(json => { result = json; })
             .catch(error => console.log('error', error));
-        return {result,objSearch};
+        return { result, objSearch };
     }
 )
 
@@ -85,12 +86,11 @@ export const fetchPostById = createAsyncThunk(
     'product/fetchPostById',
     async (objRequest) => {
         var result;
-        console.log("obj",objRequest)
-        var res='';
-        if(objRequest.userId!=null){
-            res=`http://localhost:50804/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
-        }else{
-            res=`http://localhost:50804/api/Posts/${objRequest.id}`
+        var res = '';
+        if (objRequest.userId != null) {
+            res = `http://localhost:50804/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
+        } else {
+            res = `http://localhost:50804/api/Posts/${objRequest.id}`
         }
         await fetch(res)
             .then(res => res.json())
@@ -157,7 +157,6 @@ export const fetchInsertPost = createAsyncThunk(
         var refreshToken = localStorage.getItem('refreshToken');
         var decoded = jwtDecode(accessToken);
         var decodedRf = jwtDecode(refreshToken)
-        console.log(decoded)
         //Thời gian hiện tại
         var currentTime = new Date();
         //Thời gian của token
@@ -205,13 +204,19 @@ export const fetchInsertPost = createAsyncThunk(
         formData.append('address', objPost.address);
         formData.append('area', objPost.area);
         formData.append('price', objPost.price);
-        formData.append('bedrooms', objPost.bedrooms);
-        formData.append('bathrooms', objPost.bathrooms);
+        if (objPost.typeRealEstate == 1 && (objPost.categoryID == 1 || objPost.categoryID == 2)) {
+            if(objPost.bedrooms!=null){
+                formData.append('bedrooms', objPost.bedrooms);
+            }
+            if(objPost.bathrooms!=null){
+                formData.append('bathrooms', objPost.bathrooms);
+            }
+        }
         formData.append('directionID', objPost.directionID);
         formData.append('details', objPost.details);
         formData.append('paperID', objPost.paperID);
         formData.append('creatorID', decoded.id);
-        formData.append('postTypeID', 1);
+        formData.append('postTypeID', objPost.typeRealEstate);
         formData.append('categoryID', objPost.categoryID);
 
         var requestOptions = {
@@ -242,6 +247,9 @@ const productSlice = createSlice({
     initialState,
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
+        resetSuccess(state) {
+            state.success=false;
+        }
     },
     extraReducers: {
         [fetchPosts.pending]: (state, action) => {
@@ -258,12 +266,10 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchInsertPost.fulfilled]: (state, action) => {
-
-            console.log("tc ", action.payload)
-            state.loading = false
+            state.loading = false;
+            state.success = action.payload
         },
         [fetchInsertPost.rejected]: (state, action) => {
-            console.log("tc ", action.error)
             state.loading = false
             state.err = action.error
         },
@@ -317,12 +323,10 @@ const productSlice = createSlice({
         [fetchFilterPostsForMainLayout.fulfilled]: (state, action) => {
             console.log(action.payload)
             state.loading = false;
-            if(action.payload.objSearch.PostTypeID==1){
-                console.log('loại 1')
-                state.lstPostPurchase=action.payload.result.posts;
-            }else if(action.payload.objSearch.PostTypeID==2){
-                console.log('loại 2')
-                state.lstPostLease=action.payload.result.posts;
+            if (action.payload.objSearch.PostTypeID == 1) {
+                state.lstPostPurchase = action.payload.result.posts;
+            } else if (action.payload.objSearch.PostTypeID == 2) {
+                state.lstPostLease = action.payload.result.posts;
             }
         },
         [fetchFilterPostsForMainLayout.rejected]: (state, action) => {
@@ -335,6 +339,8 @@ const productSlice = createSlice({
 // Hàm giúp lấy ra state mong muốn.
 // Hàm này có 1 tham số là root state là toàn bộ state trong store, chạy thử console.log(state) trong nội dung hàm để xem chi tiết
 export const selectProducts = state => state.product.products;
+
+export const { resetSuccess } = productSlice.actions
 
 // Export reducer để nhúng vào Store
 export default productSlice.reducer;
