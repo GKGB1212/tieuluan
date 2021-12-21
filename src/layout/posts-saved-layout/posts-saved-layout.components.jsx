@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './posts-saved-layout.styles.css'
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchGetPostLiked,fetchLike } from "../../redux/likePost/likePostSlice";
+import { fetchGetPostLiked, fetchLike } from "../../redux/likePost/likePostSlice";
 import { Redirect } from "react-router-dom";
 
 const PostsSaved = () => {
@@ -12,7 +12,7 @@ const PostsSaved = () => {
     useEffect(() => {
         dispatch(fetchGetPostLiked());
     }, [])
-    const handleLike=async(id)=>{
+    const handleLike = async (id) => {
         await dispatch(fetchLike(id))
         await dispatch(fetchGetPostLiked());
     }
@@ -24,7 +24,7 @@ const PostsSaved = () => {
                         <h4 class="TitleHeading">Tin đã lưu</h4>
                         <div className="row list">
                             <div className="listt">
-                                {
+                                {lstPostLike && lstPostLike.length > 0 ? (
                                     lstPostLike.map((item) => (
                                         <div>
                                             <div className="listItem">
@@ -37,9 +37,9 @@ const PostsSaved = () => {
                                                                         <div className="sc-kgoBCf dPyyiW">
                                                                             <div className="sc-kGXeez hDgMYM">
                                                                                 {
-                                                                                    item.imageUrls.length>0?(
+                                                                                    item.imageUrls.length > 0 ? (
                                                                                         <img src={item.imageUrls[0]} alt={item.title} height="106" loading="lazy" />
-                                                                                    ):(
+                                                                                    ) : (
                                                                                         <img src="https://pinklotus.vn/wp-content/uploads/2019/04/bat-dong-san.jpg" alt={item.title} height="106" loading="lazy" />
                                                                                     )
                                                                                 }
@@ -62,11 +62,11 @@ const PostsSaved = () => {
                                                                 </div>
                                                             </div>
                                                             <div className="divLike" style={{ marginRight: "20px" }}>
-                                                                <button className="sc-cHGsZl bwQGTK" onClick={()=>handleLike(item.id)}>
+                                                                <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
                                                                     {
-                                                                        item.like==true?(
+                                                                        item.like == true ? (
                                                                             <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
-                                                                        ):(
+                                                                        ) : (
                                                                             <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart.png" alt="like" />
                                                                         )
                                                                     }
@@ -78,6 +78,15 @@ const PostsSaved = () => {
                                             </div>
                                         </div>
                                     ))
+                                )
+                                    : (<div style={{ width: "100%" }}>
+                                        <div class="notfound">
+                                            <div class="alert alert-warning">
+                                                <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px" /><br />
+                                                <b>Bạn chưa lưu tin đăng nào!</b><br />
+                                                Hãy bấm nút ❤ ở tin đăng để lưu và xem lại sau.</div>
+                                        </div>
+                                    </div>)
                                 }
                             </div>
                         </div>

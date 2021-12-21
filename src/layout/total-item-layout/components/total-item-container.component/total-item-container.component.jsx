@@ -11,7 +11,7 @@ const TotalItemContainer = ({ lstPostSearch, Search }) => {
         setCurrentPage(pageNumber)
         dispatch(fetchFilterPosts({
             Search,
-            Page:  pageNumber ,
+            Page: pageNumber,
             Size: 24
         }));
     }
@@ -21,26 +21,33 @@ const TotalItemContainer = ({ lstPostSearch, Search }) => {
                 <div className="no-padding" style={{ width: "100%" }}>
                     <div className="list-view">
                         {
-                            lstPostSearch.posts ? (
-                                <div style={{ display: "flex", flexFlow: "wrap" }}>
-                                    {
-                                        lstPostSearch.posts.map((item) => (
-                                            <Item key={item.id} item={item} />
-                                        ))
-                                    }
-                                </div>
-                            ) : ''
-                        }
-                        {
-                            lstPostSearch.posts ? (
-                                <Pagination
-                                    activePage={currentPage}
-                                    itemsCountPerPage={24}
-                                    totalItemsCount={lstPostSearch.totalSize}
-                                    pageRangeDisplayed={5}
-                                    onChange={(pageNumber) => onChangePage(pageNumber)}
-                                />
-                            ) : ''
+                            lstPostSearch.posts && lstPostSearch.posts.length > 0 ? (
+                                <div>
+                                    <div style={{ display: "flex", flexFlow: "wrap" }}>
+                                        {
+                                            lstPostSearch.posts.map((item) => (
+                                                <Item key={item.id} item={item} />
+                                            ))
+                                        }
+                                    </div>
+                                    <Pagination
+                                        activePage={currentPage}
+                                        itemsCountPerPage={24}
+                                        totalItemsCount={lstPostSearch.totalSize}
+                                        pageRangeDisplayed={5}
+                                        onChange={(pageNumber) => onChangePage(pageNumber)}
+                                    />
+                                </div>)
+                                : (
+                                    <div>
+                                        <div class="notfound">
+                                            <div class="alert alert-warning">
+                                            <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px"/><br/>
+                                                <b>Không tìm thấy kết quả từ khóa đã nhập</b><br/>
+                                                Hãy chắc chắn rằng tất cả các từ đều đúng chính tả. Hãy thử những từ khóa khác hoặc những từ khóa chung hơn.</div>
+                                        </div>
+                                    </div>
+                                )
                         }
                     </div>
                 </div>

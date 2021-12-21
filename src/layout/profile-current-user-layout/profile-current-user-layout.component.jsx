@@ -92,7 +92,7 @@ const ProfileCurrentUserLayout = () => {
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>{item.createdDate}</span></div>
+                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="divLike" style={{ marginRight: "20px" }}>
@@ -166,15 +166,8 @@ const ProfileCurrentUserLayout = () => {
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>{item.createdDate}</span></div>
+                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div className="divLike" style={{ marginRight: "20px" }}>
-                                                                        <button className="sc-cHGsZl bwQGTK">
-                                                                            <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart.png" alt="like" />
-                                                                            {/* khi đã nhấn like */}
-                                                                            <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
-                                                                        </button>
                                                                     </div>
                                                                 </li>
                                                             </ul>
@@ -238,15 +231,8 @@ const ProfileCurrentUserLayout = () => {
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>{item.createdDate}</span></div>
+                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div className="divLike" style={{ marginRight: "20px" }}>
-                                                                        <button className="sc-cHGsZl bwQGTK">
-                                                                            <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart.png" alt="like" />
-                                                                            {/* khi đã nhấn like */}
-                                                                            <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
-                                                                        </button>
                                                                     </div>
                                                                 </li>
                                                             </ul>
