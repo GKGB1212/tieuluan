@@ -46,8 +46,8 @@ const ProfileCurrentUserLayout = () => {
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>
                                     <div className="FollowRow">
-                                        <div style={{ marginRight: "10px" }}><b>{post.followCount}</b> Người theo dõi</div>
-                                        <div><b>{post.followedCount}</b> Đang theo dõi</div>
+                                        <div style={{ marginRight: "10px" }} onClick={()=>history.push({pathname:'/follow', state:{type:1}})}><b>{post.followedCount}</b> Người theo dõi</div>
+                                        <div onClick={()=>history.push({pathname:"/followed" ,state:{type:2}})}><b>{post.followCount}</b> Đang theo dõi</div>
                                     </div>
                                     <div class="UltiRow">
                                         <button class="MainFunctionButton Follow" onClick={() => history.push('/dashboard/profile')}>Chỉnh sửa thông tin cá nhân</button>

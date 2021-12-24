@@ -139,7 +139,6 @@ const followSlice = createSlice({
         [fetchCheckFollow.fulfilled]: (state, action) => {
             state.loading = false
             state.checkFollow = action.payload
-            console.log(action.payload);
         },
         [fetchCheckFollow.rejected]: (state, action) => {
             state.err = action.err

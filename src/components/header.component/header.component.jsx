@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchPosts } from "../../redux/product/productSlice";
 import { fetchFilterPosts } from "../../redux/product/productSlice";
 import { setUp, signOut } from "../../redux/user/userSlice";
-import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component'
+import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component';
 const HeaderM = () => {
     const [Search, setSearch] = useState('');
     const [hidden, sethHidden] = useState(true);
@@ -25,7 +25,7 @@ const HeaderM = () => {
         }));
         history.push({
             pathname: `/tim-kiem-bds`,
-            search:Search
+            search: Search
         })
     }
     return (
@@ -45,7 +45,12 @@ const HeaderM = () => {
                 </div>
                 <div class="info">
                     <div class="search">
-                        <div class="s116vlok">
+                        <div class="search-container">
+
+                            <input type="text" placeholder="Tìm kiếm bất động sản" name="search" class="inputSearch"  value={Search} onChange={(e) => setSearch(e.target.value)}/>
+                            <button type="submit"  onClick={handleClickSearch}><i class="fa fa-search"></i></button>
+                        </div>
+                        {/* <div class="s116vlok">
                             <div value="" class="a1ywrhtc">
                                 <button aria-label="Search Button Desktop" class="btnSearch" onClick={handleClickSearch}>
                                     <svg xmlns="http://www.w3.org/2000/svg" data-type="monochrome" viewBox="0 0 16 16" width="1em" height="1em" fill="none">
@@ -55,7 +60,7 @@ const HeaderM = () => {
                                 </button>
                             </div>
                             <input autocomplete="off" value={Search} onChange={(e) => setSearch(e.target.value)} placeholder="Tìm kiếm bất động sản" id="__inputItemProps" type="text" class="t1o0834r" />
-                        </div>
+                        </div> */}
                     </div>
                     {
                         currentUser != null
@@ -85,7 +90,7 @@ const HeaderM = () => {
                 {
                     hidden ?
                         null :
-                        <DropDownMenu setHidden={sethHidden}/>
+                        <DropDownMenu setHidden={sethHidden} />
                 }
             </section>
         </>

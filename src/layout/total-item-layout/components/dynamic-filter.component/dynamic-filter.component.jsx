@@ -3,7 +3,7 @@ import './dynamic-filter.styles.css'
 import { useDispatch } from "react-redux";
 import { fetchFilterPosts } from "../../../../redux/product/productSlice";
 
-const DynamicFilter = ({ lstCity, Search, type }) => {
+const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
     const dispatch=useDispatch()
     const [ProvinceID, setProvinceID] = useState(0);
     const [PostTypeID, setPostTypeID] = useState(0);
@@ -12,7 +12,10 @@ const DynamicFilter = ({ lstCity, Search, type }) => {
         if(type!=null){
             setPostTypeID(type)
         }
-    }, [type])
+        if(categoryId!=null){
+            setCategoryID(categoryId);
+        }
+    }, [type,categoryId])
     const handleClickSearch = () => {
         var objSearch={Search};
         if(ProvinceID!=0){
@@ -49,7 +52,7 @@ const DynamicFilter = ({ lstCity, Search, type }) => {
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
                         {(PostTypeID == 1)
                             ? (
-                                <select class="form-input" onChange={(e) => setCategoryID(e.target.value)}>
+                                <select class="form-input" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
                                     <option value="0">Chọn Loại BĐS</option>
                                     <option value="1">Căn hộ/ Chung cư</option>
                                     <option value="2">Nhà ở</option>
@@ -58,7 +61,7 @@ const DynamicFilter = ({ lstCity, Search, type }) => {
                                 </select>
                             ) :
                             (
-                                <select class="form-input" onChange={(e) => setCategoryID(e.target.value)}>
+                                <select class="form-input" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
                                     <option value="0">Chọn Loại BĐS</option>
                                     <option value="1">Căn hộ/ Chung cư</option>
                                     <option value="2">Nhà ở</option>

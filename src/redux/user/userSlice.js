@@ -185,6 +185,24 @@ export const fetchChangeInfo = createAsyncThunk(
     }
 )
 
+export const fetchSendCodeResetPassword = createAsyncThunk(
+    'user/fetchSendCodeResetPassword',
+    async (phoneNumber, thunkAPI) => {
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:50804/api/Auths/SendCodeResetPassword?phone=0971966126", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+    })
+
 
 // Cấu hình slice
 const userSlice = createSlice({
@@ -198,13 +216,13 @@ const userSlice = createSlice({
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
         setUp(state) {
-            state.succeeded=false
+            state.succeeded = false
         },
         signOut(state) {
-            state.error= '';
-            state.currentUser= null;
-            state.succeeded= false;
-            state.infoUser= null;
+            state.error = '';
+            state.currentUser = null;
+            state.succeeded = false;
+            state.infoUser = null;
         }
     },
     extraReducers: {
@@ -227,7 +245,8 @@ const userSlice = createSlice({
         [fetchLogin.rejected]: (state, action) => {
             console.log('lỗi', action.error)
             state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
-            state.currentUser = null
+            state.currentUser = null;
+            state.succeeded = false;
         },
         [fetchSignIn.pending]: (state, action) => {
             state.error = null;
@@ -266,18 +285,17 @@ const userSlice = createSlice({
             state.succeeded = false;
         },
         [fetchChangePassword.fulfilled]: (state, action) => {
-            if (act.payload.succeeded == false) {
+            console.log('thành công', action.payload)
+            if (action.payload.succeeded == false) {
                 state.succeeded = false;
                 state.error = action.payload.errors;
             } else {
                 state.succeeded = true;
                 state.error = null;
             }
-            console.log("Thành công", action.payload);
-            state.succeeded = true;
-            state.error = null;
         },
         [fetchChangePassword.rejected]: (state, action) => {
+            console.log('vào lỗi rồi', action.error)
             state.error = 'Không thể đổi mật khẩu'
             state.succeeded = false;
         },
@@ -298,7 +316,7 @@ const userSlice = createSlice({
             // state.error = null;
         },
         [fetchChangeInfo.rejected]: (state, action) => {
-            state.error = 'Không thể đổi mật khẩu'
+            state.error = 'Không thể đổi thông tin'
             state.succeeded = false;
         },
 

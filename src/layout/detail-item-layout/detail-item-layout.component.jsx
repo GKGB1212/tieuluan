@@ -86,7 +86,7 @@ const DetailItemLayout = () => {
                         <AdDecriptionWrapper item={post} handleSavePost={handleSavePost}/>
                         <div style={{ margin: "5px 0px 15px 0px" }}></div>
                         <div class="col-xs-12 no-padding">
-                            <SmallDetail img="https://cdn-icons.flaticon.com/png/512/5736/premium/5736652.png?token=exp=1638518555~hmac=bb67ec8fd1aa82ae9d5277443cf3c70e" title="Loại bất động sản: " value={lstCategory[post.categoryID - 1]} />
+                            <SmallDetail img="https://cdn-icons-png.flaticon.com/512/602/602225.png" title="Loại bất động sản: " value={lstCategory[post.categoryID - 1]} />
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/639/639365.png" title="Giá tiền: " value={post.price} />
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/1295/1295160.png" title="Diện tích: " value={post.area} />
                             {

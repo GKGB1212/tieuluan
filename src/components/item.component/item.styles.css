@@ -8,6 +8,7 @@
     margin-left: 0;
     margin-right: 0;
     background-color: white;
+    height: 350px;
 }
 .box .image{
     position: relative;
@@ -32,6 +33,7 @@
 }
 
 .box .title{
+    height: 45px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

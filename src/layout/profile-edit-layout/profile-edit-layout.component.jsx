@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchInfoUser } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
 import imgAvt from '../../assets/images/avatar.png';
-import { fetchChangeInfo } from "../../redux/user/userSlice";
+import { fetchChangeInfo, setUp } from "../../redux/user/userSlice";
 const ProfileEditLayout = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const infoUser = useSelector(state => state.user.infoUser);
+    const succeeded=useSelector(state=>state.user.succeeded);
     const [name, setName] = useState('');
     const [imageUrltemp, setImageUrltemp] = useState(null);
     const [image, setImage] = useState(null);
@@ -21,6 +22,7 @@ const ProfileEditLayout = () => {
     }, [])
     useEffect(() => {
         if (infoUser != null) {
+            console.log(succeeded)
             setName(infoUser.name);
             setGender(infoUser.gender);
             //xử lý ngày sinh
@@ -98,6 +100,7 @@ const ProfileEditLayout = () => {
                                         <li>
                                             <div class="_30EYSdf_NK78GgsJAB8_3I">
                                                 <button onClick={() => {
+                                                    dispatch(setUp());
                                                     history.push("/profile/password")
                                                 }}>Đổi mật khẩu</button>
                                             </div>

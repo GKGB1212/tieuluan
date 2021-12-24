@@ -27,6 +27,11 @@ const LoginForm = () => {
             setTextBtn('Ẩn');
         }
     }
+    const handleChangePass=(e)=>{
+        console.log(e.target.value);
+        let text=e.target.value
+        setPassWord(text);
+    }
     const login = async () => {
         if (phoneNumber == '' || passWord == '') {
             toast.notifyError("Vui lòng nhập đủ thông tin!")
@@ -66,7 +71,7 @@ const LoginForm = () => {
                 </div>
                 <div class="inputLoginDiv">
                     <div>
-                        <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" />
+                        <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" maxLength="10"/>
                         <button tabindex="-1" type="button">
                             <span class="clear">
                             </span>
@@ -77,7 +82,7 @@ const LoginForm = () => {
                 </div>
                 <div class="inputLoginDiv">
                     <div>
-                        <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" maxLength="11" />
+                        <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => handleChangePass(e)}/>
                         <button tabindex="-1" type="button" onClick={changeTypePassWord}>
                             {textBtn}
                         </button>

@@ -41,7 +41,7 @@ const LoginSignupForm = () => {
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
         } else {
-            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
             if (regex.test(passWord)) {
                 await dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }));
                 if (succeeded == true) {
@@ -53,7 +53,7 @@ const LoginSignupForm = () => {
                     });
                 }
             }else{
-                toast.notifyError("Mật khẩu yêu cầu bao gồm chữ hoa, chữ thường, số và có độ dài ít nhất là 6")
+                toast.notifyError("Mật khẩu yêu cầu: Tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt")
             }
         }
     }

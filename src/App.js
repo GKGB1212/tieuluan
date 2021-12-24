@@ -39,17 +39,27 @@ function App() {
       <BrowserRouter>
         <HeaderM />
         <Switch>
-          <Route exact path='/profile/password' component={ChangePasswordLayout} />
+          <Route exact path='/profile/password'
+          render={() => currentUser ? (
+            <ChangePasswordLayout />
+          ) : (
+            <Redirect to='/' />
+          )}/>
           <Route exact path='/' component={MainLayout} />
           <Route path='/user/:id' component={ProfileLayout} />
-          <Route exact path='/postssaved' component={PostsSaved} />
-          <Route exact path='/mua-ban-bds' component={TotalItemLayout} />
-          <Route exact path='/cho-thue-bds' component={TotalItemLayout} />
+          <Route exact path='/postssaved'
+          render={() => currentUser ? (
+            <PostsSaved />
+          ) : (
+            <Redirect to='/' />
+          )} />
           <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
           <Route exact path='/products/:id' component={DetailItemLayout} />
           <Route exact path='/dashboard/ads' component={PostManagementLayout} />
-          <Route exact path='/dashboard/profile/edit' component={ProfileEditMainLayout} />
           <Route exact path='/follow' component={FollowLayout} />
+          <Route exact path='/followed' component={FollowLayout} />
+          <Route exact path='/follow/:userId' component={FollowLayout} />
+          <Route exact path='/followed/:userId' component={FollowLayout} />
           <Route exact path='/dashboard/profile'
             render={() => currentUser ? (
               <ProfileEditLayout />

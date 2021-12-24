@@ -34,7 +34,7 @@ const Item = ({ item }) => {
                 </div>
                 <p class="details">{item.area} m²</p>
                 <p class="price">{item.price} VNĐ</p>
-                <p class="time">{item.createdDate}-{province}</p>
+                <p class="time">Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]} ({province})</p>
             </div>
         </Link>
     );

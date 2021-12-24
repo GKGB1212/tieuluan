@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetchChangePassword } from "../../redux/user/userSlice";
 import { notifyError, notifySuccess } from "../../common/toast";
+import { setUp } from "../../redux/user/userSlice";
 const ChangePasswordLayout = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -12,21 +13,35 @@ const ChangePasswordLayout = () => {
     const dispatch = useDispatch();
     const error = useSelector(state => state.user.error);
     const succeeded = useSelector(state => state.user.succeeded);
+    const history = useHistory();
+    const [currentError,setCurrentError]=useState(null);
     const handleClickChangePassword = () => {
+        let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (oldPassword == '' || password == '' || confirmPassword == '') {
-            notifyError("Vui lòng nhập đủ 3 trường!");
+            setCurrentError("Vui lòng nhập đủ 3 trường!");
+        } else if (regex.test(password) == false) {
+            setCurrentError("Mật khẩu yêu cầu: Tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt");
+        }
+        else if (confirmPassword != password) {
+            setCurrentError("Vui lòng kiểm tra lại, mật khẩu xác nhận không khớp!");
+        } else if (password == oldPassword) {
+            setCurrentError("Mật khẩu mới phải khác mật khẩu cũ!");
         }
         else
             dispatch(fetchChangePassword({ oldPassword, password, confirmPassword }))
     }
     useEffect(() => {
         if (succeeded == true) {
-            notifySuccess("Đổi mật khẩu thành công")
-        } else {
-            console.log("flasw")
-            notifyError(error)
+            dispatch(setUp());
+            notifySuccess("Đổi mật khẩu thành công");
+            history.push("/dashboard/profile");
+
         }
-    }, [error])
+    }, [succeeded])
+    useEffect(()=>{
+        console.log(error)
+        setCurrentError(error)
+    },[error]);
     return (
         <div className="container">
             <div className="row">
@@ -43,6 +58,16 @@ const ChangePasswordLayout = () => {
                                             <div className="_3hWTTQHIGJUzaTwYs3IRvj">
                                                 <div class="col-xs-12">
                                                     <ul>
+                                                        <li>
+                                                            {
+                                                                currentError!=null
+                                                                ?(
+                                                                    <div class="e66t3pu error">
+                                                                            {currentError}
+                                                                        </div>
+                                                                ):('')
+                                                            }
+                                                        </li>
                                                         <li>
                                                             <div class="_127aka-EHteI96Rlw94SeA"><span>Mật khẩu hiện tại</span></div>
                                                             <div class="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Mật khẩu hiện tại" onChange={(e) => setOldPassword(e.target.value)} type="password" class="form-control" name="oldPassword" value={oldPassword} /></div>

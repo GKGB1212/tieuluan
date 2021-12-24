@@ -15,20 +15,31 @@ const TotalItemLayout = (props) => {
     const lstPostSearch = useSelector(state => state.product.lstPostSearch);
     const [lstCity, setLstCity] = useState([]);
     const [type, setType] = useState(null);
+    const [categoryId,setCategoryId]=useState(null);
 
     useEffect(() => {
         try {
             setType(location.state.type);
+            setCategoryId(location.state.categoryId);
         } catch {
 
         }
         if (location.pathname == '/tim-kiem-bds') {
             if (type != null) {
-                dispatch(fetchFilterPosts({
-                    PostTypeID: type,
-                    Page: 1,
-                    Size: 24
-                }))
+                if(categoryId==undefined){
+                    dispatch(fetchFilterPosts({
+                        PostTypeID: type,
+                        Page: 1,
+                        Size: 24
+                    }))
+                }else{
+                    dispatch(fetchFilterPosts({
+                        PostTypeID: type,
+                        Page: 1,
+                        Size: 24,
+                        CategoryID: categoryId
+                    }))
+                }
             }
         }
     }, [type])
@@ -49,11 +60,10 @@ const TotalItemLayout = (props) => {
     return (
         // type?(
         <div className="container ct-listing">
-            <DynamicFilter lstCity={lstCity} Search={Search} type={type} />
+            <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId}/>
             <h1>{props.location.type}</h1>
             <TotalItemContainer lstPostSearch={lstPostSearch} Search={Search} />
         </div>
-        // ):<Redirect to='/'/>
     )
 }
 export default TotalItemLayout;

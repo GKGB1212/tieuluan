@@ -71,8 +71,8 @@ const ProfileLayout = () => {
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>
                                     <div className="FollowRow">
-                                        <div style={{ marginRight: "10px" }}><Link><b>{post.followCount}</b> Người theo dõi</Link></div>
-                                        <div><Link><b>{post.followedCount}</b> Đang theo dõi</Link></div>
+                                        <div style={{ marginRight: "10px" }}><Link  to={{pathname:`/follow/${id}`, state:{type:1}}}><b>{post.followedCount}</b> Người theo dõi</Link></div>
+                                        <div><Link to={{pathname:`/followed/${id}`, state:{type:2}}}><b>{post.followCount}</b> Đang theo dõi</Link></div>
                                     </div>
                                     {
                                         checkFollow
