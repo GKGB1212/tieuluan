@@ -43,6 +43,8 @@ export default function Slider({ imageUrls }) {
                     </div>
                 )
             })}
+            {imageUrls.length==0?
+            <div>gggggggggggggg</div>:<div></div>}
             {
                 imageUrls.length > 1 ? (
                     <div>

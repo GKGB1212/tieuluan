@@ -23,7 +23,7 @@ export const fetchFollow = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
         };
-        await fetch(`http://localhost:50804/api/Follows?id=${id}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Follows?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -43,7 +43,7 @@ export const fetchGetFollowed = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
         };
-        await fetch(`http://localhost:50804/api/Follows/GetFollowed?id=${id}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Follows/GetFollowed?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -63,7 +63,7 @@ export const fetchGetFollow = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
         };
-        await fetch(`http://localhost:50804/api/Follows/GetFollow?id=${id}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Follows/GetFollow?id=${id}`, requestOptions)
             .then(response => result = response.json())
             .then(json => { result = json; })
             .catch(error => console.log('error', error));
@@ -80,7 +80,7 @@ export const fetchCheckFollow = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch(`http://localhost:50804/api/Follows/CheckFollow?idUser1=${objSearch.userCurrentID}&idUser2=${objSearch.id}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Follows/CheckFollow?idUser1=${objSearch.userCurrentID}&idUser2=${objSearch.id}`, requestOptions)
             .then(response => result = response.json())
             .then(json => { result = json; })
             .catch(error => console.log('error', error));
