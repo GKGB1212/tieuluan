@@ -10,6 +10,7 @@ import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 import { resetSuccess } from "../../redux/product/productSlice";
 import { fetchPostById, fetchUpdatePost, setUpStateUpdatePost } from "../../redux/product/productSlice";
+import LoadingComponent from '../loader/LoadingComponent';
 
 
 const PostCreate = () => {
