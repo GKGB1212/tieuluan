@@ -22,7 +22,7 @@ export const fetchLogin = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/Login", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/Login", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -57,7 +57,7 @@ export const fetchChangePassword = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/ChangePassword", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/ChangePassword", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -83,7 +83,7 @@ export const fetchInfoUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/Info", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/Info", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -137,7 +137,7 @@ export const fetchSignIn = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/Register", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/Register", requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
@@ -173,7 +173,7 @@ export const fetchChangeInfo = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/ChangeInfo", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/ChangeInfo", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -198,7 +198,7 @@ export const fetchSendCodeResetPassword = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch(`http://localhost:50804/api/Auths/SendCodeResetPassword?phone=${phoneNumber}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Auths/SendCodeResetPassword?phone=${phoneNumber}`, requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
@@ -226,7 +226,7 @@ export const fetchResetPassword = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Auths/ResetPassword", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Auths/ResetPassword", requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));

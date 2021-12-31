@@ -35,7 +35,7 @@ export const fetchFilterPosts = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        var query = "http://localhost:50804/api/Posts/Search?"
+        var query = "https://realestateute.azurewebsites.net/api/Posts/Search?"
         for (var key in objSearch) {
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
@@ -59,7 +59,7 @@ export const fetchFilterPostsForMainLayout = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        var query = "http://localhost:50804/api/Posts/Search?"
+        var query = "https://realestateute.azurewebsites.net/api/Posts/Search?"
         for (var key in objSearch) {
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
@@ -80,7 +80,7 @@ export const fetchPosts = createAsyncThunk(
     'product/fetchPosts',
     async () => {
         var result;
-        await fetch('http://localhost:50804/api/Posts')
+        await fetch('https://realestateute.azurewebsites.net/api/Posts')
             .then(res => res.json())
             .then((data) => {
                 result = data;
@@ -96,9 +96,9 @@ export const fetchPostById = createAsyncThunk(
         var result;
         var res = '';
         if (objRequest.userId != null) {
-            res = `http://localhost:50804/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
+            res = `https://realestateute.azurewebsites.net/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
         } else {
-            res = `http://localhost:50804/api/Posts/${objRequest.id}`
+            res = `https://realestateute.azurewebsites.net/api/Posts/${objRequest.id}`
         }
         await fetch(res)
             .then(res => res.json())
@@ -119,7 +119,7 @@ export const fetchPostByIdUser = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        await fetch(`http://localhost:50804/api/Posts/GetPostsByUser?id=${objRequest.id}&userCurrentID=${objRequest.userCurrentID}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Posts/GetPostsByUser?id=${objRequest.id}&userCurrentID=${objRequest.userCurrentID}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -146,7 +146,7 @@ export const fetchPostByCurrentUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch('http://localhost:50804/api/Posts/GetPostsByUserCurrent', requestOptions)
+        await fetch('https://realestateute.azurewebsites.net/api/Posts/GetPostsByUserCurrent', requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -173,7 +173,7 @@ export const fetchSoldPost = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch(`http://localhost:50804/api/Posts/Sold?id=${idPost}`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/Posts/Sold?id=${idPost}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -197,7 +197,7 @@ export const fetchGetPostTypeNumber = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("http://localhost:50804/api/Posts/GetPostTypeNumber", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Posts/GetPostTypeNumber", requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
@@ -237,7 +237,7 @@ export const fetchInsertPost = createAsyncThunk(
                 body: raw,
                 redirect: 'follow'
             };
-            await fetch("http://localhost:50804/api/Auths/Refresh", requestOptions)
+            await fetch("https://realestateute.azurewebsites.net/api/Auths/Refresh", requestOptions)
                 // Converting to JSON
                 .then(response => result = response.json())
                 // Displaying results to console
@@ -286,7 +286,7 @@ export const fetchInsertPost = createAsyncThunk(
         };
 
 
-        await fetch("http://localhost:50804/api/Posts", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -329,7 +329,7 @@ export const fetchUpdatePost = createAsyncThunk(
                 body: raw,
                 redirect: 'follow'
             };
-            await fetch("http://localhost:50804/api/Auths/Refresh", requestOptions)
+            await fetch("https://realestateute.azurewebsites.net/api/Auths/Refresh", requestOptions)
                 // Converting to JSON
                 .then(response => result = response.json())
                 // Displaying results to console
@@ -386,7 +386,7 @@ export const fetchUpdatePost = createAsyncThunk(
         };
 
 
-        await fetch("http://localhost:50804/api/Posts", requestOptions)
+        await fetch("https://realestateute.azurewebsites.net/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
