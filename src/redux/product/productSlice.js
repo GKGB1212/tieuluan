@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import jwtDecode from "jwt-decode";
+import { act } from "react-dom/test-utils";
 
 const initialState = {
     loading: false,
@@ -20,6 +21,7 @@ const initialState = {
     lstPostPurchase: [],
     //danh sách sp cho thuê
     lstPostLease: [],
+    successChangeSoldPost:false
 };
 
 //hàm filter post
@@ -32,7 +34,7 @@ export const fetchFilterPosts = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        var query = "https://realestateute.azurewebsites.net/api/Posts/Search?"
+        var query = "http://localhost:50804/api/Posts/Search?"
         for (var key in objSearch) {
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
@@ -56,7 +58,7 @@ export const fetchFilterPostsForMainLayout = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        var query = "https://realestateute.azurewebsites.net/api/Posts/Search?"
+        var query = "http://localhost:50804/api/Posts/Search?"
         for (var key in objSearch) {
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
@@ -77,7 +79,7 @@ export const fetchPosts = createAsyncThunk(
     'product/fetchPosts',
     async () => {
         var result;
-        await fetch('https://realestateute.azurewebsites.net/api/Posts')
+        await fetch('http://localhost:50804/api/Posts')
             .then(res => res.json())
             .then((data) => {
                 result = data;
@@ -93,9 +95,9 @@ export const fetchPostById = createAsyncThunk(
         var result;
         var res = '';
         if (objRequest.userId != null) {
-            res = `https://realestateute.azurewebsites.net/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
+            res = `http://localhost:50804/api/Posts/${objRequest.id}?userID=${objRequest.userId}`
         } else {
-            res = `https://realestateute.azurewebsites.net/api/Posts/${objRequest.id}`
+            res = `http://localhost:50804/api/Posts/${objRequest.id}`
         }
         await fetch(res)
             .then(res => res.json())
@@ -116,7 +118,7 @@ export const fetchPostByIdUser = createAsyncThunk(
             method: 'GET',
             redirect: 'follow'
         };
-        await fetch(`https://realestateute.azurewebsites.net/api/Posts/GetPostsByUser?id=${objRequest.id}&userCurrentID=${objRequest.userCurrentID}`, requestOptions)
+        await fetch(`http://localhost:50804/api/Posts/GetPostsByUser?id=${objRequest.id}&userCurrentID=${objRequest.userCurrentID}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -143,7 +145,7 @@ export const fetchPostByCurrentUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch('https://realestateute.azurewebsites.net/api/Posts/GetPostsByUserCurrent', requestOptions)
+        await fetch('http://localhost:50804/api/Posts/GetPostsByUserCurrent', requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json })
@@ -152,6 +154,34 @@ export const fetchPostByCurrentUser = createAsyncThunk(
         return result;
     }
 )
+
+//hàm đổi trangj thái sang đã bán/ đã tìm đươck
+export const fetchSoldPost = createAsyncThunk(
+    'product/fetchSoldPost',
+    async (idPost) => {
+        var result;
+        var accessToken = localStorage.getItem('accessToken');
+        var refreshToken = localStorage.getItem('refreshToken');
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+
+        var requestOptions = {
+            method: 'GET',
+            headers: myHeaders,
+            redirect: 'follow'
+        };
+
+        await fetch(`http://localhost:50804/api/Posts/Sold?id=${idPost}`, requestOptions)
+            .then(response => result = response.json())
+            // Displaying results to console
+            .then(json => { result = json })
+            .catch(error => console.log('error', error));
+
+        return result;
+    }
+)
+
 
 export const fetchGetPostTypeNumber = createAsyncThunk(
     'product/fetchGetPostTypeNumber',
@@ -166,7 +196,7 @@ export const fetchGetPostTypeNumber = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Posts/GetPostTypeNumber", requestOptions)
+        await fetch("http://localhost:50804/api/Posts/GetPostTypeNumber", requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
@@ -206,7 +236,7 @@ export const fetchInsertPost = createAsyncThunk(
                 body: raw,
                 redirect: 'follow'
             };
-            await fetch("https://realestateute.azurewebsites.net/api/Auths/Refresh", requestOptions)
+            await fetch("http://localhost:50804/api/Auths/Refresh", requestOptions)
                 // Converting to JSON
                 .then(response => result = response.json())
                 // Displaying results to console
@@ -255,7 +285,7 @@ export const fetchInsertPost = createAsyncThunk(
         };
 
 
-        await fetch("https://realestateute.azurewebsites.net/api/Posts", requestOptions)
+        await fetch("http://localhost:50804/api/Posts", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -277,6 +307,9 @@ const productSlice = createSlice({
     reducers: {
         resetSuccess(state) {
             state.success = false;
+        },
+        setUpSoldPost(state){
+            state.successChangeSoldPost=false;
         }
     },
     extraReducers: {
@@ -327,7 +360,7 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchFilterPosts.fulfilled]: (state, action) => {
-            console.log("connn",action.payload)
+            console.log("connn", action.payload)
             state.loading = false;
             state.lstPostSearch = action.payload;
         },
@@ -376,6 +409,23 @@ const productSlice = createSlice({
             state.loading = false
             state.err = action.err
         },
+        [fetchSoldPost.pending]: (state, action) => {
+            state.loading = true;
+            state.successChangeSoldPost=false;
+        },
+        [fetchSoldPost.fulfilled]: (state, action) => {
+            console.log(action.payload);
+            if(action.payload.succeeded){
+                state.successChangeSoldPost=true;
+            }else{
+                state.successChangeSoldPost=false;
+            }
+        },
+        [fetchSoldPost.rejected]: (state, action) => {
+            state.loading = false;
+            state.err = action.err;
+            state.successChangeSoldPost=false;
+        },
     }
 });
 
@@ -383,7 +433,7 @@ const productSlice = createSlice({
 // Hàm này có 1 tham số là root state là toàn bộ state trong store, chạy thử console.log(state) trong nội dung hàm để xem chi tiết
 export const selectProducts = state => state.product.products;
 
-export const { resetSuccess } = productSlice.actions
+export const { resetSuccess, setUpSoldPost } = productSlice.actions
 
 // Export reducer để nhúng vào Store
 export default productSlice.reducer;

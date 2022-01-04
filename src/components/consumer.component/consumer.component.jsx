@@ -29,28 +29,12 @@ const Consumer = ({ title, totalArtical, type, products }) => {
                     type == 'purchase'
                         ? (
                             <Link to={{pathname:'/tim-kiem-bds', state:{type:1}}}>
-                                Xem thêm {postTypeNumber.muaBan} tin khác`
-                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="18" viewBox="0 0 11 18">
-                                    <g fill="none" fill-rule="evenodd">
-                                        <path stroke="#38699F" stroke-linecap="round" stroke-width="1.5" d="M1.125 3L6.75 8 1.125 13" transform="translate(1 1)">
-                                        </path>
-                                        <path stroke="#FFF" stroke-width=".1" d="M0 0H9V16H0z" opacity=".01" transform="translate(1 1)">
-                                        </path>
-                                    </g>
-                                </svg>
+                                Xem tất cả {postTypeNumber.muaBan} tin ➔
                             </Link>
                         )
                         : (
                             <Link to={{pathname:'/tim-kiem-bds', state:{type:2}}}>
-                                Xem thêm {postTypeNumber.thue} tin khác`
-                                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="18" viewBox="0 0 11 18">
-                                    <g fill="none" fill-rule="evenodd">
-                                        <path stroke="#38699F" stroke-linecap="round" stroke-width="1.5" d="M1.125 3L6.75 8 1.125 13" transform="translate(1 1)">
-                                        </path>
-                                        <path stroke="#FFF" stroke-width=".1" d="M0 0H9V16H0z" opacity=".01" transform="translate(1 1)">
-                                        </path>
-                                    </g>
-                                </svg>
+                                Xem tất cả {postTypeNumber.thue} tin ➔
                             </Link>
                         )}
             </div>

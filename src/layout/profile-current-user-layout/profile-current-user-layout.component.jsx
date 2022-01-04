@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import './profile-current-user-layout.styles.css'
-import { fetchPostByCurrentUser } from "../../redux/product/productSlice";
+import { fetchPostByCurrentUser, fetchSoldPost } from "../../redux/product/productSlice";
+import { setUpSoldPost } from "../../redux/product/productSlice";
 import { fetchLike } from "../../redux/likePost/likePostSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import default_avt from '../../assets/images/default_user.png'
+import NotifyErrorComponent from "../../components/notify.component/notify.component";
 
 const ProfileCurrentUserLayout = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
     const loading = useSelector(state => state.product.loading);
+    const successChangeSoldPost = useSelector(state => state.product.successChangeSoldPost);
     const post = useSelector(state => state.product.lstPostByUser);
+    const [isShowNotify, setIsShowNotify] = useState(false);
+    const [titleForBox, setTitleForBox] = useState('');
+    const [idToChange, setIdToChange] = useState(null)
     const history = useHistory()
     useEffect(() => {
         dispatch(fetchPostByCurrentUser());
@@ -26,6 +32,30 @@ const ProfileCurrentUserLayout = () => {
             dispatch(fetchPostByCurrentUser());
         }
     }
+    const cancel = () => {
+        setIdToChange(null);
+        setIsShowNotify(false);
+    }
+    const handleClickChangeStatus = (title, id) => {
+        setIsShowNotify(true);
+        setTitleForBox(title);
+        setIdToChange(id);
+    }
+    const handleChangeStatusPost = async () => {
+        if (idToChange == null) {
+            return;
+        } else {
+            await dispatch(fetchSoldPost(idToChange));
+            dispatch(fetchPostByCurrentUser());
+            setIdToChange(null);
+        }
+    }
+    useEffect(() => {
+        if (successChangeSoldPost == true){
+            setIsShowNotify(false);
+            dispatch(setUpSoldPost());
+        }
+    }, [successChangeSoldPost]);
     return post ? (
         <div className="main-content">
             <div className="container WrapperContainer">
@@ -46,8 +76,8 @@ const ProfileCurrentUserLayout = () => {
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>
                                     <div className="FollowRow">
-                                        <div style={{ marginRight: "10px" }} onClick={()=>history.push({pathname:'/follow', state:{type:1}})}><b>{post.followedCount}</b> Người theo dõi</div>
-                                        <div onClick={()=>history.push({pathname:"/followed" ,state:{type:2}})}><b>{post.followCount}</b> Đang theo dõi</div>
+                                        <div style={{ marginRight: "10px" }} onClick={() => history.push({ pathname: '/follow', state: { type: 1 } })}><b>{post.followedCount}</b> Người theo dõi</div>
+                                        <div onClick={() => history.push({ pathname: "/followed", state: { type: 2 } })}><b>{post.followCount}</b> Đang theo dõi</div>
                                     </div>
                                     <div class="UltiRow">
                                         <button class="MainFunctionButton Follow" onClick={() => history.push('/dashboard/profile')}>Chỉnh sửa thông tin cá nhân</button>
@@ -95,7 +125,43 @@ const ProfileCurrentUserLayout = () => {
                                                                             <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
                                                                     </div>
+                                                                    {
+                                                                        item.isSold
+                                                                            ? (
+                                                                                item.postTypeID == 1 || item.postTypeID == 3
+                                                                                    ? (
+                                                                                        <div className="divChangeStatus">
+                                                                                            <div className="divSold">
+                                                                                                Đã bán
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <div className="divChangeStatus">
+                                                                                            <div className="divSold">
+                                                                                                Đã tìm được
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    )
+
+                                                                            ) : (
+                                                                                item.postTypeID == 1 || item.postTypeID == 3
+                                                                                    ? (
+                                                                                        <div className="divChangeStatus">
+                                                                                            <button className="btnChangeStatusOfPost" onClick={() => handleClickChangeStatus(item.title, item.id)}>
+                                                                                                Đã bán
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    ) : (
+                                                                                        <div className="divChangeStatus">
+                                                                                            <button className="btnChangeStatusOfPost" onClick={() => handleClickChangeStatus(item.title, item.id)}>
+                                                                                                Đã tìm được
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    )
+                                                                            )
+                                                                    }
                                                                     <div className="divLike" style={{ marginRight: "20px" }}>
+
                                                                         <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
                                                                             {
                                                                                 item.like == true ? (
@@ -129,9 +195,9 @@ const ProfileCurrentUserLayout = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 {/* tin chưa được duyệt */}
-                <div className="indexPage PaperContainer">
+                < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
                         <h4 class="TitleHeading">Tin chưa được duyệt</h4>
                         <div className="row list">
@@ -193,9 +259,9 @@ const ProfileCurrentUserLayout = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
                 {/* tin bị từ chối */}
-                <div className="indexPage PaperContainer">
+                < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
                         <h4 class="TitleHeading">Tin bị từ chối</h4>
                         <div className="row list">
@@ -257,9 +323,15 @@ const ProfileCurrentUserLayout = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                </div >
+            </div >
+            <NotifyErrorComponent
+                isShow={isShowNotify}
+                title={titleForBox}
+                cancel={cancel}
+                handleChangeStatusPost={handleChangeStatusPost}
+            />
+        </div >
     ) : ''
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import './drop-downmenu.styles.css';
 import { setUp, signOut } from "../../redux/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import * as toast from '../../common/toast';
 import { Link } from "react-router-dom";
 import default_avt from '../../assets/images/default_user.png';
 import { useHistory } from "react-router-dom";
@@ -36,7 +37,7 @@ const DropDownMenu = ({setHidden}) => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="appWrapper-Header-menuMore-listItemWrapper " onClick={() => {dispatch(signOut());setHidden(true);history.push('/')}}>
+                            <div class="appWrapper-Header-menuMore-listItemWrapper " onClick={() => {toast.notifySuccess("Đăng xuất thành công!");dispatch(signOut());setHidden(true);history.push('/')}}>
                                 <a class="appWrapper-Header-menuListItem" >
                                     <div class="appWrapper-Header-menuLeftItem">
                                         <img class="appWrapper-Header-icon--size30" src="https://st.chotot.com/storage/chotot-icons/svg/sign-out.svg" alt="Đăng xuất" />

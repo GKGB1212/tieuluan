@@ -1,6 +1,35 @@
 .contactInfo {
     text-align: center;
 }
+.divChangeStatus .btnChangeStatusOfPost{
+    background-color: #fff;
+    border: 1px solid #fe9900;
+    color: #fe9900;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 11px;
+    height: fit-content;
+    padding: 7px 10px;
+    text-align: center;
+    width: max-content;
+}
+.divChangeStatus .divSold{
+    background-color: #2FC974;
+    border: 1px solid #2FC974;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 11px;
+    height: fit-content;
+    padding: 7px 10px;
+    text-align: center;
+    width: max-content;
+}
+.divChangeStatus .btnChangeStatusOfPost:hover{
+    background-color: #fe9900;
+    border: 1px solid #fe9900;
+    color: white;
+}
 .PaperContainer {
     padding-bottom: 15px;
 }
@@ -200,6 +229,12 @@
     position: absolute;
     bottom: 10px;
     right: 0px;
+    z-index: 1;
+}
+.divChangeStatus{
+    position: absolute;
+    top: 10px;
+    right: 20px;
     z-index: 1;
 }
 .bwQGTK {

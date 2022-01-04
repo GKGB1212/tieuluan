@@ -22,7 +22,7 @@ export const fetchLogin = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Auths/Login", requestOptions)
+        await fetch("http://localhost:50804/api/Auths/Login", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -57,7 +57,7 @@ export const fetchChangePassword = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Auths/ChangePassword", requestOptions)
+        await fetch("http://localhost:50804/api/Auths/ChangePassword", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -83,7 +83,7 @@ export const fetchInfoUser = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Auths/Info", requestOptions)
+        await fetch("http://localhost:50804/api/Auths/Info", requestOptions)
             .then(response => response.text())
             .then(result => {
                 res = JSON.parse(result);
@@ -137,7 +137,7 @@ export const fetchSignIn = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Auths/Register", requestOptions)
+        await fetch("http://localhost:50804/api/Auths/Register", requestOptions)
             .then(response => response.text())
             .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
@@ -173,7 +173,7 @@ export const fetchChangeInfo = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Auths/ChangeInfo", requestOptions)
+        await fetch("http://localhost:50804/api/Auths/ChangeInfo", requestOptions)
             // Converting to JSON
             .then(response => result = response.json())
 
@@ -188,6 +188,7 @@ export const fetchChangeInfo = createAsyncThunk(
 export const fetchSendCodeResetPassword = createAsyncThunk(
     'user/fetchSendCodeResetPassword',
     async (phoneNumber, thunkAPI) => {
+        var res;
         var myHeaders = new Headers();
         myHeaders.append("accept", "*/*");
 
@@ -197,10 +198,39 @@ export const fetchSendCodeResetPassword = createAsyncThunk(
             redirect: 'follow'
         };
 
-        fetch("https://realestateute.azurewebsites.net/api/Auths/SendCodeResetPassword?phone=0971966126", requestOptions)
+        await fetch(`http://localhost:50804/api/Auths/SendCodeResetPassword?phone=${phoneNumber}`, requestOptions)
             .then(response => response.text())
-            .then(result => console.log(result))
+            .then(result => res = JSON.parse(result))
             .catch(error => console.log('error', error));
+        return res;
+    })
+export const fetchResetPassword = createAsyncThunk(
+    'user/fetchResetPassword',
+    async (objReset, thunkAPI) => {
+        var res;
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+        myHeaders.append("Content-Type", "application/json-patch+json");
+
+        var raw = JSON.stringify({
+            "phoneNumber": objReset.phoneNumber,
+            "password": objReset.password,
+            "confirmPassword": objReset.confirmPassword,
+            "code": objReset.code
+        });
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        await fetch("http://localhost:50804/api/Auths/ResetPassword", requestOptions)
+            .then(response => response.text())
+            .then(result => res = JSON.parse(result))
+            .catch(error => console.log('error', error));
+        return res;
     })
 
 
@@ -211,7 +241,8 @@ const userSlice = createSlice({
         error: '',
         currentUser: null,
         succeeded: false,
-        infoUser: null
+        infoUser: null,
+        stateOfForgotPassword: 0
     },
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
@@ -223,6 +254,15 @@ const userSlice = createSlice({
             state.currentUser = null;
             state.succeeded = false;
             state.infoUser = null;
+            localStorage.removeItem('accessToken');
+        },
+        logIn(state) {
+            var accessToken = localStorage.getItem('accessToken');
+            var decodedToken = jwtDecode(accessToken);
+            state.currentUser = decodedToken;
+        },
+        resetStateForgot(state){
+            state.stateOfForgotPassword=0;
         }
     },
     extraReducers: {
@@ -295,7 +335,6 @@ const userSlice = createSlice({
             }
         },
         [fetchChangePassword.rejected]: (state, action) => {
-            console.log('vào lỗi rồi', action.error)
             state.error = 'Không thể đổi mật khẩu'
             state.succeeded = false;
         },
@@ -319,11 +358,38 @@ const userSlice = createSlice({
             state.error = 'Không thể đổi thông tin'
             state.succeeded = false;
         },
-
-
+        [fetchSendCodeResetPassword.pending]: (state, action) => {
+            state.error = null;
+            state.stateOfForgotPassword = 0;
+        },
+        [fetchSendCodeResetPassword.fulfilled]: (state, action) => {
+            if (action.payload.succeeded == true) {
+                state.error = null;
+                state.stateOfForgotPassword = 1;
+            }
+        },
+        [fetchSendCodeResetPassword.rejected]: (state, action) => {
+            state.error = 'Không xác nhận được số điện thoại';
+            state.stateOfForgotPassword = -1;
+        },
+        [fetchResetPassword.pending]: (state, action) => {
+            state.error = null;
+            state.stateOfForgotPassword = 0;
+        },
+        [fetchResetPassword.fulfilled]: (state, action) => {
+            if (action.payload.succeeded == true) {
+                state.error = null;
+                state.stateOfForgotPassword = 2;
+            }
+        },
+        [fetchResetPassword.rejected]: (state, action) => {
+            state.error = 'Không thành công';
+            state.stateOfForgotPassword = -2;
+        },
+        fetchResetPassword
     }
 });
 
-export const { setUp, signOut } = userSlice.actions
+export const { setUp, signOut, logIn, resetStateForgot } = userSlice.actions
 // Export reducer để nhúng vào Store
 export default userSlice.reducer;

@@ -112,9 +112,7 @@
 .info {
     width: 1000px;
     /* background-color: royalblue; */
-    
     margin: auto;
-    margin-top: 5px;
     margin-bottom: 10px;
     box-sizing: content-box;
     display: flex;
@@ -164,7 +162,7 @@
     text-align: center;
     color: white;
     border-radius: 4px;
-    
+    /* margin-bottom: 150px; */
 }
 
 .info .btn:hover{

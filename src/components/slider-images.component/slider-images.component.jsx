@@ -1,7 +1,7 @@
 import './sliderimages.styles.css';
 import React, { useState } from 'react'
 import BtnSlider from './BtnSlider'
-import dataSlider from './dataSlider'
+import default_real_estate from '../../assets/images/tin-khong-co-hinh.jpg'
 
 export default function Slider({ imageUrls }) {
 
@@ -29,22 +29,33 @@ export default function Slider({ imageUrls }) {
         setSlideIndex(index)
     }
 
-    return imageUrls && imageUrls.length > 0 ? (
+    return imageUrls ?(
         <div className="container-slider">
-            {imageUrls.map((obj, index) => {
-                return (
-                    <div
-                        key={index}
-                        className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
-                    >
-                        <img
-                            src={obj}
-                        />
-                    </div>
-                )
-            })}
-            {imageUrls.length==0?
-            <div>gggggggggggggg</div>:<div></div>}
+            {
+                imageUrls && imageUrls.length > 0
+                    ? (
+                        imageUrls.map((obj, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    className={slideIndex === index + 1 ? "slide active-anim" : "slide"}
+                                >
+                                    <img
+                                        src={obj}
+                                    />
+                                </div>
+                            )
+                        })
+                    ) : (
+                        <div
+                            className={"slide active-anim"}
+                        >
+                            <img
+                                src={default_real_estate}
+                            />
+                        </div>
+                    )
+            }
             {
                 imageUrls.length > 1 ? (
                     <div>

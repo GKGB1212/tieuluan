@@ -58,9 +58,29 @@ const PostsSaved = () => {
                                                             </Link>
                                                             <div className="sc-eHgmQL hNtdWe">
                                                                 <div className="sc-cvbbAY knzJMl">
-                                                                    <div class="sc-jDwBTQ SWKJx"><span title="26 phút trước">{item.createdDate}</span></div>
+                                                                <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                 </div>
                                                             </div>
+                                                            {
+                                                                item.isSold
+                                                                    ? (
+                                                                        item.postTypeID == 1 || item.postTypeID == 3
+                                                                            ? (
+                                                                                <div className="divChangeStatus">
+                                                                                    <div className="divSold">
+                                                                                        Đã bán
+                                                                                    </div>
+                                                                                </div>
+                                                                            ) : (
+                                                                                <div className="divChangeStatus">
+                                                                                    <div className="divSold">
+                                                                                        Đã tìm được
+                                                                                    </div>
+                                                                                </div>
+                                                                            )
+
+                                                                    ) : ('')
+                                                            }
                                                             <div className="divLike" style={{ marginRight: "20px" }}>
                                                                 <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
                                                                     {

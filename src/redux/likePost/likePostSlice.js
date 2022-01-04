@@ -22,7 +22,7 @@ export const fetchLike = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
         };
-        await fetch(`https://realestateute.azurewebsites.net/api/Likes?id=${id}`, requestOptions)
+        await fetch(`http://localhost:50804/api/Likes?id=${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -45,7 +45,7 @@ export const fetchGetPostLiked = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
         };
-        await fetch("https://realestateute.azurewebsites.net/api/Likes", requestOptions)
+        await fetch("http://localhost:50804/api/Likes", requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })

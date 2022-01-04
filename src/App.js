@@ -21,38 +21,60 @@ import TotalItemLayout from './layout/total-item-layout/layout/total-item-layout
 import ProfileEditMainLayout from './layout/profile-edit-main-layout/profile-edit-main-layout.component';
 import PostsSaved from './layout/posts-saved-layout/posts-saved-layout.components';
 import ChangePasswordLayout from './layout/change-password-layout/change-password-layout.component';
-
-import DropDownMenu from './components/drop-downmenu.component/drop-downmenu.component';
 import ProfileCurrentUserLayout from './layout/profile-current-user-layout/profile-current-user-layout.component';
 
 import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import FollowLayout from './layout/followed-follow-layout/followed-follow-layout.component';
-
+import jwtDecode from "jwt-decode";
+import { logIn } from './redux/user/userSlice';
 function App() {
-  const currentUser = useSelector(state => state.user.currentUser)
+  const currentUser = useSelector(state => state.user.currentUser);
+  const dispatch=useDispatch();
   useEffect(() => {
     var accessToken = localStorage.getItem('accessToken');
-    var refreshToken = localStorage.getItem('refreshToken');
-  }, [])
+    // var refreshToken = localStorage.getItem('refreshToken');
+    if (accessToken) {
+      var decodedToken = jwtDecode(accessToken);
+      var date = new Date();
+      if (decodedToken.exp < date.getTime() / 1000) {
+        localStorage.removeItem('accessToken');
+      } else {
+        dispatch(logIn());
+      }
+    }
+  }, []);
+  const checkUser=()=>{
+    if(currentUser!=null){
+      var date = new Date();
+      if (currentUser.exp < date.getTime() / 1000) {
+        console.log("kkkkk")
+        return false;
+      }
+      console.log("aaaa")
+      return true;
+    }
+    return false;
+  };
   return (
     <div className="App" style={{ marginBottom: "50px" }}>
       <BrowserRouter>
         <HeaderM />
         <Switch>
           <Route exact path='/profile/password'
-          render={() => currentUser ? (
-            <ChangePasswordLayout />
-          ) : (
-            <Redirect to='/' />
-          )}/>
+            render={() => currentUser ? (
+              <ChangePasswordLayout />
+            ) : (
+              <Redirect to='/' />
+            )} />
           <Route exact path='/' component={MainLayout} />
           <Route path='/user/:id' component={ProfileLayout} />
           <Route exact path='/postssaved'
-          render={() => currentUser ? (
-            <PostsSaved />
-          ) : (
-            <Redirect to='/' />
-          )} />
+            render={() => currentUser ? (
+              <PostsSaved />
+            ) : (
+              <Redirect to='/' />
+            )} />
           <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
           <Route exact path='/products/:id' component={DetailItemLayout} />
           <Route exact path='/dashboard/ads' component={PostManagementLayout} />

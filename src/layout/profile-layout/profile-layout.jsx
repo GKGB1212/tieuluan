@@ -42,7 +42,7 @@ const ProfileLayout = () => {
             dispatch(fetchPostByIdUser({ id, userCurrentID: currentUser.id }));
         }
     }
-    const handleFollowClick = async() => {
+    const handleFollowClick = async () => {
         if (currentUser == null) {
             history.push('/Login');
         }
@@ -60,19 +60,19 @@ const ProfileLayout = () => {
                             <div className="BasicInfo">
                                 <div className="AvatarWrapper">
                                     {
-                                        post.avatar!=null
-                                        ?(
-                                            <img size="80" alt={post.name} src={post.avatar} className="imgAvt" />
-                                        ):(
-                                            <img size="80" alt={post.name} src={default_avt} className="imgAvt" />
-                                        )
+                                        post.avatar != null
+                                            ? (
+                                                <img size="80" alt={post.name} src={post.avatar} className="imgAvt" />
+                                            ) : (
+                                                <img size="80" alt={post.name} src={default_avt} className="imgAvt" />
+                                            )
                                     }
                                 </div>
                                 <div className="InfoWrapper">
                                     <span class="name">{post.name}</span>
                                     <div className="FollowRow">
-                                        <div style={{ marginRight: "10px" }}><Link  to={{pathname:`/follow/${id}`, state:{type:1}}}><b>{post.followedCount}</b> Người theo dõi</Link></div>
-                                        <div><Link to={{pathname:`/followed/${id}`, state:{type:2}}}><b>{post.followCount}</b> Đang theo dõi</Link></div>
+                                        <div style={{ marginRight: "10px" }}><Link to={{ pathname: `/follow/${id}`, state: { type: 1 } }}><b>{post.followedCount}</b> Người theo dõi</Link></div>
+                                        <div><Link to={{ pathname: `/followed/${id}`, state: { type: 2 } }}><b>{post.followCount}</b> Đang theo dõi</Link></div>
                                     </div>
                                     {
                                         checkFollow
@@ -126,9 +126,29 @@ const ProfileLayout = () => {
                                                                 </div>
                                                                 <div className="sc-eHgmQL hNtdWe">
                                                                     <div className="sc-cvbbAY knzJMl">
-                                                                        <div class="sc-jDwBTQ SWKJx"><span title="26 phút trước">{item.createdDate}</span></div>
+                                                                        <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                     </div>
                                                                 </div>
+                                                                {
+                                                                    item.isSold
+                                                                        ? (
+                                                                            item.postTypeID == 1 || item.postTypeID == 3
+                                                                                ? (
+                                                                                    <div className="divChangeStatus">
+                                                                                        <div className="divSold">
+                                                                                            Đã bán
+                                                                                        </div>
+                                                                                    </div>
+                                                                                ) : (
+                                                                                    <div className="divChangeStatus">
+                                                                                        <div className="divSold">
+                                                                                            Đã tìm được
+                                                                                        </div>
+                                                                                    </div>
+                                                                                )
+
+                                                                        ) : ('')
+                                                                }
                                                                 <div className="divLike" style={{ marginRight: "20px" }}>
                                                                     <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
                                                                         {
