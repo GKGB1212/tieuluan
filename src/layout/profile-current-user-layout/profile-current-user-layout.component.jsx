@@ -51,11 +51,14 @@ const ProfileCurrentUserLayout = () => {
         }
     }
     useEffect(() => {
-        if (successChangeSoldPost == true){
+        if (successChangeSoldPost == true) {
             setIsShowNotify(false);
             dispatch(setUpSoldPost());
         }
     }, [successChangeSoldPost]);
+    const handleClickChangeDetailPost=()=>{
+        alert("gggggg")
+    }
     return post ? (
         <div className="main-content">
             <div className="container WrapperContainer">
@@ -234,6 +237,11 @@ const ProfileCurrentUserLayout = () => {
                                                                         <div className="sc-cvbbAY knzJMl">
                                                                             <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
+                                                                    </div>
+                                                                    <div className="divChangeStatus">
+                                                                        <button className="btnChangeStatusOfPost" onClick={() => history.push(`/chinh-sua/${item.id}`)}>
+                                                                            Chỉnh sửa thông tin bài viết
+                                                                        </button>
                                                                     </div>
                                                                 </li>
                                                             </ul>

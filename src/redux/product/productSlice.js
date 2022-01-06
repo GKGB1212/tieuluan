@@ -21,7 +21,8 @@ const initialState = {
     lstPostPurchase: [],
     //danh sách sp cho thuê
     lstPostLease: [],
-    successChangeSoldPost:false
+    successChangeSoldPost: false,
+    stateUpdatePost:0
 };
 
 //hàm filter post
@@ -298,6 +299,107 @@ export const fetchInsertPost = createAsyncThunk(
 )
 
 
+//hàm update 1 post
+export const fetchUpdatePost = createAsyncThunk(
+    'product/fetchUpdatePost',
+    async (objPost, thunkAPI) => {
+        var result;
+        var accessToken = localStorage.getItem('accessToken');
+        var refreshToken = localStorage.getItem('refreshToken');
+        var decoded = jwtDecode(accessToken);
+        var decodedRf = jwtDecode(refreshToken)
+        //Thời gian hiện tại
+        var currentTime = new Date();
+        //Thời gian của token
+        var tokenTime = new Date(decoded.exp * 1000)
+        //Thời gian hết hạn của refresttoken
+        var refreshTokentime = new Date(decodedRf.exp * 1000);
+
+        if (refreshTokentime > currentTime && tokenTime < currentTime) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "refreshToken": refreshToken
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+            await fetch("http://localhost:50804/api/Auths/Refresh", requestOptions)
+                // Converting to JSON
+                .then(response => result = response.json())
+                // Displaying results to console
+                .then(json => {
+                    localStorage.setItem('refreshToken', json.refreshToken);
+                    localStorage.setItem('accessToken', json.accessToken);
+                    accessToken = localStorage.getItem('accessToken');
+                })
+                .catch(error => console.log('error', error));
+        }
+
+        var myHeaders = new Headers();
+        myHeaders.append("accept", "*/*");
+        myHeaders.append("Authorization", "Bearer " + accessToken);
+
+        var formData = new FormData();
+        var images = objPost.imageList;
+        formData.append("ID", objPost.ID);
+        formData.append("ImageUrls",objPost.imageUrls)
+        formData.append("CreatorPhone", objPost.CreatorPhone);
+        formData.append("PostTypeName", objPost.PostTypeName);
+        formData.append("CategoryName", objPost.CategoryName);
+        formData.append("CreatedDate", objPost.CreatedDate);
+        formData.append("CreatorName", objPost.CreatorName);
+        formData.append("Like", objPost.Like);
+        formData.append('title', objPost.title);
+        images.forEach(element => { formData.append('imageList', element, element.name) });
+        formData.append('provinceID', objPost.provinceID);
+        formData.append('districtID', objPost.districtID);
+        formData.append('wardID', objPost.wardID);
+        formData.append('address', objPost.address);
+        formData.append('area', objPost.area);
+        formData.append('price', objPost.price);
+        if (objPost.typeRealEstate == 1 && (objPost.categoryID == 1 || objPost.categoryID == 2)) {
+            if (objPost.bedrooms != null) {
+                formData.append('bedrooms', objPost.bedrooms);
+            }
+            if (objPost.bathrooms != null) {
+                formData.append('bathrooms', objPost.bathrooms);
+            }
+        }
+        formData.append('directionID', objPost.directionID);
+        formData.append('details', objPost.details);
+        formData.append('paperID', objPost.paperID);
+        formData.append('creatorID', decoded.id);
+        formData.append('postTypeID', objPost.typeRealEstate);
+        formData.append('categoryID', objPost.categoryID);
+
+        var requestOptions = {
+            method: 'PUT',
+            headers: myHeaders,
+            body: formData,
+            redirect: 'follow'
+        };
+
+
+        await fetch("http://localhost:50804/api/Posts", requestOptions)
+            // Converting to JSON
+            .then(response => result = response.json())
+
+            // Displaying results to console
+            .then(json => { console.log(json); })
+
+            .catch(error => console.log('error', error));
+        return result;
+    }
+)
+
+
+
 
 // Cấu hình slice
 const productSlice = createSlice({
@@ -308,8 +410,11 @@ const productSlice = createSlice({
         resetSuccess(state) {
             state.success = false;
         },
-        setUpSoldPost(state){
-            state.successChangeSoldPost=false;
+        setUpSoldPost(state) {
+            state.successChangeSoldPost = false;
+        },
+        setUpStateUpdatePost(state){
+            state.stateUpdatePost=0;
         }
     },
     extraReducers: {
@@ -411,21 +516,37 @@ const productSlice = createSlice({
         },
         [fetchSoldPost.pending]: (state, action) => {
             state.loading = true;
-            state.successChangeSoldPost=false;
+            state.successChangeSoldPost = false;
         },
         [fetchSoldPost.fulfilled]: (state, action) => {
             console.log(action.payload);
-            if(action.payload.succeeded){
-                state.successChangeSoldPost=true;
-            }else{
-                state.successChangeSoldPost=false;
+            if (action.payload.succeeded) {
+                state.successChangeSoldPost = true;
+            } else {
+                state.successChangeSoldPost = false;
             }
         },
         [fetchSoldPost.rejected]: (state, action) => {
             state.loading = false;
             state.err = action.err;
-            state.successChangeSoldPost=false;
+            state.successChangeSoldPost = false;
         },
+        [fetchUpdatePost.pending]: (state, action) => {
+            state.loading = true;
+            state.stateUpdatePost=0;
+        },
+        [fetchUpdatePost.fulfilled]: (state, action) => {
+            state.loading = false;
+            if(action.payload==true){
+                state.stateUpdatePost=1;
+            }else{
+                    state.stateUpdatePost=-1;
+            }
+        },
+        [fetchUpdatePost.rejected]: (state, action) => {
+            state.loading = false;
+            state.stateUpdatePost=-1;
+        }
     }
 });
 
@@ -433,7 +554,7 @@ const productSlice = createSlice({
 // Hàm này có 1 tham số là root state là toàn bộ state trong store, chạy thử console.log(state) trong nội dung hàm để xem chi tiết
 export const selectProducts = state => state.product.products;
 
-export const { resetSuccess, setUpSoldPost } = productSlice.actions
+export const { resetSuccess, setUpSoldPost, setUpStateUpdatePost } = productSlice.actions
 
 // Export reducer để nhúng vào Store
 export default productSlice.reducer;

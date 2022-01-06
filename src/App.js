@@ -30,7 +30,7 @@ import jwtDecode from "jwt-decode";
 import { logIn } from './redux/user/userSlice';
 function App() {
   const currentUser = useSelector(state => state.user.currentUser);
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
   useEffect(() => {
     var accessToken = localStorage.getItem('accessToken');
     // var refreshToken = localStorage.getItem('refreshToken');
@@ -44,8 +44,8 @@ function App() {
       }
     }
   }, []);
-  const checkUser=()=>{
-    if(currentUser!=null){
+  const checkUser = () => {
+    if (currentUser != null) {
       var date = new Date();
       if (currentUser.exp < date.getTime() / 1000) {
         console.log("kkkkk")
@@ -136,7 +136,15 @@ function App() {
               <PostCreate />
             ) : (
               <Redirect to='/Login' />
-            )} />
+            )} 
+          />
+          <Route path='/chinh-sua/:id'
+            render={() => currentUser ? (
+              <PostCreate />
+            ) : (
+              <Redirect to='/Login' />
+            )} 
+          />
         </Switch>
       </BrowserRouter>
     </div>

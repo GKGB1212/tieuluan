@@ -1,5 +1,6 @@
 //cái chỗ để đăng bài
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import './post.styles.css';
 import * as helper from '../../common/helper';
 import * as toast from '../../common/toast'
@@ -8,13 +9,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 import { resetSuccess } from "../../redux/product/productSlice";
+import { fetchPostById, fetchUpdatePost, setUpStateUpdatePost } from "../../redux/product/productSlice";
 
 
 const PostCreate = () => {
+    const { id } = useParams();
     const dispatch = useDispatch();
-    const history=useHistory();
-    const currentUser=useSelector(state=>state.user.currentUser);
-    const success=useSelector(state=>state.product.success);
+    const history = useHistory();
+    const currentUser = useSelector(state => state.user.currentUser);
+    const success = useSelector(state => state.product.success);
+    const post = useSelector(state => state.product.product);
+    const stateUpdatePost = useSelector(state => state.product.stateUpdatePost);
 
     const [lstTotal, setLstTotal] = useState([]);
     const [lstCity, setLstCity] = useState([]);
@@ -51,6 +56,84 @@ const PostCreate = () => {
     //phòng tắm
     const [bathrooms, setBathrooms] = useState(null);
 
+    const [imageUrls, setImageUrls] = useState([]);
+
+    //cờ bật khi load xong dữ liệu api địa chỉ
+    const [flag, setFlag] = useState(false);
+
+    useEffect(() => {
+        if (currentUser != null && id) {
+            dispatch(fetchPostById({ id, userId: currentUser.id }));
+        }
+        fetch('https://provinces.open-api.vn/api/?depth=3&fbclid=IwAR1OGuDDmUlDdkyoYmh6umuMeiP9PcIGENaOgFsM0vX_6TAju5D8BLUAz9o')
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Lỗi, mã lỗi ' + response.status);
+                    return;
+                }
+                // parse response data
+                response.json().then(data => {
+                    setLstTotal(data);
+                }).then(() => {
+                    setFlag(true)
+                })
+            })
+    }, []);
+    useEffect(() => {
+        if (flag == true && post.creatorID == currentUser.id && post.statusID == 1) {
+            setTypeRealEstate(post.postTypeID);
+            setTypeCategory(post.categoryID);
+            if(post.address!=null){
+                setAddress(post.address);
+            }
+            setPrice(post.price);
+            setArea(post.area);
+            setDirection(post.directionID);
+            setPaperId(post.paperID);
+            setTitle(post.title);
+            setDetail(post.details);
+            setImageUrls(post.imageUrls);
+            setProvinceID(post.provinceID);
+            setLstDistrict(lstTotal.find((x) => x.code == post.provinceID).districts);
+            setDistrictID(post.districtID);
+            setBedrooms(post.bedrooms);
+            setBathrooms(post.bathrooms);
+        }
+    }, [post, flag]);
+    useEffect(() => {
+        if (id && post && lstDistrict.length > 0) {
+            setLstWard(lstDistrict.find((x) => x.code == post.districtID).wards);
+            setWardID(post.wardID);
+        }
+    }, [lstDistrict])
+    useEffect(() => {
+        var temp = [];
+        lstTotal.forEach((item) => {
+            temp.push({
+                name: item.name,
+                code: item.code
+            });
+        })
+        setLstCity(temp);
+    }, [lstTotal])
+    useEffect(() => {
+        if (success == true) {
+            dispatch(resetSuccess());
+            history.push("/user");
+        }
+    }, [success])
+    useEffect(() => {
+        if (id) {
+            if (stateUpdatePost == 1) {
+                dispatch(setUpStateUpdatePost());
+                toast.notifySuccess("Đã cập nhập thành công bài viết!")
+                history.push(`/products/${id}`);
+            } else if (stateUpdatePost == -1) {
+                dispatch(setUpStateUpdatePost());
+                toast.notifyError("Đã gặp sự cố, không thể thay đổi thông tin của bài viết!");
+            }
+        }
+    }, [stateUpdatePost])
 
     //hàm xử lí khi nhấn xóa một bức hình
     const handleDeletePhoto = (index) => {
@@ -61,6 +144,15 @@ const PostCreate = () => {
             tempimg.splice(index, 1);
             setImageToShowList(temp);
             setImageList(tempimg);
+        }
+    }
+
+    //hàm xử lí khi nhấn xóa một bức hình trên url
+    const handleDeletePhotoUrl = (index) => {
+        var temp = [...imageUrls];
+        if (index > -1 || index < temp.length) {
+            temp.splice(index, 1);
+            setImageUrls(temp);
         }
     }
 
@@ -80,35 +172,6 @@ const PostCreate = () => {
             setImageList(tempImageObjLst);
         }
     }
-    useEffect(() => {
-        fetch('https://provinces.open-api.vn/api/?depth=3&fbclid=IwAR1OGuDDmUlDdkyoYmh6umuMeiP9PcIGENaOgFsM0vX_6TAju5D8BLUAz9o')
-            .then(function (response) {
-                if (response.status !== 200) {
-                    console.log('Lỗi, mã lỗi ' + response.status);
-                    return;
-                }
-                // parse response data
-                response.json().then(data => {
-                    setLstTotal(data);
-                })
-            })
-    }, [])
-    useEffect(() => {
-        var temp = [];
-        lstTotal.forEach((item) => {
-            temp.push({
-                name: item.name,
-                code: item.code
-            });
-        })
-        setLstCity(temp);
-    }, [lstTotal])
-    useEffect(() => {
-        if(success==true){
-            dispatch(resetSuccess());
-            history.push("/user");
-        }
-    }, [success])
     const handleOnChangeCurrentCity = (codeCity) => {
         var temp = [];
         setProvinceID(codeCity);
@@ -124,27 +187,47 @@ const PostCreate = () => {
     const handleChangeRealEstate = (type) => {
         setTypeRealEstate(type);
     }
-    const handleSubmitCreatePost = async() => {
+    const handleSubmitCreatePost = async (type) => {
         //dispatch(fetchInsertPost({ title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }))
         var err = 0;
-        let tempDetails=details;
-        let tempTitle=details;
-        let tempAddress=address;
+        let tempDetails = details;
+        let tempTitle = details;
+        let tempAddress = address;
         if (typeRealEstate == 0 || categoryID == 0 || provinceID == -1 || districtID == -1 || wardID == -1 || !price || !area || tempTitle.trim() == '' || area == 0 || price == 0 || tempDetails.trim() == '') {
             err = 1;
         }
         if (typeRealEstate == 1 || typeRealEstate == 3) {
-            if (tempAddress.trim() == '' || imageList.length < 3)
+            if (tempAddress == null) {
+                tempAddress = '';
+            }
+            if (tempAddress.trim() == '' || imageList.length + imageUrls.length < 3) {
                 err = 1;
-        }else if(typeRealEstate == 2 || typeRealEstate == 4){
+            }
+        } else if (typeRealEstate == 2 || typeRealEstate == 4) {
             setAddress(null);
             setImageList([]);
+            setImageUrls([]);
             setImageToShowList([]);
             setBathrooms(null);
             setBedrooms(null);
         }
         if (err == 0) {
-            await dispatch(fetchInsertPost({ typeRealEstate,title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }));
+            if (type == 1)
+                await dispatch(fetchInsertPost({ typeRealEstate, title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID }));
+            else {
+                let body = {
+                    'ID': post.id,
+                    'CreatorPhone': post.creatorPhone,
+                    'PostTypeName': post.postTypeName,
+                    'CategoryName': post.categoryName,
+                    'CreatedDate': post.createdDate,
+                    'CreatorName': post.creatorName,
+                    'Like': post.like,
+                    'ImageUrls':imageUrls,
+                    typeRealEstate, title, imageList, provinceID, districtID, wardID, address, area, price, bedrooms, bathrooms, directionID, details, paperID, categoryID
+                }
+                await dispatch(fetchUpdatePost(body));
+            }
         }
         else {
             toast.notifyError("Vui lòng nhập đầy đủ thông tin trường *")
@@ -195,7 +278,7 @@ const PostCreate = () => {
                                 </div>
                                 <div class="form-group">
                                     <label>Tỉnh/ Thành phố<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentCity(e.target.value)}>
+                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentCity(e.target.value)} value={provinceID}>
                                         <option value="-1">Chọn Tỉnh/ Thành phố</option>
                                         {lstCity.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
@@ -204,7 +287,7 @@ const PostCreate = () => {
                                 </div>
                                 <div class="form-group">
                                     <label>Quận/ Huyện<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentDistric(e.target.value)}>
+                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentDistric(e.target.value)} value={districtID}>
                                         <option value="0">Chọn quận/ huyện</option>
                                         {lstDistrict.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
@@ -213,7 +296,7 @@ const PostCreate = () => {
                                 </div>
                                 <div class="form-group">
                                     <label>Xã/ Phường<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => setWardID(e.target.value)}>
+                                    <select class="form-input" onChange={(e) => setWardID(e.target.value)} value={wardID}>
                                         <option value="0">Chọn Xã/ Phường</option>
                                         {lstWard.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
@@ -339,6 +422,21 @@ const PostCreate = () => {
                                             </label>
                                             <div class="image-list">
                                                 <div dense="" class="rs">
+                                                    {
+                                                        id && post && post.id == id && post.creatorID == currentUser.id
+                                                            ? imageUrls.map((item, index) => (
+                                                                <div class="c3 image-item" key={index}>
+                                                                    <img src={item} />
+                                                                    <button onClick={() => handleDeletePhotoUrl(index)} type="button" class="md-button md-icon-button md-dense btn-close md-theme-default">
+                                                                        <div class="md-ripple">
+                                                                            <div class="md-button-content">
+                                                                                <img src="https://static.homedy.com/src/images/icon/close.svg" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </button>
+                                                                </div>
+                                                            )) : (null)
+                                                    }
                                                     {imageToShowList.length > 0
                                                         ? imageToShowList.map((item, index) => (
                                                             <div class="c3 image-item" key={index}>
@@ -354,13 +452,18 @@ const PostCreate = () => {
                                                         )) : ''}
                                                 </div>
                                             </div>
-                                            <div class="alert alert-warning" style={{height:'80px'}}></div>
+                                            <div class="alert alert-warning" style={{ height: '80px' }}></div>
                                         </div>
                                     </div>
                                 </div>
                             ) : ''
                     }
-                    <button id="cmd_post" onClick={handleSubmitCreatePost} class="btn-submit">ĐĂNG TIN</button>
+                    {
+                        post.id == id && post.creatorID == currentUser.id
+                            ? (<button id="cmd_post" onClick={() => handleSubmitCreatePost(2)} class="btn-submit">CẬP NHẬP</button>)
+                            : (<button id="cmd_post" onClick={() => handleSubmitCreatePost(1)} class="btn-submit">ĐĂNG TIN</button>)
+                    }
+
                 </div>
             </div>
         </div >)

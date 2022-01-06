@@ -4,12 +4,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchInfoUser } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
 import imgAvt from '../../assets/images/avatar.png';
-import { fetchChangeInfo, setUp } from "../../redux/user/userSlice";
+import { fetchChangeInfo, setUp, setUpStateChangeInfoUser } from "../../redux/user/userSlice";
+import * as toast  from '../../common/toast'
 const ProfileEditLayout = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const infoUser = useSelector(state => state.user.infoUser);
     const succeeded=useSelector(state=>state.user.succeeded);
+    const stateChangeInfoUser=useSelector(state=>state.user.stateChangeInfoUser);
     const [name, setName] = useState('');
     const [imageUrltemp, setImageUrltemp] = useState(null);
     const [image, setImage] = useState(null);
@@ -20,6 +22,15 @@ const ProfileEditLayout = () => {
     useEffect(() => {
         dispatch(fetchInfoUser());
     }, [])
+    useEffect(()=>{
+        if(stateChangeInfoUser==1){
+            dispatch(setUpStateChangeInfoUser());
+            toast.notifySuccess("Đã thay đổi thông tin người dùng!");
+        }else if(stateChangeInfoUser==-1){
+            dispatch(setUpStateChangeInfoUser());
+            toast.notifyError("Đã xảy ra lỗi, không thể thay đổi thông tin người dùng!")
+        }
+    },[stateChangeInfoUser])
     useEffect(() => {
         if (infoUser != null) {
             console.log(succeeded)

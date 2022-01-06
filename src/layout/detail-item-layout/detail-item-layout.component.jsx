@@ -75,9 +75,8 @@ const DetailItemLayout = () => {
         "Nhà trọ"
     ]
 
-    return !loading ? (
+    return !loading&&((post.statusID==2)||(currentUser&&(post.statusID==1&&post.creatorID==currentUser.id))) ? (
         <div class="container">
-            {/* <div class="ct-detail adview"> */}
             <div class="row base">
                 <div style={{ margin: "10px 0px" }}><div></div></div>
                 <div class="col-md-8">
@@ -96,7 +95,6 @@ const DetailItemLayout = () => {
                                     ) : ''
                             }
                         </div>
-                        {/* Phần chia sẻ tin cho ba nj bè */}
                         <div class="IntersectBox col-xs-12 margin-top-10 no-padding">
                             <br /><br />
                             <div class="col-xs-12 margin-top-10 no-padding">
@@ -124,7 +122,6 @@ const DetailItemLayout = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* báo cáo */}
                         <div class="IntersectBox col-xs-12 no-padding">
                             <div class="Styles_reportWrapper">
                                 <div class="Styles_buyerProtect">
@@ -146,14 +143,9 @@ const DetailItemLayout = () => {
                         <SellerProfileMini name={post.creatorName} id={post.creatorID} />
                     </div>
                     <ButtonPhone phone={post.creatorPhone} />
-                    {
-                        currentUser!=null&&currentUser.id==post.creatorID
-                        ?(<ButtonChat/>):('')
-                    }
                     <SafeTip />
                 </div>
             </div>
-            {/* </div> */}
         </div>
     ) : ''
 }

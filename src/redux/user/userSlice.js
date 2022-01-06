@@ -242,12 +242,16 @@ const userSlice = createSlice({
         currentUser: null,
         succeeded: false,
         infoUser: null,
-        stateOfForgotPassword: 0
+        stateOfForgotPassword: 0,
+        stateChangeInfoUser:0
     },
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
         setUp(state) {
             state.succeeded = false
+        },
+        setUpStateChangeInfoUser(state){
+            state.stateChangeInfoUser=0;
         },
         signOut(state) {
             state.error = '';
@@ -311,6 +315,7 @@ const userSlice = createSlice({
             state.succeeded = false;
         },
         [fetchInfoUser.fulfilled]: (state, action) => {
+            console.log("kqqq",action.payload)
             state.succeeded = true;
             state.error = null;
             state.infoUser = action.payload
@@ -340,23 +345,20 @@ const userSlice = createSlice({
         },
         [fetchChangeInfo.pending]: (state, action) => {
             state.error = null;
-            state.succeeded = false;
+            state.stateChangeInfoUser=0;
         },
         [fetchChangeInfo.fulfilled]: (state, action) => {
-            // if (act.payload.succeeded == false) {
-            //     state.succeeded = false;
-            //     state.error = action.payload.errors;
-            // }else{
-            //     state.succeeded = true;
-            //     state.error = null;
-            // }
-            // console.log("Thành công", action.payload);
-            // state.succeeded = true;
-            // state.error = null;
+            if (action.payload.succeeded == true) {
+                state.stateChangeInfoUser=1;
+                state.error = null;
+            }else{
+                state.stateChangeInfoUser=-1;
+                state.error = action.payload.errors;
+            }
         },
         [fetchChangeInfo.rejected]: (state, action) => {
             state.error = 'Không thể đổi thông tin'
-            state.succeeded = false;
+            state.stateChangeInfoUser=-1;
         },
         [fetchSendCodeResetPassword.pending]: (state, action) => {
             state.error = null;
@@ -390,6 +392,6 @@ const userSlice = createSlice({
     }
 });
 
-export const { setUp, signOut, logIn, resetStateForgot } = userSlice.actions
+export const { setUp, signOut, logIn, resetStateForgot, setUpStateChangeInfoUser } = userSlice.actions
 // Export reducer để nhúng vào Store
 export default userSlice.reducer;
