@@ -15,7 +15,6 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
 
 
     useEffect(() => {
-        console.log(item);
         fetch(`https://provinces.open-api.vn/api/p/${item.provinceID}?depth=3`)
             .then(function (response) {
                 if (response.status !== 200) {
@@ -34,7 +33,11 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                     }
                 })
             })
-    }, [])
+    }, []);
+
+    const handleConvertPrice = (n) => {
+        return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    }
     return item ? (
         <div class="AdDecription_adDecriptionWrapper" style={{ width: "600px" }}>
             <h1 class="AdDecription_adTitle" itemprop="name">
@@ -47,7 +50,7 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                         <div>
                             <span class="AdDecription_priceWrapper">
                                 <span class="AdDecription_price">
-                                    <span itemprop="price">Giá: {item.price}VNĐ - {item.area}m
+                                    <span itemprop="price">Giá: {handleConvertPrice(item.price)}VNĐ - {item.area}m
                                         <span class="AdDecription_squareMetre">
                                             <sup>2</sup>
                                         </span>
@@ -67,7 +70,7 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                                 <p style={{ margin: "0px" }}>Hủy lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />
                             </button>
-                        ):(
+                        ) : (
                             <button type="button" class="SaveAd_saveAdViewDetail" onClick={handleSavePost}>
                                 <p style={{ margin: "0px" }}>Lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />

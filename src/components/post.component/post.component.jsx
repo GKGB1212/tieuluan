@@ -16,6 +16,7 @@ import LoadingComponent from '../loader/LoadingComponent';
 const PostCreate = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const loading=useSelector(state=>state.product.loading);
     const history = useHistory();
     const currentUser = useSelector(state => state.user.currentUser);
     const success = useSelector(state => state.product.success);
@@ -467,6 +468,7 @@ const PostCreate = () => {
 
                 </div>
             </div>
+            <LoadingComponent isLoading={loading}/>
         </div >)
 }
 export default PostCreate;

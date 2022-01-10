@@ -16,7 +16,22 @@ const Item = ({ item }) => {
                     setProvince(data.name);
                 })
             })
-    }, [])
+    }, []);
+    const handleConvertPrice = (n) => {
+        if (n < 1000) {
+            return `${n / 100} trăm đồng`
+        }
+        if (n < 1000000) {
+            return `${n / 1000} nghìn đồng`;
+        }
+        if (n < 1000000000) {
+            return `${n / 1000000} triệu đồng`;
+        }
+        if (n >= 1000000000) {
+            return `${n / 1000000000} tỷ đồng`;
+        }
+        return '';
+    }
     return (
         <Link to={{ pathname: `products/${item.id}` }}>
             <div class="box">
@@ -33,7 +48,7 @@ const Item = ({ item }) => {
                     {item.title}
                 </div>
                 <p class="details">{item.area} m²</p>
-                <p class="price">{item.price} VNĐ</p>
+                <p class="price">{handleConvertPrice(item.price)}</p>
                 <p class="time">Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]} ({province})</p>
             </div>
         </Link>

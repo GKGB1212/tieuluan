@@ -100,7 +100,6 @@ const followSlice = createSlice({
         },
         [fetchFollow.fulfilled]: (state, action) => {
             state.loading = false;
-            console.log(action.payload);
         },
         [fetchFollow.rejected]: (state, action) => {
             state.err = action.err
@@ -112,7 +111,6 @@ const followSlice = createSlice({
         [fetchGetFollowed.fulfilled]: (state, action) => {
             state.loading = false
             state.lstFollowed = action.payload
-            console.log(action.payload);
         },
         [fetchGetFollowed.rejected]: (state, action) => {
             state.err = action.err
@@ -125,7 +123,6 @@ const followSlice = createSlice({
         [fetchGetFollow.fulfilled]: (state, action) => {
             state.loading = false
             state.lstFollow = action.payload
-            console.log(action.payload);
         },
         [fetchGetFollow.rejected]: (state, action) => {
             state.err = action.err

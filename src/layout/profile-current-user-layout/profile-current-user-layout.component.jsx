@@ -56,9 +56,6 @@ const ProfileCurrentUserLayout = () => {
             dispatch(setUpSoldPost());
         }
     }, [successChangeSoldPost]);
-    const handleClickChangeDetailPost=()=>{
-        alert("gggggg")
-    }
     return post ? (
         <div className="main-content">
             <div className="container WrapperContainer">

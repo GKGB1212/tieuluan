@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import HeaderM from './components/header.component/header.component';
 import MainLayout from './layout/main-layout.component';
 import Footer from './components/footer.component/footer.component';
@@ -28,9 +28,11 @@ import { useDispatch } from 'react-redux';
 import FollowLayout from './layout/followed-follow-layout/followed-follow-layout.component';
 import jwtDecode from "jwt-decode";
 import { logIn } from './redux/user/userSlice';
+import LoadingComponent from './components/loader/LoadingComponent';
 function App() {
   const currentUser = useSelector(state => state.user.currentUser);
   const dispatch = useDispatch();
+  const [loading,setLoading]=useState(0);
   useEffect(() => {
     var accessToken = localStorage.getItem('accessToken');
     // var refreshToken = localStorage.getItem('refreshToken');
@@ -39,114 +41,109 @@ function App() {
       var date = new Date();
       if (decodedToken.exp < date.getTime() / 1000) {
         localStorage.removeItem('accessToken');
+        setLoading(1);
       } else {
         dispatch(logIn());
+        setLoading(1);
       }
     }
+    setLoading(1);
   }, []);
-  const checkUser = () => {
-    if (currentUser != null) {
-      var date = new Date();
-      if (currentUser.exp < date.getTime() / 1000) {
-        console.log("kkkkk")
-        return false;
-      }
-      console.log("aaaa")
-      return true;
-    }
-    return false;
-  };
   return (
     <div className="App" style={{ marginBottom: "50px" }}>
-      <BrowserRouter>
-        <HeaderM />
-        <Switch>
-          <Route exact path='/profile/password'
-            render={() => currentUser ? (
-              <ChangePasswordLayout />
-            ) : (
-              <Redirect to='/' />
-            )} />
-          <Route exact path='/' component={MainLayout} />
-          <Route path='/user/:id' component={ProfileLayout} />
-          <Route exact path='/postssaved'
-            render={() => currentUser ? (
-              <PostsSaved />
-            ) : (
-              <Redirect to='/' />
-            )} />
-          <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
-          <Route exact path='/products/:id' component={DetailItemLayout} />
-          <Route exact path='/dashboard/ads' component={PostManagementLayout} />
-          <Route exact path='/follow' component={FollowLayout} />
-          <Route exact path='/followed' component={FollowLayout} />
-          <Route exact path='/follow/:userId' component={FollowLayout} />
-          <Route exact path='/followed/:userId' component={FollowLayout} />
-          <Route exact path='/dashboard/profile'
-            render={() => currentUser ? (
-              <ProfileEditLayout />
-            ) : (
-              <Redirect to='/' />
-            )}
-          />
-          <Route exact path='/user'
-            render={() => currentUser ? (
-              <ProfileCurrentUserLayout />
-            ) : (
-              <Redirect to='/' />
-            )}
-          />
-          <Route exact path='/otp'
-            render={() => (
+      {
+        loading!=0
+        ?(<BrowserRouter>
+          <HeaderM />
+          <Switch>
+            <Route exact path='/profile/password'
+              render={() => currentUser ? (
+                <ChangePasswordLayout />
+              ) : (
+                <Redirect to='/' />
+              )} />
+            <Route exact path='/' component={MainLayout} />
+            <Route path='/user/:id' component={ProfileLayout} />
+            <Route exact path='/postssaved'
+              render={() => currentUser ? (
+                <PostsSaved />
+              ) : (
+                <Redirect to='/' />
+              )} />
+            <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
+            <Route exact path='/products/:id' component={DetailItemLayout} />
+            <Route exact path='/dashboard/ads' component={PostManagementLayout} />
+            <Route exact path='/follow' component={FollowLayout} />
+            <Route exact path='/followed' component={FollowLayout} />
+            <Route exact path='/follow/:userId' component={FollowLayout} />
+            <Route exact path='/followed/:userId' component={FollowLayout} />
+            <Route exact path='/dashboard/profile'
+              render={() => currentUser ? (
+                <ProfileEditLayout />
+              ) : (
+                <Redirect to='/' />
+              )}
+            />
+            <Route exact path='/user'
+              render={() => currentUser ? (
+                <ProfileCurrentUserLayout />
+              ) : (
+                <Redirect to='/' />
+              )}
+            />
+            <Route exact path='/otp'
+              render={() => (
+                <LoginSignUpLayout>
+                  <OTPForm />
+                </LoginSignUpLayout>
+              )} />
+            <Route
+              exact
+              path='/login'
+              render={() =>
+                currentUser ? (
+                  <Redirect to='/'/>
+                ) : (
+                  <LoginSignUpLayout>
+                    <LoginForm />
+                  </LoginSignUpLayout>
+                )
+              }
+            />
+            <Route path='/signin'
+              render={() =>
+                currentUser ? (
+                  <Redirect to='/' />
+                ) : (
+                  <LoginSignUpLayout>
+                    <LoginSignupForm />
+                  </LoginSignUpLayout>
+                )
+              }>
+            </Route>
+            <Route path='/forgotpassword'>
               <LoginSignUpLayout>
-                <OTPForm />
+                <ForgotPasswordForm />
               </LoginSignUpLayout>
-            )} />
-          <Route
-            exact
-            path='/login'
-            render={() =>
-              currentUser ? (
-                <Redirect to='/' />
+            </Route>
+            <Route path='/postcreate'
+              render={() => currentUser ? (
+                <PostCreate />
               ) : (
-                <LoginSignUpLayout>
-                  <LoginForm />
-                </LoginSignUpLayout>
-              )
-            }
-          />
-          <Route path='/signin'
-            render={() =>
-              currentUser ? (
-                <Redirect to='/' />
+                <Redirect to='/Login' />
+              )} 
+            />
+            <Route path='/chinh-sua/:id'
+              render={() => currentUser ? (
+                <PostCreate />
               ) : (
-                <LoginSignUpLayout>
-                  <LoginSignupForm />
-                </LoginSignUpLayout>
-              )
-            }>
-          </Route>
-          <Route path='/forgotpassword'>
-            <LoginSignUpLayout>
-              <ForgotPasswordForm />
-            </LoginSignUpLayout>
-          </Route>
-          <Route path='/postcreate'
-            render={() => currentUser ? (
-              <PostCreate />
-            ) : (
-              <Redirect to='/Login' />
-            )} 
-          />
-          <Route path='/chinh-sua/:id'
-            render={() => currentUser ? (
-              <PostCreate />
-            ) : (
-              <Redirect to='/Login' />
-            )} 
-          />
-        </Switch>
-      </BrowserRouter>
+                <Redirect to='/Login' />
+              )} 
+            />
+          </Switch>
+        </BrowserRouter>)
+        :(<LoadingComponent isLoading={true}/>)
+      }
     </div>
   );
 }

@@ -27,6 +27,7 @@ const DetailItemLayout = () => {
             dispatch(fetchPostById({id,userId:''}));
         }
     }, [])
+    
 
     const handleSavePost = async() => {
         if (currentUser == null) {

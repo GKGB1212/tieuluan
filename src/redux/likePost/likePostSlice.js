@@ -10,7 +10,6 @@ const initialState = {
 export const fetchLike = createAsyncThunk(
     'likePost/fetchLike',
     async (id, thunkAPI) => {
-        console.log('like',id)
         var result;
         var accessToken = localStorage.getItem('accessToken');
         var refreshToken = localStorage.getItem('refreshToken');
@@ -76,7 +75,6 @@ const likePostSlice = createSlice({
         [fetchGetPostLiked.fulfilled]: (state, action) => {
             state.loading = false
             state.lstPostLike = action.payload;
-            console.log(action.payload);
         },
         [fetchGetPostLiked.rejected]: (state, action) => {
             state.err = action.err

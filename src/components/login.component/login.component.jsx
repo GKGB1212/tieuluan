@@ -5,7 +5,7 @@ import * as helper from '../../common/helper';
 import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin, setUp } from "../../redux/user/userSlice";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 const LoginForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -14,6 +14,7 @@ const LoginForm = () => {
     const error = useSelector(state => state.user.error)
     const dispatch = useDispatch();
     const history = useHistory();
+    const location = useLocation();
     const [textBtn, setTextBtn] = useState('Hiện')
     const handleChangePhoneNum = (phoneNum) => {
         setPhoneNumber(phoneNum.substring(0, 10));
@@ -28,7 +29,6 @@ const LoginForm = () => {
         }
     }
     const handleChangePass=(e)=>{
-        console.log(e.target.value);
         let text=e.target.value
         setPassWord(text);
     }
@@ -40,13 +40,6 @@ const LoginForm = () => {
             dispatch(setUp);
         }
     }
-    useEffect(() => {
-        if (currentUser != null) {
-            history.push({
-                pathname: "/"
-            });
-        }
-    }, [currentUser])
     return (
         <main class="mainLoginForm">
             <div class="loginDiv">

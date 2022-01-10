@@ -30,7 +30,6 @@ export const fetchFilterPosts = createAsyncThunk(
     'product/fetchFilterPosts',
     async (objSearch, thunkAPI) => {
         var result;
-        console.log(objSearch)
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -40,7 +39,6 @@ export const fetchFilterPosts = createAsyncThunk(
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
         }
-        console.log(query)
         await fetch(query, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
@@ -54,7 +52,6 @@ export const fetchFilterPostsForMainLayout = createAsyncThunk(
     'product/fetchFilterPostsForMainLayout',
     async (objSearch, thunkAPI) => {
         var result;
-        console.log(objSearch)
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
@@ -64,7 +61,6 @@ export const fetchFilterPostsForMainLayout = createAsyncThunk(
             var temp = `${key}=${objSearch[key]}&`;
             query = query + temp
         }
-        console.log(query)
         await fetch(query, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
@@ -254,7 +250,6 @@ export const fetchInsertPost = createAsyncThunk(
 
         var formData = new FormData();
         var images = objPost.imageList;
-        console.log("độ dài", objPost);
         formData.append('title', objPost.title);
         images.forEach(element => { formData.append('imageList', element, element.name) });
         formData.append('provinceID', objPost.provinceID);
@@ -340,7 +335,6 @@ export const fetchUpdatePost = createAsyncThunk(
                 })
                 .catch(error => console.log('error', error));
         }
-
         var myHeaders = new Headers();
         myHeaders.append("accept", "*/*");
         myHeaders.append("Authorization", "Bearer " + accessToken);
@@ -348,7 +342,7 @@ export const fetchUpdatePost = createAsyncThunk(
         var formData = new FormData();
         var images = objPost.imageList;
         formData.append("ID", objPost.ID);
-        formData.append("ImageUrls",objPost.imageUrls)
+        formData.append("ImageUrls",objPost.ImageUrls)
         formData.append("CreatorPhone", objPost.CreatorPhone);
         formData.append("PostTypeName", objPost.PostTypeName);
         formData.append("CategoryName", objPost.CategoryName);
@@ -465,7 +459,6 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchFilterPosts.fulfilled]: (state, action) => {
-            console.log("connn", action.payload)
             state.loading = false;
             state.lstPostSearch = action.payload;
         },
@@ -488,7 +481,6 @@ const productSlice = createSlice({
             state.loading = true
         },
         [fetchFilterPostsForMainLayout.fulfilled]: (state, action) => {
-            console.log(action.payload)
             state.loading = false;
             if (action.payload.objSearch.PostTypeID == 1) {
                 state.lstPostPurchase = action.payload.result.posts;
@@ -519,7 +511,6 @@ const productSlice = createSlice({
             state.successChangeSoldPost = false;
         },
         [fetchSoldPost.fulfilled]: (state, action) => {
-            console.log(action.payload);
             if (action.payload.succeeded) {
                 state.successChangeSoldPost = true;
             } else {

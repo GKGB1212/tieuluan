@@ -10,12 +10,8 @@ const Category = () => {
     const dispatch=useDispatch();
     const postTypeNumber=useSelector(state=>state.product.postTypeNumber );
     useEffect(()=>{
-        console.log(postTypeNumber)
         dispatch(fetchGetPostTypeNumber())
     },[]);
-    useEffect(()=>{
-        console.log(postTypeNumber)
-    },[postTypeNumber]);
     const handleMouseOverInLi = (num) => {
         num === 1 ? document.getElementById("num1").style.display = 'block' : document.getElementById("num2").style.display = 'block';
     }

@@ -6,11 +6,13 @@ import { useHistory } from "react-router";
 import { fetchChangePassword } from "../../redux/user/userSlice";
 import { notifyError, notifySuccess } from "../../common/toast";
 import { setUp } from "../../redux/user/userSlice";
+import LoadingComponent from "../../components/loader/LoadingComponent";
 const ChangePasswordLayout = () => {
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const dispatch = useDispatch();
+    const loading=useSelector(state=>state.user.loading)
     const error = useSelector(state => state.user.error);
     const succeeded = useSelector(state => state.user.succeeded);
     const history = useHistory();
@@ -39,7 +41,6 @@ const ChangePasswordLayout = () => {
         }
     }, [succeeded])
     useEffect(()=>{
-        console.log(error)
         setCurrentError(error)
     },[error]);
     return (
@@ -96,6 +97,7 @@ const ChangePasswordLayout = () => {
                     </div>
                 </div>
             </div>
+            <LoadingComponent isLoading={loading}/>
         </div>
     )
 }

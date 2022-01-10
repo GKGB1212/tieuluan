@@ -146,7 +146,7 @@ export const fetchSignIn = createAsyncThunk(
     }
 )
 
-//hàm inset 1 post
+//hàm đổi thông tin người dùng
 export const fetchChangeInfo = createAsyncThunk(
     'user/fetchChangeInfo',
     async (objUser, thunkAPI) => {
@@ -163,9 +163,12 @@ export const fetchChangeInfo = createAsyncThunk(
         if (objUser.imageUrl != '') {
             formdata.append('ImageUrl', objUser.imageUrl);
         }
-        formdata.append('Gender', objUser.gender);
-        formdata.append('Birthday', objUser.birthday);
-        formdata.append('Address', objUser.address);
+        if (objUser.gender != 'empty')
+            formdata.append('Gender', objUser.gender);
+        if (objUser.birthday != null)
+            formdata.append('Birthday', objUser.birthday);
+        if (objUser.address != null)
+            formdata.append('Address', objUser.address);
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,
@@ -243,15 +246,15 @@ const userSlice = createSlice({
         succeeded: false,
         infoUser: null,
         stateOfForgotPassword: 0,
-        stateChangeInfoUser:0
+        stateChangeInfoUser: 0
     },
     // Reducers chứa các hàm xử lý cập nhật state
     reducers: {
         setUp(state) {
             state.succeeded = false
         },
-        setUpStateChangeInfoUser(state){
-            state.stateChangeInfoUser=0;
+        setUpStateChangeInfoUser(state) {
+            state.stateChangeInfoUser = 0;
         },
         signOut(state) {
             state.error = '';
@@ -265,8 +268,8 @@ const userSlice = createSlice({
             var decodedToken = jwtDecode(accessToken);
             state.currentUser = decodedToken;
         },
-        resetStateForgot(state){
-            state.stateOfForgotPassword=0;
+        resetStateForgot(state) {
+            state.stateOfForgotPassword = 0;
         }
     },
     extraReducers: {
@@ -287,7 +290,6 @@ const userSlice = createSlice({
             }
         },
         [fetchLogin.rejected]: (state, action) => {
-            console.log('lỗi', action.error)
             state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
             state.currentUser = null;
             state.succeeded = false;
@@ -315,7 +317,6 @@ const userSlice = createSlice({
             state.succeeded = false;
         },
         [fetchInfoUser.fulfilled]: (state, action) => {
-            console.log("kqqq",action.payload)
             state.succeeded = true;
             state.error = null;
             state.infoUser = action.payload
@@ -328,9 +329,9 @@ const userSlice = createSlice({
         [fetchChangePassword.pending]: (state, action) => {
             state.error = null;
             state.succeeded = false;
+            state.loading = true;
         },
         [fetchChangePassword.fulfilled]: (state, action) => {
-            console.log('thành công', action.payload)
             if (action.payload.succeeded == false) {
                 state.succeeded = false;
                 state.error = action.payload.errors;
@@ -338,27 +339,32 @@ const userSlice = createSlice({
                 state.succeeded = true;
                 state.error = null;
             }
+            state.loading = false;
         },
         [fetchChangePassword.rejected]: (state, action) => {
             state.error = 'Không thể đổi mật khẩu'
             state.succeeded = false;
+            state.loading = false;
         },
         [fetchChangeInfo.pending]: (state, action) => {
             state.error = null;
-            state.stateChangeInfoUser=0;
+            state.stateChangeInfoUser = 0;
+            state.loading = true;
         },
         [fetchChangeInfo.fulfilled]: (state, action) => {
             if (action.payload.succeeded == true) {
-                state.stateChangeInfoUser=1;
+                state.stateChangeInfoUser = 1;
                 state.error = null;
-            }else{
-                state.stateChangeInfoUser=-1;
+            } else {
+                state.stateChangeInfoUser = -1;
                 state.error = action.payload.errors;
             }
+            state.loading = false;
         },
         [fetchChangeInfo.rejected]: (state, action) => {
             state.error = 'Không thể đổi thông tin'
-            state.stateChangeInfoUser=-1;
+            state.stateChangeInfoUser = -1;
+            state.loading = false;
         },
         [fetchSendCodeResetPassword.pending]: (state, action) => {
             state.error = null;

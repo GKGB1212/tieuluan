@@ -11,4 +11,4 @@ const LoadingComponent = (props) => {
     )
 }
 
-export default LoadingComponent
+export default LoadingComponent;
