@@ -19,16 +19,16 @@ const Item = ({ item }) => {
     }, []);
     const handleConvertPrice = (n) => {
         if (n < 1000) {
-            return `${n / 100} trăm đồng`
+            return `${(n - n%100)/100} trăm đồng`
         }
         if (n < 1000000) {
-            return `${n / 1000} nghìn đồng`;
+            return `${(n - n%1000)/1000} nghìn đồng`;
         }
         if (n < 1000000000) {
-            return `${n / 1000000} triệu đồng`;
+            return `${(n - n%1000000)/ 1000000} triệu đồng`;
         }
         if (n >= 1000000000) {
-            return `${n / 1000000000} tỷ đồng`;
+            return `${(n - n%1000000000)/ 1000000000} tỷ đồng`;
         }
         return '';
     }

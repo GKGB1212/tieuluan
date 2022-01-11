@@ -1,0 +1,253 @@
+.product-create {
+    color: #4a4a4a;
+    background: #f6f6f6;
+    float: left;
+    width: 100%;
+    padding-bottom: 32px;
+    min-height: 800px;
+    background-image: url("../../images/background.jpeg");
+    background-attachment: fixed;
+    width: 100%;
+    background-size: cover;
+}
+.container {
+    margin-right: 15%;
+    margin-left: 15%;
+    padding: 0 8px;
+    position: relative;
+}
+.product-create h1 {
+    text-align: left;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 32px;
+    margin-bottom: 8px;
+}
+.product-create .form {
+    float: left;
+    width: 100%;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 3px 10px 0 rgb(0 0 0 / 5%);
+    margin-top: 16px;
+    padding: 24px;
+}
+.product-create h2 {
+    color: #0298da;
+    font-size: 20px;
+    font-weight: 500;
+}
+.product-create .form .left{
+    float: left;
+    width: 55%;
+}
+.product-create .form .right{
+    float: left;
+    width: 45%;
+}
+.product-create .form .right {
+    padding-left: 32px;
+}
+.product-create .form .form-group {
+    margin-top: 16px;
+    position: relative;
+    width: 100%;
+    float: left;
+}
+.product-create .form .form-group {
+    margin-top: 16px;
+    position: relative;
+    width: 100%;
+    float: left;
+}
+.product-create .form .form-input, .product-create .form .date-input input {
+    height: 40px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    width: calc(100% - 130px);
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #4a4a4a;
+    opacity: .8;
+    font-family: 'Roboto',sans-serif;
+}
+.product-create .form label {
+    color: #30456e;
+    font-size: 14px;
+    font-weight: 500;
+    width: 130px;
+    float: left;
+    line-height: 40px;
+}
+.product-create .form label span {
+    color: #eb5155;
+}
+.product-create .button-group {
+    width: calc(100% - 130px);
+    float: left;
+}
+/* 4 nút bấm chọn loại bài đăng */
+.product-create .button-group .btn-select.active {
+    background-color: #0298da;
+    color: #fff;
+}
+
+.product-create .button-group .btn-select {
+    height: 40px;
+    width: 120px;
+    margin-right: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.product-create input, .product-create button, .product-create textarea {
+    font-size: 14px;
+}
+.rs{
+    margin-left: -8px;
+    margin-right: -8px;
+    position: relative;
+}
+.c3, .c4, .c5, .c6, .c8, .c9, .c12 {
+    float: left;
+    position: relative;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: 1px;
+}
+
+.c6 {
+    width: 50%;
+}
+.product-create .form .form-input.wide {
+    width: 100%;
+}
+.product-create .form select.form-input {
+    -moz-appearance: auto;
+    -webkit-appearance: auto;
+}
+.product-create .form .form-input.txttitle {
+    padding-right: 60px;
+}
+@media (max-width: 920px){
+    input, textarea {
+        font-size: 16px !important;
+    }
+}
+.product-create .form .txtcount {
+    position: absolute;
+    right: 6px;
+    top: 11px;
+    opacity: .7;
+}
+.product-create .form .form-input.ck-editor__editable {
+    height: 250px;
+}
+
+.product-create .form .form-input.active {
+    opacity: 1;
+    font-weight: 500;
+}
+.ck.ck-editor__editable_inline[dir=ltr] {
+    text-align: left;
+}
+.ck.ck-editor__editable_inline {
+    overflow: auto;
+    padding: 0 var(--ck-spacing-standard);
+}
+.ck.ck-editor__editable_inline>:last-child {
+    margin-bottom: var(--ck-spacing-large);
+}
+.ck.ck-editor__editable_inline>:first-child {
+    margin-top: var(--ck-spacing-large);
+}
+.product-create .tips {
+    color: #4a4a4a;
+    font-size: 14px;
+    margin-top: 16px;
+}
+.product-create .form-images {
+    margin-top: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9fafb;
+    text-align: center;
+    padding: 16px;
+}
+.product-create .form-images .btn-add-image {
+    border: 1px solid #0298da;
+    border-radius: 4px;
+    background-color: #fff;
+    height: 56px;
+    width: 500px;
+    margin: 16px 0;
+    color: #0082d5;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: block;
+}
+.product-create .form-images .btn-add-image img {
+    position: relative;
+    top: 10px;
+}
+.product-create .form-images .image-list {
+    float: left;
+    width: 100%;
+    margin: 16px 0;
+}
+.product-create .form-images .alert.alert-warning {
+    color: #eb5155;
+}
+.product-create .btn-submit {
+    border: none;
+    background: #f89520;
+    border-radius: 5px;
+    height: 40px;
+    width: 200px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 24px;
+    cursor: pointer;
+}
+.center {
+    text-align: center;
+    width: 100%;
+}
+.rs {
+    margin-left: -8px;
+    margin-right: -8px;
+    position: relative;
+}
+.image-item {
+    height: 220px;
+    margin-bottom: 12px;
+    cursor: move;
+}
+.image-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.image-item .btn-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+
+    background: rgba(0 0 0/.3);
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    cursor: pointer;
+}
+.image-item .btn-close img {
+    width: 10px;
+    height: 10px;
+}
+input[type="file"] {
+    display: none;
+}

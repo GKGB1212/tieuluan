@@ -12,7 +12,7 @@ const TotalItemContainer = ({ lstPostSearch, Search }) => {
         dispatch(fetchFilterPosts({
             Search,
             Page: pageNumber,
-            Size: 24
+            Size: 12
         }));
     }
     return (

@@ -21,9 +21,6 @@ const ProfileCurrentUserLayout = () => {
     useEffect(() => {
         dispatch(fetchPostByCurrentUser());
     }, []);
-    useEffect(() => {
-        console.log("hhhhhhhh", post)
-    }, [post])
     const handleClickToPost = (itemId) => {
         history.push(`/products/${itemId}`);
     }

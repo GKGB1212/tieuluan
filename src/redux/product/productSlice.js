@@ -404,6 +404,9 @@ const productSlice = createSlice({
         resetSuccess(state) {
             state.success = false;
         },
+        resetPost(state){
+            state.product={}
+        },
         setUpSoldPost(state) {
             state.successChangeSoldPost = false;
         },
@@ -545,7 +548,7 @@ const productSlice = createSlice({
 // Hàm này có 1 tham số là root state là toàn bộ state trong store, chạy thử console.log(state) trong nội dung hàm để xem chi tiết
 export const selectProducts = state => state.product.products;
 
-export const { resetSuccess, setUpSoldPost, setUpStateUpdatePost } = productSlice.actions
+export const { resetSuccess, resetPost, setUpSoldPost, setUpStateUpdatePost } = productSlice.actions
 
 // Export reducer để nhúng vào Store
 export default productSlice.reducer;

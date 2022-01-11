@@ -11,6 +11,7 @@ import ForgotPasswordForm from './components/forgot-password.component/forgot-pa
 import OTPForm from './components/otp.component/otp.component';
 
 import PostCreate from './components/post.component/post.component';
+import PostEdit from './components/post-edit.component/post-edit.component';
 import ProfileLayout from './layout/profile-layout/profile-layout';
 import { Switch, Route, Redirect, BrowserRouter } from 'react-router-dom';
 import './App.css';
@@ -135,7 +136,7 @@ function App() {
             />
             <Route path='/chinh-sua/:id'
               render={() => currentUser ? (
-                <PostCreate />
+                <PostEdit />
               ) : (
                 <Redirect to='/Login' />
               )} 

@@ -21,7 +21,7 @@ const HeaderM = () => {
         dispatch(fetchFilterPosts({
             Search,
             Page: 1,
-            Size: 24
+            Size: 12
         }));
         history.push({
             pathname: `/tim-kiem-bds`,

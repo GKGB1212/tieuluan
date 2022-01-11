@@ -30,13 +30,13 @@ const TotalItemLayout = (props) => {
                     dispatch(fetchFilterPosts({
                         PostTypeID: type,
                         Page: 1,
-                        Size: 24
+                        Size: 12
                     }))
                 }else{
                     dispatch(fetchFilterPosts({
                         PostTypeID: type,
                         Page: 1,
-                        Size: 24,
+                        Size: 12,
                         CategoryID: categoryId
                     }))
                 }
