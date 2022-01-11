@@ -338,7 +338,7 @@ export const fetchUpdatePost = createAsyncThunk(
         var myHeaders = new Headers();
         myHeaders.append("accept", "*/*");
         myHeaders.append("Authorization", "Bearer " + accessToken);
-
+        console.log("hình ảnh",objPost.ImageUrls)
         var formData = new FormData();
         var images = objPost.imageList;
         formData.append("ID", objPost.ID);

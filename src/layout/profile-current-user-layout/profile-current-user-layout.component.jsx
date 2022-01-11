@@ -21,6 +21,9 @@ const ProfileCurrentUserLayout = () => {
     useEffect(() => {
         dispatch(fetchPostByCurrentUser());
     }, []);
+    useEffect(() => {
+        console.log("hhhhhhhh", post)
+    }, [post])
     const handleClickToPost = (itemId) => {
         history.push(`/products/${itemId}`);
     }
@@ -56,6 +59,9 @@ const ProfileCurrentUserLayout = () => {
             dispatch(setUpSoldPost());
         }
     }, [successChangeSoldPost]);
+    const handleConvertPrice = (n) => {
+        return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+    }
     return post ? (
         <div className="main-content">
             <div className="container WrapperContainer">
@@ -106,7 +112,11 @@ const ProfileCurrentUserLayout = () => {
                                                                             <div className="sc-Rmtcm jYrOeG">
                                                                                 <div className="sc-kgoBCf dPyyiW">
                                                                                     <div className="sc-kGXeez hDgMYM">
-                                                                                        <img src="https://cdn.chotot.com/Co44ZpDTg0YavWFAA8Vwgrakcok0kgk0tTHNDhddYWA/preset:listing/plain/7c6d6ca20a78cce0c6ff10fd1e899f37-2744579936221485423.jpg" alt="" height="106" loading="lazy" />
+                                                                                        {
+                                                                                            item.imageUrls.length > 0
+                                                                                                ? (<img alt={item.title} src={item.imageUrls[0]} height="106" loading="lazy" />)
+                                                                                                : (<img height="106" loading="lazy" />)
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -115,7 +125,7 @@ const ProfileCurrentUserLayout = () => {
                                                                                     <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" content="4650000000" class="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
+                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -216,7 +226,11 @@ const ProfileCurrentUserLayout = () => {
                                                                             <div className="sc-Rmtcm jYrOeG">
                                                                                 <div className="sc-kgoBCf dPyyiW">
                                                                                     <div className="sc-kGXeez hDgMYM">
-                                                                                        <img src="https://cdn.chotot.com/Co44ZpDTg0YavWFAA8Vwgrakcok0kgk0tTHNDhddYWA/preset:listing/plain/7c6d6ca20a78cce0c6ff10fd1e899f37-2744579936221485423.jpg" alt="" height="106" loading="lazy" />
+                                                                                        {
+                                                                                            item.imageUrls.length > 0
+                                                                                                ? (<img src={item.imageUrls[0]} height="106" loading="lazy" />)
+                                                                                                : (<img height="106" loading="lazy" />)
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -225,7 +239,7 @@ const ProfileCurrentUserLayout = () => {
                                                                                     <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" content="4650000000" class="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
+                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -286,7 +300,11 @@ const ProfileCurrentUserLayout = () => {
                                                                             <div className="sc-Rmtcm jYrOeG">
                                                                                 <div className="sc-kgoBCf dPyyiW">
                                                                                     <div className="sc-kGXeez hDgMYM">
-                                                                                        <img src="https://cdn.chotot.com/Co44ZpDTg0YavWFAA8Vwgrakcok0kgk0tTHNDhddYWA/preset:listing/plain/7c6d6ca20a78cce0c6ff10fd1e899f37-2744579936221485423.jpg" alt="" height="106" loading="lazy" />
+                                                                                        {
+                                                                                            item.imageUrls.length > 0
+                                                                                                ? (<img alt={item.title} src={item.imageUrls[0]} height="106" loading="lazy" />)
+                                                                                                : (<img height="106" loading="lazy" />)
+                                                                                        }
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -295,7 +313,7 @@ const ProfileCurrentUserLayout = () => {
                                                                                     <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" content="4650000000" class="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
+                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

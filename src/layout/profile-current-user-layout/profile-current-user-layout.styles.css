@@ -140,7 +140,7 @@
     width: 133px;
     float: left;
     position: relative;
-    background-image: url(https://static.chotot.com.vn/storage/default_images/c2c_ad_image.jpg);
+    background-image: url('../../assets/images/tin-khong-co-hinh.jpg');
     background-size: 100%;
 }
 .enrfhw {

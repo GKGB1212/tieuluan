@@ -61,7 +61,7 @@ const PostCreate = () => {
     const [imageUrls, setImageUrls] = useState([]);
 
     //cờ bật khi load xong dữ liệu api địa chỉ
-    const [flag, setFlag] = useState(false);
+    const [flag, setFlag] = useState(0);
 
     useEffect(() => {
         if (currentUser != null && id) {
@@ -77,12 +77,12 @@ const PostCreate = () => {
                 response.json().then(data => {
                     setLstTotal(data);
                 }).then(() => {
-                    setFlag(true)
+                    setFlag(1)
                 })
             })
     }, []);
     useEffect(() => {
-        if (flag == true && post.creatorID == currentUser.id && post.statusID == 1) {
+        if (flag == 1 && post.creatorID == currentUser.id && post.statusID == 1) {
             setTypeRealEstate(post.postTypeID);
             setTypeCategory(post.categoryID);
             if(post.address!=null){
@@ -100,14 +100,16 @@ const PostCreate = () => {
             setDistrictID(post.districtID);
             setBedrooms(post.bedrooms);
             setBathrooms(post.bathrooms);
+            setFlag(2);
         }
     }, [post, flag]);
     useEffect(() => {
-        if (id && post && lstDistrict.length > 0) {
+        if (flag==2&&id && post && lstDistrict.length > 0) {
             setLstWard(lstDistrict.find((x) => x.code == post.districtID).wards);
             setWardID(post.wardID);
+            setFlag(3)
         }
-    }, [lstDistrict])
+    }, [lstDistrict,flag])
     useEffect(() => {
         var temp = [];
         lstTotal.forEach((item) => {
