@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSignIn } from "../../redux/user/userSlice";
 import { useHistory } from "react-router";
 import { setUp } from "../../redux/user/userSlice";
+import LoadingComponent from "../loader/LoadingComponent";
 
 const LoginSignupForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -18,6 +19,7 @@ const LoginSignupForm = () => {
     const history = useHistory();
     const dispatch = useDispatch();
     const curentUser = useSelector(state => state.user.curentUser);
+    const loading = useSelector(state => state.user.loading);
     const error = useSelector(state => state.user.error)
     const succeeded = useSelector(state => state.user.succeeded);
     const handleChangePhoneNum = (phoneNum) => {
@@ -139,6 +141,7 @@ const LoginSignupForm = () => {
                     </p>
                 </div>
             </div>
+            <LoadingComponent isLoading={loading} />
         </main>
     )
 

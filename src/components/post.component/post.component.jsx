@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
 import { resetSuccess } from "../../redux/product/productSlice";
+import LoadingComponent from '../loader/LoadingComponent';
 
 
 const PostCreate = () => {
     const dispatch = useDispatch();
+    const loading = useSelector(state => state.product.loading);
     const history=useHistory();
     const currentUser=useSelector(state=>state.user.currentUser);
     const success=useSelector(state=>state.product.success);
@@ -363,6 +365,7 @@ const PostCreate = () => {
                     <button id="cmd_post" onClick={handleSubmitCreatePost} class="btn-submit">ĐĂNG TIN</button>
                 </div>
             </div>
+            <LoadingComponent isLoading={loading} />
         </div >)
 }
 export default PostCreate;

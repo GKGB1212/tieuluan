@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './total-item-layout.styles.css';
 import DynamicFilter from "../components/dynamic-filter.component/dynamic-filter.component";
 import TotalItemContainer from "../components/total-item-container.component/total-item-container.component";
+import ModalFilter from "../../../components/modal-filter/modal-filter";
 import DATA from "../../../trials/data";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router";
@@ -60,6 +61,7 @@ const TotalItemLayout = (props) => {
     return (
         // type?(
         <div className="container ct-listing">
+            <ModalFilter/>
             <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId}/>
             <h1>{props.location.type}</h1>
             <TotalItemContainer lstPostSearch={lstPostSearch} Search={Search} />

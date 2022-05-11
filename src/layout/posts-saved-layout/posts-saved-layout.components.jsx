@@ -4,17 +4,38 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchGetPostLiked, fetchLike } from "../../redux/likePost/likePostSlice";
 import { Redirect } from "react-router-dom";
+import NotifyErrorComponent from "../../components/notify.component/notify.component";
+import LoadingComponent from "../../components/loader/LoadingComponent";
 
 const PostsSaved = () => {
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
     const lstPostLike = useSelector(state => state.likePost.lstPostLike);
+    const loading = useSelector(state => state.likePost.loading);
+    const [isShowNotify, setIsShowNotify] = useState(false);
+    const [titleForBox, setTitleForBox] = useState('');
+    const [idToChange, setIdToChange] = useState(null)
     useEffect(() => {
         dispatch(fetchGetPostLiked());
     }, [])
-    const handleLike = async (id) => {
-        await dispatch(fetchLike(id))
-        await dispatch(fetchGetPostLiked());
+    const cancel = () => {
+        setIdToChange(null);
+        setIsShowNotify(false);
+    }
+    const handleLike = async () => {
+        if (idToChange == null) {
+            return;
+        } else {
+            await dispatch(fetchLike(idToChange))
+            await dispatch(fetchGetPostLiked());
+            setIdToChange(null);
+            setIsShowNotify(false);
+        }
+    }
+    const handleClickUnLike = (title, id) => {
+        setIsShowNotify(true);
+        setTitleForBox(title);
+        setIdToChange(id);
     }
     return currentUser ? (
         <div className="main-content">
@@ -58,7 +79,7 @@ const PostsSaved = () => {
                                                             </Link>
                                                             <div className="sc-eHgmQL hNtdWe">
                                                                 <div className="sc-cvbbAY knzJMl">
-                                                                <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                    <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                 </div>
                                                             </div>
                                                             {
@@ -82,7 +103,7 @@ const PostsSaved = () => {
                                                                     ) : ('')
                                                             }
                                                             <div className="divLike" style={{ marginRight: "20px" }}>
-                                                                <button className="sc-cHGsZl bwQGTK" onClick={() => handleLike(item.id)}>
+                                                                <button className="sc-cHGsZl bwQGTK" onClick={() => handleClickUnLike(item.title,item.id)}>
                                                                     {
                                                                         item.like == true ? (
                                                                             <img width="20" src="https://static.chotot.com.vn/storage/adType/adItem/heart-active.png" alt="unlike" />
@@ -113,6 +134,13 @@ const PostsSaved = () => {
                     </div>
                 </div>
             </div>
+            <NotifyErrorComponent
+                isShow={isShowNotify}
+                title={titleForBox}
+                cancel={cancel}
+                handleChangeStatusPost={handleLike}
+            />
+            <LoadingComponent isLoading={loading}/>
         </div>
     ) : (<Redirect to={"/Login"} />)
 }

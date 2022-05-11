@@ -110,7 +110,11 @@ const ProfileLayout = () => {
                                                                         <div className="sc-Rmtcm jYrOeG">
                                                                             <div className="sc-kgoBCf dPyyiW">
                                                                                 <div className="sc-kGXeez hDgMYM">
-                                                                                    <img src="https://cdn.chotot.com/Co44ZpDTg0YavWFAA8Vwgrakcok0kgk0tTHNDhddYWA/preset:listing/plain/7c6d6ca20a78cce0c6ff10fd1e899f37-2744579936221485423.jpg" alt="" height="106" loading="lazy" />
+                                                                                    {
+                                                                                        item.imageUrls.length > 0
+                                                                                            ? (<img alt={item.title} src={item.imageUrls[0]} height="106" loading="lazy" />)
+                                                                                            : (<img height="106" loading="lazy" />)
+                                                                                    }
                                                                                 </div>
                                                                             </div>
                                                                         </div>

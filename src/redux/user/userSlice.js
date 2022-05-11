@@ -275,6 +275,7 @@ const userSlice = createSlice({
     extraReducers: {
         [fetchLogin.pending]: (state, action) => {
             state.error = null
+            state.loading=true;
         },
         [fetchLogin.fulfilled]: (state, action) => {
             if (action.payload.refreshToken) {
@@ -288,15 +289,18 @@ const userSlice = createSlice({
                 state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
                 state.currentUser = null
             }
+            state.loading=false;
         },
         [fetchLogin.rejected]: (state, action) => {
             state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'
             state.currentUser = null;
             state.succeeded = false;
+            state.loading=false;
         },
         [fetchSignIn.pending]: (state, action) => {
             state.error = null;
             state.succeeded = false;
+            state.loading=true;
         },
         [fetchSignIn.fulfilled]: (state, action) => {
             if (action.payload.succeeded == true) {
@@ -306,6 +310,7 @@ const userSlice = createSlice({
                 state.succeeded = false;
                 state.error = action.payload.errors;
             }
+            state.loading=false;
         },
         [fetchSignIn.rejected]: (state, action) => {
             state.error = 'Vui lòng kiểm tra lại số điện thoại và mật khẩu'

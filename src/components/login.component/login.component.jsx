@@ -6,11 +6,13 @@ import * as toast from '../../common/toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchLogin, setUp } from "../../redux/user/userSlice";
 import { useHistory, useLocation } from "react-router";
+import LoadingComponent from "../loader/LoadingComponent";
 
 const LoginForm = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [passWord, setPassWord] = useState('');
     const currentUser = useSelector(state => state.user.currentUser)
+    const loading = useSelector(state => state.user.loading)
     const error = useSelector(state => state.user.error)
     const dispatch = useDispatch();
     const history = useHistory();
@@ -93,12 +95,13 @@ const LoginForm = () => {
                         <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" class="iconButton fb" ></li>
                         <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" class="iconButton gg"></li>
                     </ul> */}
-                    <p>Chưa có tài khoản?<br/>
+                    <p>Chưa có tài khoản ?<br/>
                         <Link to="/Signin">Đăng ký ngay</Link>
 
                     </p>
                 </div>
             </div>
+            <LoadingComponent isLoading={loading}/>
         </main>)
 
 }

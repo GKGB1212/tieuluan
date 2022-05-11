@@ -62,7 +62,7 @@ const OTPForm = () => {
                     </p>
                 </div>
                 <button class="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={otpSubmit}>Tiếp tục</button>
-                <a role="button" tabindex="-1" class="resend-code">Gửi lại mã</a>
+                {/* <a role="button" tabindex="-1" class="resend-code">Gửi lại mã</a> */}
             </div>
         </main>
     )

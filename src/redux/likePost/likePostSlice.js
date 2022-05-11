@@ -77,7 +77,8 @@ const likePostSlice = createSlice({
             state.lstPostLike = action.payload;
         },
         [fetchGetPostLiked.rejected]: (state, action) => {
-            state.err = action.err
+            state.err = action.err;
+            state.loading = false;
         }
     }
 })
