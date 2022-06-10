@@ -3,7 +3,7 @@ import './dynamic-filter.styles.css'
 import { useDispatch } from "react-redux";
 import { fetchFilterPosts } from "../../../../redux/product/productSlice";
 
-const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
+const DynamicFilter = ({ lstCity, Search, type, categoryId, changeIsShow }) => {
     const dispatch=useDispatch()
     const [ProvinceID, setProvinceID] = useState(0);
     const [PostTypeID, setPostTypeID] = useState(0);
@@ -33,9 +33,8 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
         <div className="DynamicFilterStyle_dynamicFilterWrapper">
             <div className="WrapperScroll_wrapperOverflow">
                 <div className="DynamicFilterStyle_dynamicFilter">
-                    <h1 style={{ marginTop: "5px" }}>Lọc bất động sản</h1>
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
-                        <select class="form-input" onChange={(e) => setProvinceID(e.target.value)}>
+                        <select class="select" onChange={(e) => setProvinceID(e.target.value)}>
                             <option value="0">Chọn Tỉnh/ Thành phố</option>
                             {lstCity.map((item) => {
                                 return <option key={item.code} value={item.code}>{item.name}</option>
@@ -43,7 +42,7 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
                         </select>
                     </div>
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
-                        <select class="form-input" value={PostTypeID} onChange={(e) => setPostTypeID(e.target.value)}>
+                        <select class="select" value={PostTypeID} onChange={(e) => setPostTypeID(e.target.value)}>
                             <option value="0">Chọn loại bài đăng</option>
                             <option value="1">Mua bán</option>
                             <option value="2">Cho thuê</option>
@@ -52,7 +51,7 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
                         {(PostTypeID == 1)
                             ? (
-                                <select class="form-input" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
+                                <select class="select" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
                                     <option value="0">Chọn Loại BĐS</option>
                                     <option value="1">Căn hộ/ Chung cư</option>
                                     <option value="2">Nhà ở</option>
@@ -61,7 +60,7 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
                                 </select>
                             ) :
                             (
-                                <select class="form-input" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
+                                <select class="select" value={CategoryID} onChange={(e) => setCategoryID(e.target.value)}>
                                     <option value="0">Chọn Loại BĐS</option>
                                     <option value="1">Căn hộ/ Chung cư</option>
                                     <option value="2">Nhà ở</option>
@@ -72,6 +71,9 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId }) => {
                     </div>
                     <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
                         <button onClick={handleClickSearch}>Tìm kiếm</button>
+                    </div>
+                    <div class="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
+                        <button onClick={changeIsShow}>Lọc</button>
                     </div>
                 </div>
             </div>

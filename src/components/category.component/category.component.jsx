@@ -29,7 +29,7 @@ const Category = () => {
                         </div>
                         <div class="flex flex-col flex-auto flex-text">
                             <span class="categoryText">Mua bán</span>
-                            <span class="categorySubText"><span><b>{postTypeNumber.muaBan}</b> tin đăng mua bán</span></span>
+                            <span class="categorySubText"><span><b></b> tin đăng mua bán</span></span>
                         </div>
                     </Link>
                     <div class="categoriesDropdownContent dropdown-content" id="num1">
@@ -46,7 +46,7 @@ const Category = () => {
                         </div>
                         <div class="flex flex-col flex-auto flex-text">
                             <span class="categoryText">Cho thuê</span>
-                            <span class="categorySubText"><span><b>{postTypeNumber.thue}</b> tin đăng cho thuê</span></span>
+                            <span class="categorySubText"><span><b></b> tin đăng cho thuê</span></span>
                         </div>
                     </Link>
                     <div class="categoriesDropdownContent dropdown-content" id="num2">

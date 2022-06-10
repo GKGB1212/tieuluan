@@ -8,9 +8,11 @@ import { fetchPosts } from "../../redux/product/productSlice";
 import { fetchFilterPosts } from "../../redux/product/productSlice";
 import { setUp, signOut } from "../../redux/user/userSlice";
 import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component';
+import $ from 'jquery';
 const HeaderM = () => {
     const [Search, setSearch] = useState('');
     const [hidden, sethHidden] = useState(true);
+    const [isShowNotification, setIsShowNotification] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser)
@@ -28,8 +30,29 @@ const HeaderM = () => {
             search: Search
         })
     }
+
+    $(document).ready(function () {
+        $("#notification_Link").on(function () {
+            $("#notification_Wrapper").fadeToggle(300, 'swing', function () {
+                $(this).css('background-color', 'red');
+            });
+            $("#notification_Count").fadeOut("slow");
+            return false;
+        });
+
+        //Document Click
+        $(document).on(function () {
+            $("#notification_Wrapper").show();
+        });
+        //Popup Click
+        $("#notification_Wrapper").on(function () {
+            return false
+        });
+
+    });
     return (
         <>
+
             <section class="header">
                 <div class="nav">
                     <img src="https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Editable-Real-Estate-Logo-Design-PNG-Transparent.png" alt="" onClick={goBackHome} />
@@ -40,6 +63,88 @@ const HeaderM = () => {
                                 ? (<li><Link to="/postssaved"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)
                                 : (<li><Link to="/Login"><i class="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)}
                             <li onClick={() => sethHidden(!hidden)}><i class="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</li>
+                            <li id="notification_li" className="li-notification"><i className="fa"></i>
+                                <span id="notification_Count">3</span>
+                                <a href="#" id="notification_Link" onClick={() => setIsShowNotification(!isShowNotification)}>Thông báo</a>
+                                <div id="notification_Wrapper" style={isShowNotification ? { display: 'block' } : { display: 'none' }}>
+                                    <div id="notificationTitle">THÔNG BÁO</div>
+                                    <div id="notificationsBody style-2"  class="notifications scrollbar">
+                                        <div class="label_type"><div class="">Chưa xem</div></div>
+                                        {/* phần này của từng thông báo */}
+                                        <div class="notification_container" role="button" tabindex="-1">
+                                            <div class="notification_img_container">
+                                                <div class="RR-M- " aria-disabled="true" role="button" tabindex="-1">
+                                                    <canvas class="CfWVH" height="68" width="68">
+                                                    </canvas>
+                                                    <img alt="notifi" class="img_notification"src="https://st.quantrimang.com/photos/image/2020/10/17/giai-nen-file-img.jpg" />
+                                                </div>
+                                            </div>
+                                            <div class="notification_detail_container">
+                                                <div class="vy6Bb">Bài viết của bạn đang bị báo cáo vui lòng luên hệ ban quản trị</div>
+                                                <time class="HsXaJ" datetime="2022-04-25T03:18:18.485Z" title="Apr 25, 2022">2w</time>
+                                            </div>
+                                        </div>
+                                        <div class="notification_container" role="button" tabindex="-1">
+                                            <div class="notification_img_container">
+                                                <div class="RR-M- " aria-disabled="true" role="button" tabindex="-1">
+                                                    <canvas class="CfWVH" height="68" width="68">
+                                                    </canvas>
+                                                    <img alt="notifi" class="img_notification"src="https://st.quantrimang.com/photos/image/2020/10/17/giai-nen-file-img.jpg" />
+                                                </div>
+                                            </div>
+                                            <div class="notification_detail_container">
+                                                <div class="vy6Bb">Bài viết của bạn đang bị báo cáo vui lòng luên hệ ban quản trị</div>
+                                                <time class="HsXaJ" datetime="2022-04-25T03:18:18.485Z" title="Apr 25, 2022">2w</time>
+                                            </div>
+                                        </div>
+                                        <div class="notification_container" role="button" tabindex="-1">
+                                            <div class="notification_img_container">
+                                                <div class="RR-M- " aria-disabled="true" role="button" tabindex="-1">
+                                                    <canvas class="CfWVH" height="68" width="68">
+                                                    </canvas>
+                                                    <img alt="notifi" class="img_notification"src="https://st.quantrimang.com/photos/image/2020/10/17/giai-nen-file-img.jpg" />
+                                                </div>
+                                            </div>
+                                            <div class="notification_detail_container">
+                                                <div class="vy6Bb">Bài viết của bạn đang bị báo cáo vui lòng luên hệ ban quản trị </div>
+                                                <time class="HsXaJ" datetime="2022-04-25T03:18:18.485Z" title="Apr 25, 2022">2w</time>
+                                            </div>
+                                        </div>
+                                        <div class="notification_container" role="button" tabindex="-1">
+                                            <div class="notification_img_container">
+                                                <div class="RR-M- " aria-disabled="true" role="button" tabindex="-1">
+                                                    <canvas class="CfWVH" height="68" width="68">
+                                                    </canvas>
+                                                    <img alt="notifi" class="img_notification"src="https://st.quantrimang.com/photos/image/2020/10/17/giai-nen-file-img.jpg" />
+                                                </div>
+                                            </div>
+                                            <div class="notification_detail_container">
+                                                <div class="vy6Bb">Bài viết của bạn đang bị báo cáo vui lòng luên hệ ban quản trị</div>
+                                                <time class="HsXaJ" datetime="2022-04-25T03:18:18.485Z" title="Apr 25, 2022">2w</time>
+                                            </div>
+                                        </div>
+                                        <div class="notification_container" role="button" tabindex="-1">
+                                            <div class="notification_img_container">
+                                                <div class="RR-M- " aria-disabled="true" role="button" tabindex="-1">
+                                                    <canvas class="CfWVH" height="68" width="68">
+                                                    </canvas>
+                                                    <img alt="notifi" class="img_notification"src="https://st.quantrimang.com/photos/image/2020/10/17/giai-nen-file-img.jpg" />
+                                                </div>
+                                            </div>
+                                            <div class="notification_detail_container">
+                                                <div class="vy6Bb">Bài viết của bạn đang bị báo cáo vui lòng luên hệ ban quản trị</div>
+                                                <time class="HsXaJ" datetime="2022-04-25T03:18:18.485Z" title="Apr 25, 2022">2w</time>
+                                            </div>
+                                        </div>
+                                        {/* ////////////////// */}
+                                        <hr class="W4P49"></hr>
+                                        <div class="label_type"><div class="">Đã xem</div></div>
+                                       
+                                    </div>
+                                    <div id="notificationFooter"><a href="#">Hiển thị tất cả</a></div>
+                                </div>
+
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -47,8 +152,8 @@ const HeaderM = () => {
                     <div class="search">
                         <div class="search-container">
 
-                            <input type="text" placeholder="Tìm kiếm bất động sản" name="search" class="inputSearch"  value={Search} onChange={(e) => setSearch(e.target.value)}/>
-                            <button type="submit"  onClick={handleClickSearch}><i class="fa fa-search"></i></button>
+                            <input type="text" placeholder="Tìm kiếm bất động sản" name="search" class="inputSearch" value={Search} onChange={(e) => setSearch(e.target.value)} />
+                            <button type="submit" onClick={handleClickSearch}><i class="fa fa-search"></i></button>
                         </div>
                         {/* <div class="s116vlok">
                             <div value="" class="a1ywrhtc">

@@ -17,6 +17,7 @@ const TotalItemLayout = (props) => {
     const [lstCity, setLstCity] = useState([]);
     const [type, setType] = useState(null);
     const [categoryId,setCategoryId]=useState(null);
+    const [isShowModalFilter,setIsShowModalFilter]=useState(false);
 
     useEffect(() => {
         try {
@@ -58,11 +59,14 @@ const TotalItemLayout = (props) => {
             })
     }, [])
 
+    const changeIsShow=()=>{
+        setIsShowModalFilter(!isShowModalFilter);
+    }
     return (
         // type?(
         <div className="container ct-listing">
-            <ModalFilter/>
-            <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId}/>
+            <ModalFilter isShowModalFilter={isShowModalFilter} changeIsShow={changeIsShow}/>
+            <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId} changeIsShow={changeIsShow}/>
             <h1>{props.location.type}</h1>
             <TotalItemContainer lstPostSearch={lstPostSearch} Search={Search} />
         </div>

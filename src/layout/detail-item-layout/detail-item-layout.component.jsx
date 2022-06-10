@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import { useParams } from "react-router";
 import './detail-item-layout.styles.css';
 import SliderImages from "../../components/slider-images.component/slider-images.component";
@@ -9,37 +9,54 @@ import SmallDetail from "./item-detail.component";
 import SafeTip from "../../components/safe-tip.component/safe-tip.component";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPostById } from "../../redux/product/productSlice";
-import ButtonChat from "../../components/button-chat.component/button-chat.component";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { fetchLike } from "../../redux/likePost/likePostSlice";
+import { fetchCreateReport } from "../../redux/report/reportSlice";
+import ModalReport from "./component/modal-report/modal-report";
+import * as toast from '../../common/toast';
+
 
 const DetailItemLayout = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
-    const history=useHistory();
+    const history = useHistory();
     const loading = useSelector(state => state.product.loading)
     const post = useSelector(state => state.product.product)
-    const currentUser=useSelector(state=>state.user.currentUser);
+    const currentUser = useSelector(state => state.user.currentUser);
+    const [isShowModalReport,setIsShowModalReport]=useState(false);
+    const [details,setDetails]=useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
     useEffect(() => {
-        if(currentUser!=null){
-            dispatch(fetchPostById({id,userId:currentUser.id}));
-        }else{
-            dispatch(fetchPostById({id,userId:''}));
+        if (currentUser != null) {
+            dispatch(fetchPostById({ id, userId: currentUser.id }));
+        } else {
+            dispatch(fetchPostById({ id, userId: '' }));
         }
     }, [])
-    
 
-    const handleSavePost = async() => {
+    const changeIsShow=()=>{
+        setIsShowModalReport(!isShowModalReport);
+    }
+    const handleSavePost = async () => {
         if (currentUser == null) {
             history.push('/Login')
         } else {
             await dispatch(fetchLike(post.id));
-            if(currentUser!=null){
-                dispatch(fetchPostById({id,userId:currentUser.id}));
-            }else{
-                dispatch(fetchPostById({id,userId:''}));
+            if (currentUser != null) {
+                dispatch(fetchPostById({ id, userId: currentUser.id }));
+            } else {
+                dispatch(fetchPostById({ id, userId: '' }));
             }
         }
+    }
+    const onHandleReportClick=()=>{
+        dispatch(fetchCreateReport({postID:id, userID:currentUser.id, details,email,phoneNumber,callback:function(response){
+            if(response){
+                toast.notifySuccess("Đã gửi báo cáo của bạn về bài viết.");
+                setIsShowModalReport(false)
+            }
+        }}));
     }
 
     const lstPaper = [
@@ -76,14 +93,16 @@ const DetailItemLayout = () => {
         "Nhà trọ"
     ]
 
-    return !loading&&((post.statusID==2)||(currentUser&&(post.statusID==1&&post.creatorID==currentUser.id))) ? (
+
+    return !loading && ((post.statusID == 2) || (currentUser && (post.statusID == 1 && post.creatorID == currentUser.id))) ? (
         <div class="container">
+            <ModalReport changeIsShow={changeIsShow} isShowModalReport={isShowModalReport} details={details} setDetails={setDetails} email={email} setEmail={setEmail} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} onHandleReportClick={onHandleReportClick}/>
             <div class="row base">
                 <div style={{ margin: "10px 0px" }}><div></div></div>
                 <div class="col-md-8">
                     <div class="AdImage_adImageWrapper">
                         <SliderImages imageUrls={post.imageUrls} />
-                        <AdDecriptionWrapper item={post} handleSavePost={handleSavePost}/>
+                        <AdDecriptionWrapper item={post} handleSavePost={handleSavePost} />
                         <div style={{ margin: "5px 0px 15px 0px" }}></div>
                         <div class="col-xs-12 no-padding">
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/602/602225.png" title="Loại bất động sản: " value={lstCategory[post.categoryID - 1]} />
@@ -133,6 +152,9 @@ const DetailItemLayout = () => {
                                             </em>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="Styles_reportBtn__3jZBf">
+                                    <button type="button" id="report-bad-ad-btn" onClick={changeIsShow} class="btn btn-default btn-xs">Báo tin không hợp lệ</button>
                                 </div>
                             </div>
                         </div>

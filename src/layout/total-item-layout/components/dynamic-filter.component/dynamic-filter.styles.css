@@ -2,13 +2,33 @@
     background-color: #fff;
     border-bottom: 1px solid #f4f4f4;
     display: flex;
+    border-radius: 10px;
     justify-content: center;
     left: 0;
-    position: fixed;
+    /* position: fixed; */
     top: 100px;
     transition: top .5s;
     width: 100%;
     z-index: 9;
+    border: #bababa 4px solid;
+}
+.DynamicFilterStyle_dynamicFilterWrapper button{
+    position: relative;
+    width: 100%;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 7px;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    background: #e6e6e6;
+    color: #7b7b7b;
+    appearance: none;
+}
+.DynamicFilterStyle_dynamicFilterWrapper button:hover{
+    background: #b3b3b3;
+    color: #484848;
 }
 .WrapperScroll_wrapperOverflow__1AXEo {
     position: relative;
@@ -21,16 +41,15 @@
 .DynamicFilterStyle_dynamicFilterWrapper .DynamicFilterStyle_dynamicFilter {
     display: flex;
     overflow-x: auto;
-    padding: 10px 0;
     position: relative;
     /* width: 936px; */
 }
 .ItemStyles_filterItemSelected {
-    background-color: #fff;
-    border: 1px solid hsla(0,0%,60.8%,.7);
+    padding: 10px;
 }
+
 .ItemStyles_filterItem {
-    align-items: center;
+    /* align-items: center;
     border-radius: 4px;
     cursor: pointer;
     display: flex;
@@ -38,5 +57,21 @@
     margin-left: 8px;
     max-height: 32px;
     padding: 8px;
-    white-space: nowrap;
+    white-space: nowrap; */
+}
+
+.select {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    display: inline-block;
+    width: 100%;
+    cursor: pointer;
+    padding: 7px 7px;
+    outline: 0;
+    border: 0;
+    border-radius: 5px;
+    background: #e6e6e6;
+    color: #7b7b7b;
+    appearance: none;
 }
