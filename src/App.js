@@ -60,6 +60,10 @@ function App() {
       {
         loading != 0
           ? (<BrowserRouter>
+            <MessengerCustomerChat
+              pageId="108923665216134"
+              appId="5429323507132483"
+            />
             <HeaderM />
             <Switch>
               <Route exact path='/profile/password'
@@ -150,10 +154,7 @@ function App() {
                 )}
               />
             </Switch>
-            <MessengerCustomerChat
-              pageId="108923665216134"
-              appId="5429323507132483"
-            />
+
             {/* <FacebookProvider appId="5429323507132483">
               <Page href="https://www.facebook.com/Atlanta-B%E1%BA%A5t-%C4%90%E1%BB%99ng-S%E1%BA%A3n-108923665216134" tabs="timeline" />
 
