@@ -35,6 +35,7 @@ export const fetchNews = createAsyncThunk(
 export const fetchNewByID = createAsyncThunk(
     'article/fetchNewByID',
     async (id, thunkAPI) => {
+        console.log("id truyền vào là",id)
         var result;
         var myHeaders = new Headers();
         myHeaders.append("accept", "*/*");

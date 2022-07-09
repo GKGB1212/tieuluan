@@ -10,6 +10,9 @@ const ArticleLayout = () => {
     useEffect(() => {
         dispatch(fetchNewByID(id));
     }, []);
+    useEffect(() => {
+        console.log("Bài viết",article)
+    }, [article]);
     const formatDateTimeDDmmYYYY=function(date) {
         const dateTime = updateDateTime(date);
     
