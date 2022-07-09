@@ -22,27 +22,27 @@ const ModalFilter = (props) => {
             <div className="notify-popup-filter" ref={notifyPopup}>
                 <p className="title-header">Lọc chi tiết</p>
                 <div className="body-popup">
-                    <div class="Styles_sectionWrapper">
-                        <div class="Styles_priceFromTo">
+                    <div className="Styles_sectionWrapper">
+                        <div className="Styles_priceFromTo">
                             <div>Giá từ <b><input className="input-price" /></b> đến <b><input className="input-price" /></b></div>
                         </div>
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <SelectCustom title="Thành phố" />
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <SelectCustom title="Quận huyện" />
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <SelectCustom title="Danh mục" />
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <SelectCustom title="Loại bất động sản" />
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <RadioButtonCustom title="Loại bài đăng" />
                     </div>
-                    <div class="Styles_sectionWrapper">
+                    <div className="Styles_sectionWrapper">
                         <RadioButtonCustom title="Sắp xếp theo" />
                     </div>
                 </div>

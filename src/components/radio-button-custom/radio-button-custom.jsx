@@ -4,16 +4,16 @@ import './radio-button-custom.css';
 const RadioButtonCustom = (props) => {
     const title = props.title;
     return (
-        <div class="control-group">
+        <div className="control-group">
             <h1>{title}</h1>
             <form>
-                <label class="control control--radio">First radio
+                <label className="control control--radio">First radio
                     <input type="radio" name="radio" checked="checked" />
-                    <div class="control__indicator"></div>
+                    <div className="control__indicator"></div>
                 </label>
-                <label class="control control--radio">Second radio
+                <label className="control control--radio">Second radio
                     <input type="radio" name="radio" />
-                    <div class="control__indicator"></div>
+                    <div className="control__indicator"></div>
                 </label>
             </form>
         </div>

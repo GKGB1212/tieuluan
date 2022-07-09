@@ -22,7 +22,7 @@ export const fetchNotification = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch("https://realestateute.azurewebsites.net/api/Notifications/GetNotificationsByUser", requestOptions)
+        await fetch("http://localhost:50804/api/Notifications/GetNotificationsByUser", requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -54,7 +54,7 @@ export const fetchCreateNotification = createAsyncThunk(
             body: raw,
             redirect: 'follow'
         };
-        await fetch("https://realestateute.azurewebsites.net/api/Notifications", requestOptions)
+        await fetch("http://localhost:50804/api/Notifications", requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -78,7 +78,7 @@ export const fetchUpdateStatusNotifications = createAsyncThunk(
             headers: myHeaders,
             redirect: 'follow'
           };
-        await fetch("https://realestateute.azurewebsites.net/api/Notifications/UpdateStatusNotifications", requestOptions)
+        await fetch("http://localhost:50804/api/Notifications/UpdateStatusNotifications", requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -114,7 +114,7 @@ myHeaders.append("Content-Type", "application/json-patch+json");
             redirect: 'follow'
           };
           
-        await fetch("https://realestateute.azurewebsites.net/api/Reports", requestOptions)
+        await fetch("http://localhost:50804/api/Reports", requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { console.log('result', json); result = json; objRequest.callback(result) })
@@ -141,6 +141,7 @@ const reportSlice = createSlice({
             state.lstNotification=action.payload;
         },
         [fetchNotification.rejected]: (state, action) => {
+            state.lstNotification=[];
             state.err = action.err;
             state.loading = false;
         },

@@ -3,11 +3,11 @@ import './footer.styles.css'
 
 const Footer = () => {
     return (
-        <div class="footerContainer">
-            <div class="descriptionWrapper">
-                <div id="content" class="descriptionContent">
-                    <div class="block4 row">
-                        <div class="col-xs-12">
+        <div className="footerContainer">
+            <div className="descriptionWrapper">
+                <div id="content" className="descriptionContent">
+                    <div className="block4 row">
+                        <div className="col-xs-12">
                             <h2 style={{textAlign:"center"}}><strong>Trang web bất động sản</strong></h2>
 
                             <p style={{textAlign:"justify"}}>Chợ Tốt Nhà (nha.chotot.com) Chuyên trang <strong>mua bán và cho thuê bất động sản</strong> được ra mắt bởi trang mua bán trực tuyến Chợ Tốt vào đầu năm 2017. Với hơn 5 triệu lượt truy cập và hơn 200.000 tin đăng phân bố khắp các tỉnh thành trong cả nước mỗi tháng, Chợ Tốt Nhà hướng tới là một trang mua bán bất động sản hiệu quả, dễ sử dụng, đa dạng lựa chọn cho người dùng.</p>
@@ -32,9 +32,9 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <p class="Description__ReadMoreGradient-cgzewc-2 fpgpzF"></p>
-                <p id="seeMore" class="Description__ReadMore-cgzewc-3 hKTTGO">
-                    <a id="btnReadMore" class="Description__A-cgzewc-4 gIUeLm">Mở rộng<i id="arrowIcon" class="fa fa-angle-down" aria-hidden="true"></i></a></p></div></div>
+                <p className="Description__ReadMoreGradient-cgzewc-2 fpgpzF"></p>
+                <p id="seeMore" className="Description__ReadMore-cgzewc-3 hKTTGO">
+                    <a id="btnReadMore" className="Description__A-cgzewc-4 gIUeLm">Mở rộng<i id="arrowIcon" className="fa fa-angle-down" aria-hidden="true"></i></a></p></div></div>
     )
 }
 

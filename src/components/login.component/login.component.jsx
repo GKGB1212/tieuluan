@@ -43,57 +43,57 @@ const LoginForm = () => {
         }
     }
     return (
-        <main class="mainLoginForm">
-            <div class="loginDiv">
-                <div class="loginBanner">
-                    <div class="wrapperBanner">
-                        <div class="titleBanner">
+        <main className="mainLoginForm">
+            <div className="loginDiv">
+                <div className="loginBanner">
+                    <div className="wrapperBanner">
+                        <div className="titleBanner">
                             <h3>Đăng nhập</h3>
                             <p>Chào bạn quay lại</p>
                         </div>
-                        <div class="imageBanner">
+                        <div className="imageBanner">
                             <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
                         </div>
                     </div>
                     {
                         error
                             ? (
-                                <div class="e66t3pu error">
+                                <div className="e66t3pu error">
                                     Số điện thoại hoặc mật khẩu chưa đúng, vui lòng kiểm tra lại.
                                 </div>
                             ) : ''
                     }
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
                         <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" maxLength="10"/>
                         <button tabindex="-1" type="button">
-                            <span class="clear">
+                            <span className="clear">
                             </span>
                         </button>
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
-                        <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => handleChangePass(e)}/>
+                        <input type="password" id="pass" className="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => handleChangePass(e)}/>
                         <button tabindex="-1" type="button" onClick={changeTypePassWord}>
                             {textBtn}
                         </button>
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <button class="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={login} type="submit">Đăng nhập</button>
-                <div class="loginDiv2">
+                <button className="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={login} type="submit">Đăng nhập</button>
+                <div className="loginDiv2">
                     <p>
                         <Link to="/ForgotPassword">Bạn quên mật khẩu?</Link>
                     </p>
                     {/* <small>Hoặc đăng nhập với</small>
                     <ul>
-                        <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" class="iconButton fb" ></li>
-                        <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" class="iconButton gg"></li>
+                        <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" className="iconButton fb" ></li>
+                        <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" className="iconButton gg"></li>
                     </ul> */}
                     <p>Chưa có tài khoản ?<br/>
                         <Link to="/Signin">Đăng ký ngay</Link>

@@ -3,11 +3,11 @@ import './safe-tip.styles.css'
 
 const SafeTip = () => {
     return (
-        <div class="d-lg-block d-none">
+        <div className="d-lg-block d-none">
             <div>
-                <div class="SafeTips_SafeTipsWrapper">
-                    <img alt="safe tips" class="pull-left" width="100" height="auto" src="https://st.chotot.com/storage/images/tips/1_PTY.png" />
-                    <div class="SafeTips_TipText">
+                <div className="SafeTips_SafeTipsWrapper">
+                    <img alt="safe tips" className="pull-left" width="100" height="auto" src="https://st.chotot.com/storage/images/tips/1_PTY.png" />
+                    <div className="SafeTips_TipText">
                         <p style={{fontSize:"13px"}}>
                             Bạn ơi để tránh bị lừa đảo thì đừng đặt cọc nếu chưa xác định được chủ nhà nhé
                         </p>
@@ -17,7 +17,7 @@ const SafeTip = () => {
                     </div>
                 </div>
             </div>
-            <div class="Styles_rightHandSiteAdView__1H9cH">
+            <div className="Styles_rightHandSiteAdView__1H9cH">
                 <div>
                 </div>
             </div>

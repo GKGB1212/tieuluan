@@ -3,7 +3,7 @@ import './container.styles.css';
 
 const ContainerMain=({children})=>{
     return (
-        <section class="content">
+        <section className="content">
             {children}
         </section>
     );

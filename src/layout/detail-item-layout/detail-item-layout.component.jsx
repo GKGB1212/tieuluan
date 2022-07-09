@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import './detail-item-layout.styles.css';
 import SliderImages from "../../components/slider-images.component/slider-images.component";
@@ -14,6 +14,11 @@ import { fetchLike } from "../../redux/likePost/likePostSlice";
 import { fetchCreateReport } from "../../redux/report/reportSlice";
 import ModalReport from "./component/modal-report/modal-report";
 import * as toast from '../../common/toast';
+import Map from "../../components/map.component/Map";
+import axios from 'axios';
+import LikeAndShare from "../../components/likeAndShare.component/likeAndShare.component";
+import { MetaTags } from "react-meta-tags";
+import default_real_estate from '../../assets/images/tin-khong-co-hinh.jpg'
 
 
 const DetailItemLayout = () => {
@@ -23,20 +28,85 @@ const DetailItemLayout = () => {
     const loading = useSelector(state => state.product.loading)
     const post = useSelector(state => state.product.product)
     const currentUser = useSelector(state => state.user.currentUser);
-    const [isShowModalReport,setIsShowModalReport]=useState(false);
-    const [details,setDetails]=useState('');
+    const [isShowModalReport, setIsShowModalReport] = useState(false);
+    const [details, setDetails] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [provinces, setProvinces] = useState([]);
     useEffect(() => {
         if (currentUser != null) {
             dispatch(fetchPostById({ id, userId: currentUser.id }));
         } else {
             dispatch(fetchPostById({ id, userId: '' }));
         }
-    }, [])
+    }, []);
 
-    const changeIsShow=()=>{
+    const [center, setCenter] = useState({ lat: 21.0465058, lng: 105.8443304 });
+    useEffect(() => {
+        console.log("center", center)
+    }, [center])
+    useEffect(() => {
+        fetch('https://provinces.open-api.vn/api/?depth=3&fbclid=IwAR1OGuDDmUlDdkyoYmh6umuMeiP9PcIGENaOgFsM0vX_6TAju5D8BLUAz9o')
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Lỗi, mã lỗi ' + response.status);
+                    return;
+                }
+                // parse response data
+                response.json().then(data => {
+                    setProvinces(data);
+                })
+            })
+    }, [])
+    useEffect(() => {
+        const fetchLocation = async (address) => {
+            if (address) {
+                try {
+                    const response = await getLocation(address);
+                    if (response.data.results.length > 0) {
+                        console.log("response", response)
+                        setCenter(response.data.results[0].geometry.location);
+                    }
+                }
+                catch (error) {
+                    console.log(error)
+                }
+            }
+        }
+        if (post && provinces.length > 0) {
+            fetchLocation(updateLocation(provinces, post.address, post.provinceID, post.districtID, post.wardID).join(', '))
+        }
+    }, [post, provinces]);
+
+    const getLocation = async (address) => {
+        var a = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyBcCtiQjJ-Km0TVopYGNjYRGY6_VOBlhmU`);
+        console.log("a", a);
+        return a;
+    }
+    const changeIsShow = () => {
         setIsShowModalReport(!isShowModalReport);
+    }
+
+    const updateLocation = (provinces, address, provinceID, districtID, wardID) => {
+        let data = []
+        if (!Array.isArray(provinces)) return data;
+
+        let province = provinces.find(x => x.code === provinceID);
+        if (address)
+            data.push(address);
+
+        if (province) {
+            let district = province.districts.find(x => x.code === districtID);
+            if (district) {
+                let ward = district.wards.find(x => x.code === wardID);
+                if (ward) {
+                    data.push(ward.name);
+                }
+                data.push(district.name);
+            }
+            data.push(province.name);
+        }
+        return data
     }
     const handleSavePost = async () => {
         if (currentUser == null) {
@@ -50,13 +120,25 @@ const DetailItemLayout = () => {
             }
         }
     }
-    const onHandleReportClick=()=>{
-        dispatch(fetchCreateReport({postID:id, userID:currentUser.id, details,email,phoneNumber,callback:function(response){
-            if(response){
-                toast.notifySuccess("Đã gửi báo cáo của bạn về bài viết.");
-                setIsShowModalReport(false)
+    const onHandleReportClick = () => {
+        if (currentUser) {
+            if (details != '' && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) && phoneNumber != '') {
+                dispatch(fetchCreateReport({
+                    postID: id, userID: currentUser.id, details, email, phoneNumber, callback: function (response) {
+                        if (response) {
+                            toast.notifySuccess("Đã gửi báo cáo của bạn về bài viết.");
+                            setIsShowModalReport(false)
+                        }
+                    }
+                }));
+            } else {
+                toast.notifyWarning("Vui lòng nhập email, số điện thoại và nội dung báo cáo!");
             }
-        }}));
+
+        } else {
+            toast.notifyWarning("Vui lòng đăng nhập trước khi báo cáo bài viết!");
+        }
+
     }
 
     const lstPaper = [
@@ -95,16 +177,31 @@ const DetailItemLayout = () => {
 
 
     return !loading && ((post.statusID == 2) || (currentUser && (post.statusID == 1 && post.creatorID == currentUser.id))) ? (
-        <div class="container">
-            <ModalReport changeIsShow={changeIsShow} isShowModalReport={isShowModalReport} details={details} setDetails={setDetails} email={email} setEmail={setEmail} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} onHandleReportClick={onHandleReportClick}/>
-            <div class="row base">
+        <div className="container">
+            <MetaTags>
+                <title>{post.title}</title>
+                <meta name="description" content={post.details} />
+                <meta property="og:title" content={post.title} />
+                <meta property="og:image" content="path/to/image.jpg" />
+
+                {
+                    post.imageUrls && post.imageUrls.length > 0
+                        ? (
+                            <meta property="og:image" content={post.imageUrls[0]} />
+                        ) : (
+                            <meta property="og:image" content={default_real_estate} />
+                        )
+                }
+            </MetaTags>
+            <ModalReport changeIsShow={changeIsShow} isShowModalReport={isShowModalReport} details={details} setDetails={setDetails} email={email} setEmail={setEmail} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} onHandleReportClick={onHandleReportClick} />
+            <div className="row base">
                 <div style={{ margin: "10px 0px" }}><div></div></div>
-                <div class="col-md-8">
-                    <div class="AdImage_adImageWrapper">
+                <div className="col-md-8">
+                    <div className="AdImage_adImageWrapper">
                         <SliderImages imageUrls={post.imageUrls} />
                         <AdDecriptionWrapper item={post} handleSavePost={handleSavePost} />
                         <div style={{ margin: "5px 0px 15px 0px" }}></div>
-                        <div class="col-xs-12 no-padding">
+                        <div className="col-xs-12 no-padding">
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/602/602225.png" title="Loại bất động sản: " value={lstCategory[post.categoryID - 1]} />
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/639/639365.png" title="Giá tiền: " value={post.price} />
                             <SmallDetail img="https://cdn-icons-png.flaticon.com/512/1295/1295160.png" title="Diện tích: " value={post.area} />
@@ -115,54 +212,55 @@ const DetailItemLayout = () => {
                                     ) : ''
                             }
                         </div>
-                        <div class="IntersectBox col-xs-12 margin-top-10 no-padding">
+                        <div className="IntersectBox col-xs-12 margin-top-10 no-padding">
+                            Địa chỉ của bất động sản trên bản đồ
+                            {
+                                center && (<Map
+                                    location={center}
+                                    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${"AIzaSyCrnPGVa-Lyddf7HRe_jNVqsUiMDAdudfU"}&v=3.exp&libraries=geometry,drawing,places`}
+                                    loadingElement={<div style={{ height: `100%` }} />}
+                                    containerElement={<div style={{ height: `50vh`, margin: `auto` }} />}
+                                    mapElement={<div style={{ height: `100%` }}
+                                    />}
+                                />)
+                            }
+
+                        </div>
+                        <div className="IntersectBox col-xs-12 margin-top-10 no-padding">
                             <br /><br />
-                            <div class="col-xs-12 margin-top-10 no-padding">
-                                <strong class="" style={{ color: "rgb(119, 119, 119)" }}>
+                            <div className="col-xs-12 margin-top-10 no-padding">
+                                <strong className="" style={{ color: "rgb(119, 119, 119)" }}>
                                     Chia sẻ tin đăng này cho bạn bè:
                                 </strong>
                                 <div style={{ margin: "5px 0px 0px", borderTop: "1px solid rgb(238, 238, 238)" }}>
                                 </div>
                                 <div style={{ marginBottom: "10px" }}>
-                                    <a class="sc-jzJRlG fjPyzM">
-                                        <img alt="facebook" src="https://static.chotot.com.vn/storage/chotot-icons/svg/circle-facebook.svg" loading="lazy" height="40" width="40" />
-                                    </a>
-                                    <a class="sc-jzJRlG fjPyzM">
-                                        <img alt="messenger" src="https://static.chotot.com.vn/storage/chotot-icons/svg/circle-messenger.svg" loading="lazy" height="40" width="40" />
-                                    </a>
-                                    <a class="sc-jzJRlG fjPyzM zalo-share-button" data-href="">
-                                        <img alt="zalo" src="https://static.chotot.com.vn/storage/chotot-icons/svg/circle-zalo.svg" loading="lazy" height="40" width="40" /><iframe frameborder="0" allowfullscreen="" scrolling="no" width="0px" height="0px" src="https://sp.zalo.me/plugins/share?dev=null&amp;color=blue&amp;oaid=570044068386186227&amp;href=https%3A%2F%2Fwww.chotot.com%2Ftp-ho-chi-minh%2Fquan-go-vap%2Fthue-nha-dat%2F88300561.htm%3Futm_source%3Dad_view%26utm_medium%3Dshare_buttons%26utm_campaign%3Dshare_ad_via_zalo&amp;layout=2&amp;customize=true&amp;callback=null&amp;id=97c489cf-9fdd-4598-861f-1033bf1e227c&amp;domain=nha.chotot.com&amp;android=false&amp;ios=false" style={{ position: "absolute" }}>
-                                        </iframe>
-                                    </a>
-                                    <span class="sc-kAzzGY jJHHdE">
-                                        <a class="sc-jzJRlG fjPyzM">
-                                            <img alt="copy" src="https://static.chotot.com.vn/storage/chotot-icons/svg/circle-copylink.svg" loading="lazy" height="40" width="40" />
-                                        </a>
-                                    </span>
+                                    <LikeAndShare title='Chia sẻ tin đăng' url='https://realestateute.herokuapp.com/products/5' />
                                 </div>
                             </div>
                         </div>
-                        <div class="IntersectBox col-xs-12 no-padding">
-                            <div class="Styles_reportWrapper">
-                                <div class="Styles_buyerProtect">
-                                    <div class="sc-chPdSV fEKhQX">
-                                        <img src="https://static.chotot.com.vn/storage/marketplace/shield-iconx4.png" alt="mua bán an toàn" class="sc-kgoBCf cXqYJC" />
-                                        <div class="sc-kGXeez iSIcRE">
+                        <div className="IntersectBox col-xs-12 no-padding">
+                            <div className="Styles_reportWrapper">
+                                <div className="Styles_buyerProtect">
+                                    <div className="sc-chPdSV fEKhQX">
+                                        <img src="https://static.chotot.com.vn/storage/marketplace/shield-iconx4.png" alt="mua bán an toàn" className="sc-kgoBCf cXqYJC" />
+                                        <div className="sc-kGXeez iSIcRE">
                                             <em>Tin đăng này đã được kiểm duyệt. Nếu gặp vấn đề, vui lòng báo cáo tin đăng hoặc liên hệ CSKH để được trợ giúp.&nbsp;
                                             </em>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="Styles_reportBtn__3jZBf">
-                                    <button type="button" id="report-bad-ad-btn" onClick={changeIsShow} class="btn btn-default btn-xs">Báo tin không hợp lệ</button>
+                                <div className="Styles_reportBtn__3jZBf">
+                                    <button type="button" id="report-bad-ad-btn" onClick={changeIsShow} className="btn btn-default btn-xs">Báo tin không hợp lệ</button>
                                 </div>
                             </div>
                         </div>
+                    
                     </div>
 
                 </div>
-                <div class="col-md-4 no-padding dtView">
-                    <div class="d-lg-block d-none">
+                <div className="col-md-4 no-padding dtView">
+                    <div className="d-lg-block d-none">
                         <SellerProfileMini name={post.creatorName} id={post.creatorID} />
                     </div>
                     <ButtonPhone phone={post.creatorPhone} />

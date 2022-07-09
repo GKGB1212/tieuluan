@@ -6,37 +6,47 @@ import { Link } from "react-router-dom";
 // Import hook useDispatch từ react-redux và action updateUsername từ userSlice
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFilterPosts } from '../../redux/product/productSlice';
+import ItemArticle from "../item-article.component/item-article.component";
 
 const Consumer = ({ title, totalArtical, type, products }) => {
     const postTypeNumber = useSelector(state => state.product.postTypeNumber);
     return products ? (
-        <div class="list">
-            <h2 class="consumerTitle">{title}</h2>
-            <div class="oneRowContent">
-                <div class="gridContent">
+        <div className="list">
+            <h2 className="consumerTitle">{title}</h2>
+            <div className="oneRowContent">
+                <div className="gridContent" style={{ padding: "0 5px" }}>
                     {
-                        products.filter((item, idx) => idx < 15)
-                            .map((item) => (
-                                <Item key={item.id} item={item} />
-                            ))
+                        type == 'article' ? (
+                            products.filter((item, idx) => idx < 15)
+                                .map((item) => (
+                                    <ItemArticle key={item.id} item={item} />
+                                ))
+                        ) : (
+                            products.filter((item, idx) => idx < 15)
+                                .map((item) => (
+                                    <Item key={item.id} item={item} />
+                                ))
+                        )
                     }
                 </div>
-                <ul class="autoWidth" class="cs-hidden">
+                <ul className="autoWidth">
                 </ul>
             </div>
-            <div class="loadMoreWrapper">
+            <div className="loadMoreWrapper">
                 {
                     type == 'purchase'
                         ? (
-                            <Link to={{pathname:'/tim-kiem-bds', state:{type:1}}}>
+                            <Link to={{ pathname: '/tim-kiem-bds', state: { type: 1 } }}>
                                 Xem tất cả {postTypeNumber.muaBan} tin ➔
                             </Link>
                         )
-                        : (
-                            <Link to={{pathname:'/tim-kiem-bds', state:{type:2}}}>
-                                Xem tất cả {postTypeNumber.thue} tin ➔
+                        : type == 'article' ? (
+                            <Link to={{ pathname: '/all-article' }}>
+                                Xem thêm các bài khác ➔
                             </Link>
-                        )}
+                        ) : (<Link to={{ pathname: '/tim-kiem-bds', state: { type: 2 } }}>
+                            Xem tất cả {postTypeNumber.thue} tin ➔
+                        </Link>)}
             </div>
         </div>
     ) : ''

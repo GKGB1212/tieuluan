@@ -46,31 +46,31 @@ const FollowLayout = () => {
             <div className="container WrapperContainer">
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">{title}</h4>
+                        <h4 className="TitleHeading">{title}</h4>
                         <div className="row list">
                             <div className="listt">
                                 {
                                     type == 1
                                         ? (lstFollow.length > 0 ? (
                                             lstFollow.map((user, index) => (
-                                                <div class="user-container" onClick={() => history.push(`user/${user.id}`)}>
+                                                <div className="user-container" onClick={() => history.push(`user/${user.id}`)}>
                                                     {
                                                         user.imageUrl == null
                                                             ? (
-                                                                <img class="user-avt" height="50" width="50" src={default_avt} />
+                                                                <img className="user-avt" height="50" width="50" src={default_avt} />
 
                                                             ) : (
-                                                                <img class="user-avt" src={user.imageUrl} height="50" width="50" />
+                                                                <img className="user-avt" src={user.imageUrl} height="50" width="50" />
                                                             )
                                                     }
-                                                    <div class="user-info">
-                                                        <div class="user-info-name">{user.name}</div>
+                                                    <div className="user-info">
+                                                        <div className="user-info-name">{user.name}</div>
                                                     </div>
                                                 </div>
                                             ))) :
                                             (<div style={{ width: "100%" }}>
-                                                <div class="notfound">
-                                                    <div class="alert alert-warning">
+                                                <div className="notfound">
+                                                    <div className="alert alert-warning">
                                                         <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px" /><br />
                                                         <b>Không tìm thấy người theo dõi!</b><br /></div>
                                                 </div>
@@ -79,23 +79,23 @@ const FollowLayout = () => {
                                             ? (
                                                 lstFollowed.map((user, index) => (
 
-                                                    <div class="user-container" onClick={() => history.push(`user/${user.id}`)}>
+                                                    <div className="user-container" onClick={() => history.push(`user/${user.id}`)}>
                                                         {
                                                             user.imageUrl != null
                                                                 ? (
-                                                                    <img class="user-avt" src={user.imageUrl} height="50" width="50" />
+                                                                    <img className="user-avt" src={user.imageUrl} height="50" width="50" />
                                                                 ) : (
-                                                                    <img class="user-avt" src='https://static.chotot.com/storage/chotot-icons/png/user.png' height="50" width="50" />
+                                                                    <img className="user-avt" src='https://static.chotot.com/storage/chotot-icons/png/user.png' height="50" width="50" />
                                                                 )
                                                         }
-                                                        <div class="user-info">
-                                                            <div class="user-info-name">{user.name}</div>
+                                                        <div className="user-info">
+                                                            <div className="user-info-name">{user.name}</div>
                                                         </div>
                                                     </div>
                                                 ))) : (
                                                 <div style={{ width: "100%" }}>
-                                                    <div class="notfound">
-                                                        <div class="alert alert-warning">
+                                                    <div className="notfound">
+                                                        <div className="alert alert-warning">
                                                             <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px" /><br />
                                                             <b>Không tìm thấy người đang theo dõi!</b><br /></div>
                                                     </div>

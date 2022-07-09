@@ -27,37 +27,37 @@ const ModalReport = (props) => {
             <div className="notify-popup-filter" ref={notifyPopup}>
                 <p className="title-header">Báo cáo vi phạm</p>
                 <div className="body-popup">
-                    <div class="Styles_sectionWrapper">
-                        <div class="label">Chi tiết<span class="required">*</span></div>
-                        <div class="sc-1ta6px8-0 SQttn">
-                            <div class="oneRowWrapper">
-                                <div class="inputGroupFullWidth">
-                                    <div class="customInput">
-                                        <textarea value={details} class="inputText" placeholder="Vui lòng chia sẻ thêm lý do bạn biết tin đăng này không liên lạc được. Ví dụ: Gọi nhiều lần không nghe máy, số điện thoại không có thực, số điện thoại khóa máy,..." rows="6" onChange={(e)=>setDetails(e.target.value)}>
+                    <div className="Styles_sectionWrapper">
+                        <div className="label">Chi tiết<span className="required">*</span></div>
+                        <div className="sc-1ta6px8-0 SQttn">
+                            <div className="oneRowWrapper">
+                                <div className="inputGroupFullWidth">
+                                    <div className="customInput">
+                                        <textarea value={details} className="inputText" placeholder="Vui lòng chia sẻ thêm lý do bạn biết tin đăng này không liên lạc được. Ví dụ: Gọi nhiều lần không nghe máy, số điện thoại không có thực, số điện thoại khóa máy,..." rows="6" onChange={(e)=>setDetails(e.target.value)}>
                                         </textarea>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="Styles_sectionWrapper">
-                        <div class="label">Thông tin để liên hệ với bạn khi cần thiết</div>
-                        <div class="sc-1ta6px8-0 SQttn">
-                            <div class="oneRowWrapper">
-                                <div class="inputGroupFullWidth">
-                                    <div class="customInput">
-                                        <input value={phoneNumber} class="inputText" maxlength="10" placeholder="Điện thoại của bạn *" onChange={(e)=>setPhoneNumber(e.target.value)}/>
+                    <div className="Styles_sectionWrapper">
+                        <div className="label">Thông tin để liên hệ với bạn khi cần thiết</div>
+                        <div className="sc-1ta6px8-0 SQttn">
+                            <div className="oneRowWrapper">
+                                <div className="inputGroupFullWidth">
+                                    <div className="customInput">
+                                        <input value={phoneNumber} className="inputText" maxlength="10" placeholder="Điện thoại của bạn *" onChange={(e)=>setPhoneNumber(e.target.value)}/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="Styles_sectionWrapper">
-                        <div class="sc-1ta6px8-0 SQttn">
-                            <div class="oneRowWrapper">
-                                <div class="inputGroupFullWidth">
-                                    <div class="customInput">
-                                        <input value={email} class="inputText" maxlength="50" placeholder="Địa chỉ email của bạn *" onChange={(e)=>setEmail(e.target.value)}/>
+                    <div className="Styles_sectionWrapper">
+                        <div className="sc-1ta6px8-0 SQttn">
+                            <div className="oneRowWrapper">
+                                <div className="inputGroupFullWidth">
+                                    <div className="customInput">
+                                        <input value={email} className="inputText" maxlength="50" placeholder="Địa chỉ email của bạn *" onChange={(e)=>setEmail(e.target.value)}/>
                                     </div>
                                 </div>
                             </div>

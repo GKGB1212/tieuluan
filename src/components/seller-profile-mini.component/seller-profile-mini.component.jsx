@@ -16,16 +16,16 @@ const SellerProfileMini = ({name, id}) => {
         }
     }
     return (
-        <div class="SellerProfile_profileWrapper" itemprop="seller" itemscope="" itemtype="http://schema.org/Person">
-            <a class="SellerProfile_sellerWrapper">
-                <div class="img-thumbnail img-circle Avatar_imageWrapper Avatar_defaultSize">
+        <div className="SellerProfile_profileWrapper" itemprop="seller" itemscope="" itemtype="http://schema.org/Person">
+            <a className="SellerProfile_sellerWrapper">
+                <div className="img-thumbnail img-circle Avatar_imageWrapper Avatar_defaultSize">
                 </div>
-                <div class="SellerProfile_nameBounder" role="button" tabindex="0">
-                    <div class="SellerProfile_flexDiv">
-                        <div class="SellerProfile_nameDiv">
+                <div className="SellerProfile_nameBounder" role="button" tabindex="0">
+                    <div className="SellerProfile_flexDiv">
+                        <div className="SellerProfile_nameDiv">
                             <b style={{marginRight: "5px"}}>{name}</b>
                         </div>
-                        <button type="button" class="SellerProfile_secondaryButton" onClick={handleClickToUser}>
+                        <button type="button" className="SellerProfile_secondaryButton" onClick={handleClickToUser}>
                             Xem trang
                         </button>
                     </div>

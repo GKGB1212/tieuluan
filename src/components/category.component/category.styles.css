@@ -6,6 +6,8 @@
     height: 150px;
     margin-bottom: 12px;
     padding: 12px 0px 0px;
+    border-radius: 12px;
+    box-shadow: 0 0 1px 0 rgb(8 11 14 / 6%), 0 16px 16px -1px rgb(8 11 14 / 10%);
 }
 .category h1{
     font-size: 17px;

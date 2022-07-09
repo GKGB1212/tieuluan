@@ -451,5 +451,5 @@ h1 {
 	background: #F5F5F5;
 	overflow-y: scroll;
 	margin-bottom: 25px;
-    height: 400px;
+    max-height: 400px;
 }

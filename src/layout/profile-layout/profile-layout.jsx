@@ -69,7 +69,7 @@ const ProfileLayout = () => {
                                     }
                                 </div>
                                 <div className="InfoWrapper">
-                                    <span class="name">{post.name}</span>
+                                    <span className="name">{post.name}</span>
                                     <div className="FollowRow">
                                         <div style={{ marginRight: "10px" }}><Link to={{ pathname: `/follow/${id}`, state: { type: 1 } }}><b>{post.followedCount}</b> Người theo dõi</Link></div>
                                         <div><Link to={{ pathname: `/followed/${id}`, state: { type: 2 } }}><b>{post.followCount}</b> Đang theo dõi</Link></div>
@@ -77,13 +77,13 @@ const ProfileLayout = () => {
                                     {
                                         checkFollow
                                             ? (
-                                                <div class="UltiRow">
-                                                    <button class="MainFunctionButton Followed" onClick={handleFollowClick}> Hủy theo dõi</button>
+                                                <div className="UltiRow">
+                                                    <button className="MainFunctionButton Followed" onClick={handleFollowClick}> Hủy theo dõi</button>
                                                 </div>
                                             )
                                             : (
-                                                <div class="UltiRow">
-                                                    <button class="MainFunctionButton Follow" onClick={handleFollowClick}> Theo dõi</button>
+                                                <div className="UltiRow">
+                                                    <button className="MainFunctionButton Follow" onClick={handleFollowClick}> Theo dõi</button>
                                                 </div>
                                             )
                                     }
@@ -94,7 +94,7 @@ const ProfileLayout = () => {
                 </div>
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">Tin đang đăng</h4>
+                        <h4 className="TitleHeading">Tin đang đăng</h4>
                         <div className="row list">
                             <div className="listt">
                                 {
@@ -120,17 +120,17 @@ const ProfileLayout = () => {
                                                                         </div>
                                                                         <div className="sc-bRBYWo enrfhw">
                                                                             <div className="sc-ckVGcZ hXRBzs">
-                                                                                <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
+                                                                                <h3 className="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                             </div>
                                                                             <div className="sc-kEYyzF EYiyr">
-                                                                                <div itemprop="price" content="4650000000" class="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
+                                                                                <div itemprop="price" content="4650000000" className="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="sc-eHgmQL hNtdWe">
                                                                     <div className="sc-cvbbAY knzJMl">
-                                                                        <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                        <div className="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                     </div>
                                                                 </div>
                                                                 {

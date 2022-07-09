@@ -39,19 +39,19 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
         return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     }
     return item ? (
-        <div class="AdDecription_adDecriptionWrapper" style={{ width: "600px" }}>
-            <h1 class="AdDecription_adTitle" itemprop="name">
+        <div className="AdDecription_adDecriptionWrapper" style={{ width: "600px" }}>
+            <h1 className="AdDecription_adTitle" itemprop="name">
                 {item.title}
             </h1>
-            <div class="AdDecription_priceWrapper">
+            <div className="AdDecription_priceWrapper">
                 <meta itemprop="position" content="1" />
-                <div class="AdDecription_adPrice" itemprop="price">
+                <div className="AdDecription_adPrice" itemprop="price">
                     <span>
                         <div>
-                            <span class="AdDecription_priceWrapper">
-                                <span class="AdDecription_price">
+                            <span className="AdDecription_priceWrapper">
+                                <span className="AdDecription_price">
                                     <span itemprop="price">Giá: {handleConvertPrice(item.price)}VNĐ - {item.area}m
-                                        <span class="AdDecription_squareMetre">
+                                        <span className="AdDecription_squareMetre">
                                             <sup>2</sup>
                                         </span>
                                     </span>
@@ -63,15 +63,15 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                         </div>
                     </span>
                 </div>
-                <div class="SaveAd_saveAdWrapper AdDecription_saveAd">
+                <div className="SaveAd_saveAdWrapper AdDecription_saveAd">
                     {
                         item.like ? (
-                            <button type="button" class="SaveAd_saveAdViewDetail SaveAd_saveAdViewDetail_liked" onClick={handleSavePost}>
+                            <button type="button" className="SaveAd_saveAdViewDetail SaveAd_saveAdViewDetail_liked" onClick={handleSavePost}>
                                 <p style={{ margin: "0px" }}>Hủy lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />
                             </button>
                         ) : (
-                            <button type="button" class="SaveAd_saveAdViewDetail" onClick={handleSavePost}>
+                            <button type="button" className="SaveAd_saveAdViewDetail" onClick={handleSavePost}>
                                 <p style={{ margin: "0px" }}>Lưu tin </p>
                                 <img height="20" width="20" src="https://static.chotot.com/storage/icons/saveAd/save-ad.svg" alt="like" />
                             </button>
@@ -79,21 +79,21 @@ const AdDecriptionWrapper = ({ item, handleSavePost }) => {
                     }
                 </div>
             </div>
-            <div class="d-lg-none d-block col-xs-12 no-padding">
+            <div className="d-lg-none d-block col-xs-12 no-padding">
             </div>
             <div>
-                <div class="col-xs-12 no-padding">
-                    <div class="media margin-top-05" style={{ display: "flex", alignItems: "center", margin: "10px 0px" }}>
-                        <div class="media-left media-middle">
-                            <img class="AdParam_adParamIcon" alt="location" src="https://static.chotot.com/storage/icons/logos/ad-param/location.svg" />
+                <div className="col-xs-12 no-padding">
+                    <div className="media margin-top-05" style={{ display: "flex", alignItems: "center", margin: "10px 0px" }}>
+                        <div className="media-left media-middle">
+                            <img className="AdParam_adParamIcon" alt="location" src="https://static.chotot.com/storage/icons/logos/ad-param/location.svg" />
                         </div>
-                        <div class="media-body media-middle AdParam_address AdParam_addressClickable" role="button" tabindex="0">
+                        <div className="media-body media-middle AdParam_address AdParam_addressClickable" role="button" tabindex="0">
                             <span className="fz13">{item.address}, {ward}, {district}, {province}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <p class="AdDecription_adBody" itemprop="description">
+            <p className="AdDecription_adBody" itemprop="description">
                 {item.details}
             </p>
         </div>

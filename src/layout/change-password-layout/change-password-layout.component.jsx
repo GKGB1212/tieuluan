@@ -49,43 +49,43 @@ const ChangePasswordLayout = () => {
                 <div className="boxContentLeft">
                     <div className="white-box row noMargin">
                         <div className="col-md-12">
-                            <div class="row">
-                                <h1 class="page-title" id="pageTitle">Thay đổi mật khẩu</h1>
+                            <div className="row">
+                                <h1 className="page-title" id="pageTitle">Thay đổi mật khẩu</h1>
                             </div>
                             <div className="">
                                 <div>
                                     <div className="_3wam">
                                         <div className="col-md-12 col-sm-12">
                                             <div className="_3hWTTQHIGJUzaTwYs3IRvj">
-                                                <div class="col-xs-12">
+                                                <div className="col-xs-12">
                                                     <ul>
                                                         <li>
                                                             {
                                                                 currentError!=null
                                                                 ?(
-                                                                    <div class="e66t3pu error">
+                                                                    <div className="e66t3pu error">
                                                                             {currentError}
                                                                         </div>
                                                                 ):('')
                                                             }
                                                         </li>
                                                         <li>
-                                                            <div class="_127aka-EHteI96Rlw94SeA"><span>Mật khẩu hiện tại</span></div>
-                                                            <div class="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Mật khẩu hiện tại" onChange={(e) => setOldPassword(e.target.value)} type="password" class="form-control" name="oldPassword" value={oldPassword} /></div>
+                                                            <div className="_127aka-EHteI96Rlw94SeA"><span>Mật khẩu hiện tại</span></div>
+                                                            <div className="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Mật khẩu hiện tại" onChange={(e) => setOldPassword(e.target.value)} type="password" className="form-control" name="oldPassword" value={oldPassword} /></div>
                                                         </li>
                                                         <li>
-                                                            <div class="_127aka-EHteI96Rlw94SeA"><span>Mật khẩu</span></div>
-                                                            <div class="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Mật khẩu" onChange={(e) => setPassword(e.target.value)} type="password" class="form-control" name="newPassword" value={password} /></div>
+                                                            <div className="_127aka-EHteI96Rlw94SeA"><span>Mật khẩu</span></div>
+                                                            <div className="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Mật khẩu" onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" name="newPassword" value={password} /></div>
                                                         </li>
                                                         <li>
-                                                            <div class="_127aka-EHteI96Rlw94SeA"><span>Xác nhận mật khẩu</span></div>
-                                                            <div class="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Xác nhận mật khẩu" onChange={(e) => setConfirmPassword(e.target.value)} type="password" class="form-control" name="rePassword" value={confirmPassword} /></div>
+                                                            <div className="_127aka-EHteI96Rlw94SeA"><span>Xác nhận mật khẩu</span></div>
+                                                            <div className="_30EYSdf_NK78GgsJAB8_3I"><input placeholder="Xác nhận mật khẩu" onChange={(e) => setConfirmPassword(e.target.value)} type="password" className="form-control" name="rePassword" value={confirmPassword} /></div>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                             <div className="_1sBy8udWBON-7rg0Vy9i-6">
-                                                <div class="col-xs-12">
+                                                <div className="col-xs-12">
                                                     <button type="submit" onClick={handleClickChangePassword}>Đổi mật khẩu</button>
                                                 </div>
                                             </div>

@@ -36,33 +36,33 @@ const OTPForm = () => {
         }
     },[succeeded])
     return (
-        <main class="mainLoginForm">
-            <div class="loginDiv">
-                <div class="loginBanner">
-                    <div class="wrapperBanner">
-                        <div class="titleBanner">
+        <main className="mainLoginForm">
+            <div className="loginDiv">
+                <div className="loginBanner">
+                    <div className="wrapperBanner">
+                        <div className="titleBanner">
                             <h3>Xác nhận OTP</h3>
                             <p>Mã OTP đã gửi đến số điện thoại {phoneNumber}</p>
                         </div>
                     </div>{
                         error
                             ? (
-                                <div class="e66t3pu error">
+                                <div className="e66t3pu error">
                                     {error}
                                 </div>
                             )
                             : ''
                     }
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
                         <input value={otp} onChange={(e) => setOTP(e.target.value)} placeholder="Nhập mã OTP" />
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <button class="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={otpSubmit}>Tiếp tục</button>
-                {/* <a role="button" tabindex="-1" class="resend-code">Gửi lại mã</a> */}
+                <button className="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={otpSubmit}>Tiếp tục</button>
+                {/* <a role="button" tabindex="-1" className="resend-code">Gửi lại mã</a> */}
             </div>
         </main>
     )

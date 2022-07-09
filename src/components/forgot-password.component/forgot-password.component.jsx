@@ -74,24 +74,24 @@ const ForgotPasswordForm = () => {
         }
     }
     return (
-        <main class="mainLoginForm">
-            <div class="loginDiv">
-            <div class="loginBanner">
-                    <div class="wrapperBanner">
-                        <div class="titleBanner">
+        <main className="mainLoginForm">
+            <div className="loginDiv">
+            <div className="loginBanner">
+                    <div className="wrapperBanner">
+                        <div className="titleBanner">
                             <h3>Quên mật khẩu</h3>
                             <p>Lấy lại mật khẩu!</p>
                         </div>
-                        <div class="imageBanner">
+                        <div className="imageBanner">
                             <img src={forgot_password_img} alt="logo" />
                         </div>
                     </div>
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     {
                         currentError != null
                             ? (
-                                <div class="e66t3pu error" style={{ marginBottom: "10px", padding: "10px" }}>
+                                <div className="e66t3pu error" style={{ marginBottom: "10px", padding: "10px" }}>
                                     {currentError}
                                 </div>
                             )
@@ -127,10 +127,10 @@ const ForgotPasswordForm = () => {
                             </div>
                         ) : ('')
                     }
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <button class="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={handleSendCode}>
+                <button className="buttonLogin accent r-normal medium w-normal i-left stretch" onClick={handleSendCode}>
                     {
                         isShow?('Đổi mật khẩu'):('Gửi mã code')
                     }

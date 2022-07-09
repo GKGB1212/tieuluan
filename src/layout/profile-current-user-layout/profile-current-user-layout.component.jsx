@@ -77,13 +77,13 @@ const ProfileCurrentUserLayout = () => {
                                     }
                                 </div>
                                 <div className="InfoWrapper">
-                                    <span class="name">{post.name}</span>
+                                    <span className="name">{post.name}</span>
                                     <div className="FollowRow">
                                         <div style={{ marginRight: "10px" }} onClick={() => history.push({ pathname: '/follow', state: { type: 1 } })}><b>{post.followedCount}</b> Người theo dõi</div>
                                         <div onClick={() => history.push({ pathname: "/followed", state: { type: 2 } })}><b>{post.followCount}</b> Đang theo dõi</div>
                                     </div>
-                                    <div class="UltiRow">
-                                        <button class="MainFunctionButton Follow" onClick={() => history.push('/dashboard/profile')}>Chỉnh sửa thông tin cá nhân</button>
+                                    <div className="UltiRow">
+                                        <button className="MainFunctionButton Follow" onClick={() => history.push('/dashboard/profile')}>Chỉnh sửa thông tin cá nhân</button>
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@ const ProfileCurrentUserLayout = () => {
                 </div>
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">Tin đang đăng</h4>
+                        <h4 className="TitleHeading">Tin đang đăng</h4>
                         <div className="row list">
                             <div className="listt">
                                 {
@@ -119,17 +119,17 @@ const ProfileCurrentUserLayout = () => {
                                                                             </div>
                                                                             <div className="sc-bRBYWo enrfhw">
                                                                                 <div className="sc-ckVGcZ hXRBzs">
-                                                                                    <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
+                                                                                    <h3 className="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
+                                                                                    <div itemprop="price" className="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                            <div className="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
                                                                     </div>
                                                                     {
@@ -186,15 +186,15 @@ const ProfileCurrentUserLayout = () => {
                                                 </div>
                                             )) : (
                                                 <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                    <div class="notfound">
-                                                        <div class="alert alert-warning">Hiện tại bạn không có tin đang hiện !</div>
+                                                    <div className="notfound">
+                                                        <div className="alert alert-warning">Hiện tại bạn không có tin đang hiện !</div>
                                                     </div>
                                                 </div>
                                             ))
                                         : (
                                             <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                <div class="notfound">
-                                                    <div class="alert alert-warning">Hiện tại bạn không có tin đang hiện !</div>
+                                                <div className="notfound">
+                                                    <div className="alert alert-warning">Hiện tại bạn không có tin đang hiện !</div>
                                                 </div>
                                             </div>
                                         )
@@ -206,7 +206,7 @@ const ProfileCurrentUserLayout = () => {
                 {/* tin chưa được duyệt */}
                 < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">Tin chưa được duyệt</h4>
+                        <h4 className="TitleHeading">Tin chưa được duyệt</h4>
                         <div className="row list">
                             <div className="listt">
                                 {
@@ -233,17 +233,17 @@ const ProfileCurrentUserLayout = () => {
                                                                             </div>
                                                                             <div className="sc-bRBYWo enrfhw">
                                                                                 <div className="sc-ckVGcZ hXRBzs">
-                                                                                    <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
+                                                                                    <h3 className="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
+                                                                                    <div itemprop="price" className="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                            <div className="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="divChangeStatus">
@@ -259,15 +259,15 @@ const ProfileCurrentUserLayout = () => {
                                             ))
                                             : (
                                                 <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                    <div class="notfound">
-                                                        <div class="alert alert-warning">Hiện tại bạn không có tin chờ duyệt ! !</div>
+                                                    <div className="notfound">
+                                                        <div className="alert alert-warning">Hiện tại bạn không có tin chờ duyệt ! !</div>
                                                     </div>
                                                 </div>
                                             )
                                         : (
                                             <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                <div class="notfound">
-                                                    <div class="alert alert-warning">Hiện tại bạn không có tin chờ duyệt ! !</div>
+                                                <div className="notfound">
+                                                    <div className="alert alert-warning">Hiện tại bạn không có tin chờ duyệt ! !</div>
                                                 </div>
                                             </div>
                                         )
@@ -279,7 +279,7 @@ const ProfileCurrentUserLayout = () => {
                 {/* tin bị từ chối */}
                 < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">Tin bị từ chối</h4>
+                        <h4 className="TitleHeading">Tin bị từ chối</h4>
                         <div className="row list">
                             <div className="listt">
                                 {
@@ -307,17 +307,17 @@ const ProfileCurrentUserLayout = () => {
                                                                             </div>
                                                                             <div className="sc-bRBYWo enrfhw">
                                                                                 <div className="sc-ckVGcZ hXRBzs">
-                                                                                    <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
+                                                                                    <h3 className="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                                 </div>
                                                                                 <div className="sc-kEYyzF EYiyr">
-                                                                                    <div itemprop="price" class="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
+                                                                                    <div itemprop="price" className="sc-kkGfuU dBCFhH"><span>{handleConvertPrice(item.price)} VND</span></div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div className="sc-eHgmQL hNtdWe">
                                                                         <div className="sc-cvbbAY knzJMl">
-                                                                            <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                            <div className="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -327,15 +327,15 @@ const ProfileCurrentUserLayout = () => {
                                                 </div>
                                             )) : (
                                                 <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                    <div class="notfound">
-                                                        <div class="alert alert-warning">Hiện tại bạn không có tin bị từ chối !</div>
+                                                    <div className="notfound">
+                                                        <div className="alert alert-warning">Hiện tại bạn không có tin bị từ chối !</div>
                                                     </div>
                                                 </div>
                                             )
                                         : (
                                             <div style={{ padding: "8px 0px 8px 0px", width: "100%" }}>
-                                                <div class="notfound">
-                                                    <div class="alert alert-warning">Hiện tại bạn không có tin bị từ chối !</div>
+                                                <div className="notfound">
+                                                    <div className="alert alert-warning">Hiện tại bạn không có tin bị từ chối !</div>
                                                 </div>
                                             </div>
                                         )

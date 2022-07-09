@@ -34,8 +34,8 @@ const Item = ({ item }) => {
     }
     return (
         <Link to={{ pathname: `products/${item.id}` }}>
-            <div class="box">
-                <div class="image">{
+            <div className="box">
+                <div className="image">{
                     item.imageUrls.length > 0
                         ? (
                             <img alt="" src={item.imageUrls[0]} />
@@ -44,12 +44,12 @@ const Item = ({ item }) => {
                         )
                 }
                 </div>
-                <div class="title">
+                <div className="title">
                     {item.title}
                 </div>
-                <p class="details">{item.area} m²</p>
-                <p class="price">{handleConvertPrice(item.price)}</p>
-                <p class="time">Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]} ({province})</p>
+                <p className="details">{item.area} m²</p>
+                <p className="price">{handleConvertPrice(item.price)}</p>
+                <p className="time">Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]} ({province})</p>
             </div>
         </Link>
     );

@@ -3,12 +3,12 @@ import './button-phone.styles.css'
 
 const ButtonPhone = ({ phone }) => {
     return (
-        <div class="LeadButton_showPhoneButton">
-            <div class="kqqTha">
-                <div class="kUpVMB">
-                    <div class="ijabWE">
+        <div className="LeadButton_showPhoneButton">
+            <div className="kqqTha">
+                <div className="kUpVMB">
+                    <div className="ijabWE">
                         <span style={{display:"block"}}>
-                            <img src="https://static.chotot.com.vn/storage/chotot-icons/svg/white-phone.svg" class="eiuyCZ" />
+                            <img src="https://static.chotot.com.vn/storage/chotot-icons/svg/white-phone.svg" className="eiuyCZ" />
                             {phone}
                         </span>
                     </div>

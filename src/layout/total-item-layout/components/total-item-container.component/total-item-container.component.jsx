@@ -40,8 +40,8 @@ const TotalItemContainer = ({ lstPostSearch, Search }) => {
                                 </div>)
                                 : (
                                     <div>
-                                        <div class="notfound">
-                                            <div class="alert alert-warning">
+                                        <div className="notfound">
+                                            <div className="alert alert-warning">
                                             <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px"/><br/>
                                                 <b>Không tìm thấy kết quả từ khóa đã nhập</b><br/>
                                                 Hãy chắc chắn rằng tất cả các từ đều đúng chính tả. Hãy thử những từ khóa khác hoặc những từ khóa chung hơn.</div>

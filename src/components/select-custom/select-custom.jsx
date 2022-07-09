@@ -5,15 +5,15 @@ const SelectCustom = (props) => {
     const title=props.title;
     return (
         <div className="select-custom-container">
-            <div class="control-group">
+            <div className="control-group">
                 <h1>{title}</h1>
-                <div class="select">
+                <div className="select">
                     <select>
                         <option>First select</option>
                         <option>Option</option>
                         <option>Option</option>
                     </select>
-                    <div class="select__arrow"></div>
+                    <div className="select__arrow"></div>
                 </div>
                 
             </div>

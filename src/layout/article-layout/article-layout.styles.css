@@ -1,0 +1,122 @@
+.article .title_page {
+    background-color: beige;
+    padding: 32px 0;
+}
+.article .content-article {
+    background-color: white;
+    padding: 32px 0;
+    line-height: 1.75;
+}
+.article .container-article {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.article table {
+    width: 100% !important;
+    table-layout: fixed;
+}
+.article table tr th {
+    background-color: #f56b00;
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+}
+.article table tbody tr td {
+    background-color: #ffce93;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+}
+.article img {
+    max-width: 100%;
+    border-radius: 2px;
+    height: auto;
+}
+@media (min-width: 769px){
+    .article .container-article {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px){
+    .article .container-article {
+        max-width: 540px;
+    }
+}
+.article .justify-content-center-article {
+    -ms-flex-pack: center!important;
+    justify-content: center!important;
+}
+.article .title_page #breadcrumb_site {
+    padding-left: 0;
+    margin-bottom: 12px;
+    text-align: center;
+    list-style: none;
+}
+.article .title_page #breadcrumb_site span {
+    width: 100%;
+    text-align: center;
+}
+@media (max-width: 768px){
+    .article .title_page #breadcrumb_site a {
+        font-size: 13px;
+    }
+}
+.article .title_page #breadcrumb_site a {
+    color: #38699f;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+.article .title_page h1 {
+    line-height: 1.33;
+    padding: 0 9px;
+    margin-bottom: 12px;
+    color: black;
+}
+.article .single-post .title_page .description_info {
+    line-height: 1.43;
+}
+
+.article .title_page .description_info {
+    font-size: 15px;
+    line-height: 1.33;
+}
+.article .cl-gray {
+    color: #9b9b9b;
+}
+.article .text-center {
+    text-align: center!important;
+}
+@media (max-width: 768px){
+    .article .fs-32 {
+        font-size: 24px;
+    }
+}
+.article .fs-32 {
+    font-size: 32px;
+}
+.article .ff-bold {
+    font-family: "Helvetica-Bold",Arial,sans-serif;
+}
+.article .text-center {
+    text-align: center!important;
+}
+.article .content_page {
+    padding: 48px 0;
+    background: white;
+}
+.article .content_page .content_post {
+    font-size: 18px;
+    line-height: 1.56;
+}
+.article .content_page .content_post h2 {
+    font-family: "Helvetica-Bold",Arial;
+    font-size: 24px;
+    line-height: 1.33;
+    margin-bottom: 16px;
+    padding-top: 1rem;
+}

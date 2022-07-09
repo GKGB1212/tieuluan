@@ -60,42 +60,42 @@ const ProfileEditLayout = () => {
     return (
         <div className="container">
             <div className="row">
-                <div class="white-box row noMargin">
-                    <div class="row">
-                        <h1 class="page-title" id="pageTitle">Thông tin cá nhân</h1>
+                <div className="white-box row noMargin">
+                    <div className="row">
+                        <h1 className="page-title" id="pageTitle">Thông tin cá nhân</h1>
                     </div>
-                    <div class="_3wam_fc0n3F8W2D-BvqYNK">
-                        <div class="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12">
-                            <div class="T8j5wxsOm0H3gemUZxWlK">
+                    <div className="_3wam_fc0n3F8W2D-BvqYNK">
+                        <div className="be-Hqc5uEkMmHJf3ZA2Rw col-md-3 col-sm-12">
+                            <div className="T8j5wxsOm0H3gemUZxWlK">
                                 <img src={imageUrltemp} />
-                                <label class="btnChangeAvt" for="upload-photo">Chọn ảnh</label>
+                                <label className="btnChangeAvt" for="upload-photo">Chọn ảnh</label>
                                 <input type="file" name="photo" id="upload-photo" onChange={(e) => handleChangeAVT(e)} />
                             </div>
                         </div>
-                        <div class="_2Gk5p4qAwMuLpxIDlMdkCv col-md-9 col-sm-12">
-                            <div class="_3hWTTQHIGJUzaTwYs3IRvj">
-                                <div class="col-xs-12">
+                        <div className="_2Gk5p4qAwMuLpxIDlMdkCv col-md-9 col-sm-12">
+                            <div className="_3hWTTQHIGJUzaTwYs3IRvj">
+                                <div className="col-xs-12">
                                     <ul>
                                         <li>
-                                            <div class="_127aka-EHteI96Rlw94SeA">
+                                            <div className="_127aka-EHteI96Rlw94SeA">
                                                 <span>Họ và tên</span>
                                             </div>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <input value={name} onChange={(e) => setName(e.target.value)} />
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_127aka-EHteI96Rlw94SeA"><span>Địa chỉ</span>
+                                            <div className="_127aka-EHteI96Rlw94SeA"><span>Địa chỉ</span>
                                             </div>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <input value={address} onChange={(e) => setAddress(e.target.value)} />
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_127aka-EHteI96Rlw94SeA">
+                                            <div className="_127aka-EHteI96Rlw94SeA">
                                                 <span>Giới tính</span>
                                             </div>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <select className="selectEditProfile" value={gender} onChange={(e) => setGender(e.target.value)}>
                                                     <option value='empty'>Vui lòng chọn giới tính</option>
                                                     <option value={false}>Nam</option>
@@ -104,13 +104,13 @@ const ProfileEditLayout = () => {
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_127aka-EHteI96Rlw94SeA"><span>Ngày sinh</span></div>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_127aka-EHteI96Rlw94SeA"><span>Ngày sinh</span></div>
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <input type="date" value={birthday} onChange={(e) => { setBirthday(e.target.value)}} />
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <button onClick={() => {
                                                     dispatch(setUp());
                                                     history.push("/profile/password")
@@ -118,18 +118,18 @@ const ProfileEditLayout = () => {
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <button>Yêu cầu chấm dứt tài khoản</button>
                                             </div>
                                         </li>
                                         <li>
-                                            <div class="_30EYSdf_NK78GgsJAB8_3I">
+                                            <div className="_30EYSdf_NK78GgsJAB8_3I">
                                                 <button onClick={handleUpdateInfo}>Cập nhật thông tin</button>
                                             </div>
                                         </li>
                                     </ul>
                                 </div>
-                                <div class="clearfix">
+                                <div className="clearfix">
                                 </div>
                             </div>
                         </div>

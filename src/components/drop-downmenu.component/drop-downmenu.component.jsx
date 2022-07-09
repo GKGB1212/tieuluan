@@ -12,51 +12,51 @@ const DropDownMenu = ({setHidden}) => {
     const history=useHistory();
     const currentUser = useSelector(state => state.user.currentUser);
     return (
-        <div class="appWrapper-Header-menu">
+        <div className="appWrapper-Header-menu">
             {
                 currentUser != null
                     ? (
                         <>
-                            <div class="appWrapper-Header-menuMore-listItemWrapper " onClick={()=>{history.push('/user');setHidden(true)}}>
-                                <div class="appWrapper-UserMenuItem">
-                                    <div class="appWrapper-UserMenuItem-left">
+                            <div className="appWrapper-Header-menuMore-listItemWrapper " onClick={()=>{history.push('/user');setHidden(true)}}>
+                                <div className="appWrapper-UserMenuItem">
+                                    <div className="appWrapper-UserMenuItem-left">
                                         {
                                             currentUser.avatar != "empty"
                                                 ? (
-                                                    <img alt="" class="appWrapper-UserMenuItem-avatar" src={currentUser.avatar} />
+                                                    <img alt="" className="appWrapper-UserMenuItem-avatar" src={currentUser.avatar} />
                                                 ) : (
-                                                    <img alt="" class="appWrapper-UserMenuItem-avatar" src={default_avt} />
+                                                    <img alt="" className="appWrapper-UserMenuItem-avatar" src={default_avt} />
                                                 )
                                         }
                                     </div>
-                                    <div class="appWrapper-UserMenuItem-right">
-                                        <p class="appWrapper-UserMenuItem-above">{currentUser.name}</p>
-                                        <p class="appWrapper-UserMenuItem-below">Xem trang cá nhân của bạn</p>
+                                    <div className="appWrapper-UserMenuItem-right">
+                                        <p className="appWrapper-UserMenuItem-above">{currentUser.name}</p>
+                                        <p className="appWrapper-UserMenuItem-below">Xem trang cá nhân của bạn</p>
                                     </div>
-                                    <div class="appWrapper-Layout-clearFix">
+                                    <div className="appWrapper-Layout-clearFix">
                                     </div>
                                 </div>
                             </div>
-                            <div class="appWrapper-Header-menuMore-listItemWrapper " onClick={() => {toast.notifySuccess("Đăng xuất thành công!");dispatch(signOut());setHidden(true);history.push('/')}}>
-                                <a class="appWrapper-Header-menuListItem" >
-                                    <div class="appWrapper-Header-menuLeftItem">
-                                        <img class="appWrapper-Header-icon--size30" src="https://st.chotot.com/storage/chotot-icons/svg/sign-out.svg" alt="Đăng xuất" />
+                            <div className="appWrapper-Header-menuMore-listItemWrapper " onClick={() => {toast.notifySuccess("Đăng xuất thành công!");dispatch(signOut());setHidden(true);history.push('/')}}>
+                                <a className="appWrapper-Header-menuListItem" >
+                                    <div className="appWrapper-Header-menuLeftItem">
+                                        <img className="appWrapper-Header-icon--size30" src="https://st.chotot.com/storage/chotot-icons/svg/sign-out.svg" alt="Đăng xuất" />
                                     </div>
-                                    <div class="appWrapper-Header-menuRightItem">Đăng xuất</div>
-                                    <div class="clearfix"></div>
+                                    <div className="appWrapper-Header-menuRightItem">Đăng xuất</div>
+                                    <div className="clearfix"></div>
                                 </a>
                             </div>
                         </>
                     ) : (
-                        <div class="appWrapper-Header-menuMore-listItemWrapper " onClick={()=>history.push('/Login')}>
-                            <div class="appWrapper-UserMenuItem">
-                                <a class="appWrapper-UserMenuItem-left">
-                                    <img alt="" class="appWrapper-UserMenuItem-avatar" src={default_avt} />
+                        <div className="appWrapper-Header-menuMore-listItemWrapper " onClick={()=>history.push('/Login')}>
+                            <div className="appWrapper-UserMenuItem">
+                                <a className="appWrapper-UserMenuItem-left">
+                                    <img alt="" className="appWrapper-UserMenuItem-avatar" src={default_avt} />
                                 </a>
-                                <div class="appWrapper-UserMenuItem-right login-right" style={{ marginTop: "10px" }}>
-                                    <a class="appWrapper-UserMenuItem-above">Đăng nhập/ Đăng kí</a>
+                                <div className="appWrapper-UserMenuItem-right login-right" style={{ marginTop: "10px" }}>
+                                    <a className="appWrapper-UserMenuItem-above">Đăng nhập/ Đăng kí</a>
                                 </div>
-                                <div class="appWrapper-Layout-clearFix">
+                                <div className="appWrapper-Layout-clearFix">
                                 </div>
                             </div>
                         </div>

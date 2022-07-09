@@ -3,11 +3,11 @@ import './Rs.css'
 
 const Responsive=()=>{
     return (
-        <div class="container">
-            <div class="left">
+        <div className="container">
+            <div className="left">
                 LEFT
             </div>
-            <div class="right">
+            <div className="right">
                 RIGHT
             </div>
         </div>

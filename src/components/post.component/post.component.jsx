@@ -154,18 +154,18 @@ const PostCreate = () => {
 
     }
     return (
-        <div id="product_create_app" class="product-create">
+        <div id="product_create_app" className="product-create">
             <div>
-                <div class="container">
+                <div className="container">
                     <h1>Đăng tin bất động sản miễn phí </h1>
-                    <div class="form">
+                    <div className="form">
                         <h2>I. Thông tin cơ bản </h2>
-                        <div class="form-info">
-                            {/* <div class="left"> */}
+                        <div className="form-info">
+                            {/* <div className="left"> */}
                             <div>
-                                <div class="form-group">
-                                    <label class="flex-center">Loại hình<span>*</span>: </label>
-                                    <select class="form-input" value={typeRealEstate} onChange={(e) => { handleChangeRealEstate(e.target.value) }}>
+                                <div className="form-group">
+                                    <label className="flex-center">Loại hình<span>*</span>: </label>
+                                    <select className="form-input" value={typeRealEstate} onChange={(e) => { handleChangeRealEstate(e.target.value) }}>
                                         <option value="0">Chọn Loại hình</option>
                                         <option value="1">Cần bán</option>
                                         <option value="2">Cần mua</option>
@@ -173,11 +173,11 @@ const PostCreate = () => {
                                         <option value="4">Cần thuê</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="flex-center">Loại BĐS<span>*</span>: </label>
+                                <div className="form-group">
+                                    <label className="flex-center">Loại BĐS<span>*</span>: </label>
                                     {(typeRealEstate == 1 || typeRealEstate == 2)
                                         ? (
-                                            <select class="form-input" value={categoryID} onChange={(e) => setTypeCategory(e.target.value)}>
+                                            <select className="form-input" value={categoryID} onChange={(e) => setTypeCategory(e.target.value)}>
                                                 <option value="0">Chọn Loại BĐS</option>
                                                 <option value="1">Căn hộ/ Chung cư</option>
                                                 <option value="2">Nhà ở</option>
@@ -186,7 +186,7 @@ const PostCreate = () => {
                                             </select>
                                         ) :
                                         (
-                                            <select class="form-input" value={categoryID} onChange={(e) => setTypeCategory(e.target.value)}>
+                                            <select className="form-input" value={categoryID} onChange={(e) => setTypeCategory(e.target.value)}>
                                                 <option value="0">Chọn Loại BĐS</option>
                                                 <option value="1">Căn hộ/ Chung cư</option>
                                                 <option value="2">Nhà ở</option>
@@ -195,27 +195,27 @@ const PostCreate = () => {
                                             </select>
                                         )}
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Tỉnh/ Thành phố<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentCity(e.target.value)}>
+                                    <select className="form-input" onChange={(e) => handleOnChangeCurrentCity(e.target.value)}>
                                         <option value="-1">Chọn Tỉnh/ Thành phố</option>
                                         {lstCity.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
                                         })}
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Quận/ Huyện<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => handleOnChangeCurrentDistric(e.target.value)}>
+                                    <select className="form-input" onChange={(e) => handleOnChangeCurrentDistric(e.target.value)}>
                                         <option value="0">Chọn quận/ huyện</option>
                                         {lstDistrict.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
                                         })}
                                     </select>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Xã/ Phường<span>*</span>: </label>
-                                    <select class="form-input" onChange={(e) => setWardID(e.target.value)}>
+                                    <select className="form-input" onChange={(e) => setWardID(e.target.value)}>
                                         <option value="0">Chọn Xã/ Phường</option>
                                         {lstWard.map((item) => {
                                             return <option key={item.code} value={item.code}>{item.name}</option>
@@ -225,9 +225,9 @@ const PostCreate = () => {
                                 {
                                     (typeRealEstate == 1 || typeRealEstate == 3) ?
                                         (
-                                            <div class="form-group">
-                                                <label class="flex-center">Địa chỉ<span>*</span>: </label>
-                                                <input type="text" class="form-input" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ chi tiết" />
+                                            <div className="form-group">
+                                                <label className="flex-center">Địa chỉ<span>*</span>: </label>
+                                                <input type="text" className="form-input" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Nhập địa chỉ chi tiết" />
                                             </div>
                                         ) : ''
                                 }
@@ -235,37 +235,37 @@ const PostCreate = () => {
                         </div>
                     </div>
 
-                    <div class="form">
+                    <div className="form">
                         <h2>II. Thông tin mô tả </h2>
-                        <div class="form-info">
-                            <div class="left">
-                                <div class="form-group">
+                        <div className="form-info">
+                            <div className="left">
+                                <div className="form-group">
                                     <label>Giá (VNĐ)<span>*</span>: </label>
-                                    <div class="button-group">
-                                        <div class="rs">
-                                            <div class="c5">
-                                                <input type="tel" class="v-money form-input wide" value={price} onChange={(e) => setPrice(helper.validateNumber(e.target.value))} />
+                                    <div className="button-group">
+                                        <div className="rs">
+                                            <div className="c5">
+                                                <input type="tel" className="v-money form-input wide" value={price} onChange={(e) => setPrice(helper.validateNumber(e.target.value))} />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div className="form-group">
                                     <label>Diện tích (m2)<span>*</span>: </label>
-                                    <div class="button-group">
-                                        <div class="rs">
-                                            <div class="c5">
-                                                <input onkeypress="validateNumber(event)" value={area} onChange={(e) => setArea(helper.validateNumber(e.target.value))} class="form-input wide" />
+                                    <div className="button-group">
+                                        <div className="rs">
+                                            <div className="c5">
+                                                <input onkeypress="validateNumber(event)" value={area} onChange={(e) => setArea(helper.validateNumber(e.target.value))} className="form-input wide" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="right">
-                                <div class="rs">
-                                    <div class="c8">
-                                        <div class="form-group">
-                                            <label class="flex-center">Hướng nhà </label>
-                                            <select class="form-input" value={directionID} onChange={(e) => setDirection(e.target.value)} style={{ minWidth: "245px" }}>
+                            <div className="right">
+                                <div className="rs">
+                                    <div className="c8">
+                                        <div className="form-group">
+                                            <label className="flex-center">Hướng nhà </label>
+                                            <select className="form-input" value={directionID} onChange={(e) => setDirection(e.target.value)} style={{ minWidth: "245px" }}>
                                                 <option value="0">Chọn hướng nhà</option>
                                                 <option value="1">Đông</option>
                                                 <option value="2">Tây</option>
@@ -279,11 +279,11 @@ const PostCreate = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="rs">
-                                    <div class="c8">
-                                        <div class="form-group">
+                                <div className="rs">
+                                    <div className="c8">
+                                        <div className="form-group">
                                             <label>Tình trạng pháp lý </label>
-                                            <select class="form-input" value={paperID} onChange={(e) => setPaperId(e.target.value)}>
+                                            <select className="form-input" value={paperID} onChange={(e) => setPaperId(e.target.value)}>
                                                 <option value="0">Tình trạng pháp lý</option>
                                                 <option value="1">Sổ đỏ</option>
                                                 <option value="2">Sổ hồng</option>
@@ -296,29 +296,29 @@ const PostCreate = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="flex-center">Tên tiêu đề<span>*</span>: </label>
-                                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Nhập tiêu đề tin đăng" maxlength="99" class="form-input txttitle" />
-                                <span class="txtcount">{title.length}/99</span>
+                            <div className="form-group">
+                                <label className="flex-center">Tên tiêu đề<span>*</span>: </label>
+                                <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Nhập tiêu đề tin đăng" maxlength="99" className="form-input txttitle" />
+                                <span className="txtcount">{title.length}/99</span>
                             </div>
                             {
                                 (typeRealEstate == 1 && (categoryID == 1 || categoryID == 2))
                                     ? (
                                         <div>
-                                            <div class="form-group">
-                                                <label class="flex-center">Số phòng ngủ: </label>
-                                                <input type="text" value={bedrooms} onChange={(e) => setBedrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng ngủ" class="form-input" />
+                                            <div className="form-group">
+                                                <label className="flex-center">Số phòng ngủ: </label>
+                                                <input type="text" value={bedrooms} onChange={(e) => setBedrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng ngủ" className="form-input" />
                                             </div>
-                                            <div class="form-group">
-                                                <label class="flex-center">Số phòng tắm: </label>
-                                                <input type="text" value={bathrooms} onChange={(e) => setBathrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng tắm" class="form-input" />
+                                            <div className="form-group">
+                                                <label className="flex-center">Số phòng tắm: </label>
+                                                <input type="text" value={bathrooms} onChange={(e) => setBathrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng tắm" className="form-input" />
                                             </div>
                                         </div>
                                     ) : ''
                             }
-                            <div class="form-group">
+                            <div className="form-group">
                                 <label>Mô tả<span>*</span>: </label>
-                                <textarea style={{ resize: "none" }} class="ck-blurred form-input active ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" value={details} onChange={(e) => setDetail(e.target.value)} />
+                                <textarea style={{ resize: "none" }} className="ck-blurred form-input active ck ck-content ck-editor__editable ck-rounded-corners ck-editor__editable_inline" value={details} onChange={(e) => setDetail(e.target.value)} />
                             </div>
 
                         </div>
@@ -326,12 +326,12 @@ const PostCreate = () => {
                     {
                         (typeRealEstate == 1 || typeRealEstate == 3)
                             ? (
-                                <div class="form">
+                                <div className="form">
                                     <h2>III. Thông tin hình ảnh </h2>
-                                    <div class="form-info">
-                                        <p class="tips">* Up ít nhất 3 ảnh cho bài đăng để đạt hiệu quả tốt hơn.</p>
-                                        <div class="form-images">
-                                            <p class="alert alert-info">
+                                    <div className="form-info">
+                                        <p className="tips">* Up ít nhất 3 ảnh cho bài đăng để đạt hiệu quả tốt hơn.</p>
+                                        <div className="form-images">
+                                            <p className="alert alert-info">
                                                 Tin đăng có hình ảnh thường hiệu quả hơn 59% tin đăng không có hình ảnh.
                                             </p>
                                             <label className="btn-add-image">
@@ -339,15 +339,15 @@ const PostCreate = () => {
                                                 <input type="file" multiple="multiple" accept="image/*" onChange={onImageChange} />
                                                 Thêm ảnh
                                             </label>
-                                            <div class="image-list">
-                                                <div dense="" class="rs">
+                                            <div className="image-list">
+                                                <div dense="" className="rs">
                                                     {imageToShowList.length > 0
                                                         ? imageToShowList.map((item, index) => (
-                                                            <div class="c3 image-item" key={index}>
+                                                            <div className="c3 image-item" key={index}>
                                                                 <img src={item} />
-                                                                <button onClick={() => handleDeletePhoto(index)} type="button" class="md-button md-icon-button md-dense btn-close md-theme-default">
-                                                                    <div class="md-ripple">
-                                                                        <div class="md-button-content">
+                                                                <button onClick={() => handleDeletePhoto(index)} type="button" className="md-button md-icon-button md-dense btn-close md-theme-default">
+                                                                    <div className="md-ripple">
+                                                                        <div className="md-button-content">
                                                                             <img src="https://static.homedy.com/src/images/icon/close.svg" />
                                                                         </div>
                                                                     </div>
@@ -356,13 +356,13 @@ const PostCreate = () => {
                                                         )) : ''}
                                                 </div>
                                             </div>
-                                            <div class="alert alert-warning" style={{height:'80px'}}></div>
+                                            <div className="alert alert-warning" style={{height:'80px'}}></div>
                                         </div>
                                     </div>
                                 </div>
                             ) : ''
                     }
-                    <button id="cmd_post" onClick={handleSubmitCreatePost} class="btn-submit">ĐĂNG TIN</button>
+                    <button id="cmd_post" onClick={handleSubmitCreatePost} className="btn-submit">ĐĂNG TIN</button>
                 </div>
             </div>
             <LoadingComponent isLoading={loading} />

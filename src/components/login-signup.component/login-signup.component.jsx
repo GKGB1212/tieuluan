@@ -66,75 +66,75 @@ const LoginSignupForm = () => {
         }
     }, [succeeded])
     return (
-        <main class="mainLoginForm">
-            <div class="loginDiv">
-                <div class="loginBanner">
-                    <div class="wrapperBanner">
-                        <div class="titleBanner">
+        <main className="mainLoginForm">
+            <div className="loginDiv">
+                <div className="loginBanner">
+                    <div className="wrapperBanner">
+                        <div className="titleBanner">
                             <h3>Đăng kí</h3>
                             <p>Tạo tài khoản bất động sản ngay</p>
                         </div>
-                        <div class="imageBanner">
+                        <div className="imageBanner">
                             <img src="https://static.chotot.com/storage/assets/LOGIN/logo.svg" alt="chotot-logo" />
                         </div>
                     </div>{
                         error
                             ? (
-                                <div class="e66t3pu error">
+                                <div className="e66t3pu error">
                                     {error}
                                 </div>
                             )
                             : ''
                     }
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
-                        <input class="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value.substring(0,50))} autocomplete="nope" />
+                        <input className="i1pbvj0j" placeholder="Nhập tên của bạn" value={name} onChange={(e) => setName(e.target.value.substring(0,50))} autocomplete="nope" />
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
                         <input type="tel" placeholder="Nhập SĐT của bạn" value={phoneNumber} onChange={(e) => handleChangePhoneNum(helper.replaceCharacter(e.target.value, "0123456789"))} autocomplete="nope" />
                         <button tabindex="-1" type="button">
-                            <span class="clear">
+                            <span className="clear">
                             </span>
                         </button>
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
-                        <input type="password" id="pass" class="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" />
+                        <input type="password" id="pass" className="i1pbvj0j" placeholder="Nhập mật khẩu của bạn" value={passWord} onChange={(e) => setPassWord(e.target.value)} autocomplete="nope" />
                         <button tabindex="-1" type="button" onClick={() => changeTypePassWord(1)}>
                             {textBtn1}
                         </button>
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <div class="inputLoginDiv">
+                <div className="inputLoginDiv">
                     <div>
-                        <input type="password" id="confirmPass" class="i1pbvj0j" placeholder="Xác nhận mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autocomplete="nope" />
+                        <input type="password" id="confirmPass" className="i1pbvj0j" placeholder="Xác nhận mật khẩu" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autocomplete="nope" />
                         <button tabindex="-1" type="button" onClick={() => changeTypePassWord(2)}>
                             {textBtn2}
                         </button>
                     </div>
-                    <p class="prswihc">
+                    <p className="prswihc">
                     </p>
                 </div>
-                <button class="buttonLogin accent r-normal medium w-normal i-left stretch" type="submit" onClick={signIn}>Đăng ký</button>
-                <div class="loginDiv2">
+                <button className="buttonLogin accent r-normal medium w-normal i-left stretch" type="submit" onClick={signIn}>Đăng ký</button>
+                <div className="loginDiv2">
                     <p> Bằng việc nhấn đăng ký, bạn đã đồng ý với
                         <a href="/forget-password">Điều khoản sử dụng</a>
                         của trang web bất động sản
                     </p>
                     {/* <small>Hoặc đăng nhập với</small>
                     <ul>
-                        <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" class="iconButton fb" ></li>
-                        <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" class="iconButton gg"></li>
+                        <li src="https://static.chotot.com/storage/assets/LOGIN/facebook.svg" className="iconButton fb" ></li>
+                        <li src="https://static.chotot.com/storage/assets/LOGIN/google.svg" className="iconButton gg"></li>
                     </ul> */}
                     <p>Bạn đã có tài khoản<br />
                         <Link to="/Login">Đăng nhập</Link>

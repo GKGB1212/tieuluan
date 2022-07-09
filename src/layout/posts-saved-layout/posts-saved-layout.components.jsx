@@ -42,7 +42,7 @@ const PostsSaved = () => {
             <div className="container WrapperContainer">
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
-                        <h4 class="TitleHeading">Tin đã lưu</h4>
+                        <h4 className="TitleHeading">Tin đã lưu</h4>
                         <div className="row list">
                             <div className="listt">
                                 {lstPostLike && lstPostLike.length > 0 ? (
@@ -69,17 +69,17 @@ const PostsSaved = () => {
                                                                     </div>
                                                                     <div className="sc-bRBYWo enrfhw">
                                                                         <div className="sc-ckVGcZ hXRBzs">
-                                                                            <h3 class="sc-jKJlTe cUQZyp">{item.title}</h3>
+                                                                            <h3 className="sc-jKJlTe cUQZyp">{item.title}</h3>
                                                                         </div>
                                                                         <div className="sc-kEYyzF EYiyr">
-                                                                            <div itemprop="price" content="4650000000" class="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
+                                                                            <div itemprop="price" content="4650000000" className="sc-kkGfuU dBCFhH"><span>{item.price} đ</span></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </Link>
                                                             <div className="sc-eHgmQL hNtdWe">
                                                                 <div className="sc-cvbbAY knzJMl">
-                                                                    <div class="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
+                                                                    <div className="sc-jDwBTQ SWKJx"><span>Đăng ngày {item.createdDate.split('T')[0].split('-')[2]}-{item.createdDate.split('T')[0].split('-')[1]}-{item.createdDate.split('T')[0].split('-')[0]}</span></div>
                                                                 </div>
                                                             </div>
                                                             {
@@ -121,8 +121,8 @@ const PostsSaved = () => {
                                     ))
                                 )
                                     : (<div style={{ width: "100%" }}>
-                                        <div class="notfound">
-                                            <div class="alert alert-warning">
+                                        <div className="notfound">
+                                            <div className="alert alert-warning">
                                                 <img src="https://static.chotot.com/storage/empty_state/desktop/search_no_found_keyword.png" alt="PageNotFound" loading="lazy" height="200px" width="400px" /><br />
                                                 <b>Bạn chưa lưu tin đăng nào!</b><br />
                                                 Hãy bấm nút ❤ ở tin đăng để lưu và xem lại sau.</div>
