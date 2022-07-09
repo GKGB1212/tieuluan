@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Pagination from "react-js-pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { fetchNews } from "../../redux/article/articleSlice";
 import './all-article-layout.style.css'
 import default_news from '../../assets/images/tin-khong-co-hinh.jpg'
 const AllArticleLayout = () => {
-    const { id } = useParams();
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
     const article = useSelector(state => state.article.newsResponse);
@@ -24,6 +22,33 @@ const AllArticleLayout = () => {
             size: 7
         }));
     }, [])
+    const formatDateTimeDDmmYYYY=function(date) {
+        const dateTime = updateDateTime(date);
+    
+        let dateString = `${dateTime.getDate()}/${dateTime.getMonth() + 1}/${dateTime.getFullYear()}`;
+        return dateString
+    }
+    const updateDateTime=function(date) {
+        try {
+            const dateTime = new Date(date);
+    
+            return dateTime;
+        }
+        catch {
+            return new Date();
+        }
+    }
+    const convertToPlain=function(html){
+
+        // Create a new div element
+        var tempDivElement = document.createElement("div");
+    
+        // Set the HTML content with the given value
+        tempDivElement.innerHTML = html;
+    
+        // Retrieve the text property of the element 
+        return tempDivElement.textContent || tempDivElement.innerText || "";
+    }
     return article ? (
         <div className="">
             <div className="title_page">
@@ -43,7 +68,7 @@ const AllArticleLayout = () => {
                         <div className="post_featured">
                             <div className="container">
                                 <div className="item_post">
-                                    <a href="https://nha.chotot.com/kinh-nghiem/cho-thue-nha-can-lam-thu-tuc-gi.html">
+                                    <Link to={{ pathname: `/news/${article.news[0].id}` }}>
                                         <div className="row"><div className="col-md-6">
                                             {
                                                 article.news[0].imageUrl ? (
@@ -58,17 +83,18 @@ const AllArticleLayout = () => {
                                             </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                     <div className="post_ab" style={{ width: "100%", top: "75.8375px" }}>
                                         <div className="row"><div className="col-md-6">
                                         </div><div className="col-md-6">
                                                 <div className="post_meta">
                                                     <div className="excerpt_info">
-                                                        <div className="d-none d-md-block" dangerouslySetInnerHTML={{ __html: article.news[0].details }}>
+                                                        <div className="d-none d-md-block">
+                                                            {convertToPlain(article.news[0].details)}
                                                         </div>
                                                     </div>
                                                     <ul>
-                                                        <li>{article.news[0].createdDate}</li>
+                                                        <li>{formatDateTimeDDmmYYYY(article.news[0].createdDate)}</li>
                                                     </ul>
                                                     <hr className="d-none d-md-block" />
                                                 </div>
@@ -84,9 +110,9 @@ const AllArticleLayout = () => {
                                     <div>
                                         <div className="cate_group">
                                             {
-                                                article.news.map((x)=>(
+                                                article.news.map((x) => (
                                                     <div className="item_post">
-                                                        <Link className="">
+                                                        <Link to={{ pathname: `/news/${x.id}` }}>
                                                             <div className="row">
                                                                 <div className="order-md-1">
                                                                     <div className="post_meta">
@@ -114,9 +140,9 @@ const AllArticleLayout = () => {
                                                                     <div className="post_meta">
                                                                         <div className="">
                                                                             <div className="excerpt_info">
-                                                                                <div className="d-none d-md-block" dangerouslySetInnerHTML={{ __html: x.details }}></div></div><ul><li>{x.createdDate}</li></ul></div></div></div><div className="col-4 col-md-5 order-md-0 item_imgbox"></div></div></div>
+                                                                                <div className="d-none d-md-block">{convertToPlain(article.news[0].details)}</div></div><ul><li>{formatDateTimeDDmmYYYY(x.createdDate)}</li></ul></div></div></div><div className="col-4 col-md-5 order-md-0 item_imgbox"></div></div></div>
                                                     </div>
-                                                )) 
+                                                ))
                                             }
 
                                         </div>

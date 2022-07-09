@@ -10,6 +10,22 @@ const ArticleLayout = () => {
     useEffect(() => {
         dispatch(fetchNewByID(id));
     }, []);
+    const formatDateTimeDDmmYYYY=function(date) {
+        const dateTime = updateDateTime(date);
+    
+        let dateString = `${dateTime.getDate()}/${dateTime.getMonth() + 1}/${dateTime.getFullYear()}`;
+        return dateString
+    }
+    const updateDateTime=function(date) {
+        try {
+            const dateTime = new Date(date);
+    
+            return dateTime;
+        }
+        catch {
+            return new Date();
+        }
+    }
     return (
         article ? (
             <div className="article">
@@ -18,9 +34,9 @@ const ArticleLayout = () => {
                         <div className="container-article">
                             <div className="row justify-content-center-article">
                                 <div className="col"><p id="breadcrumb_site">
-                                    <span><span><a href="https://nha.chotot.com/kinh-nghiem/tin-noi-bat">Tin nổi bật</a></span></span></p>
+                                    <span><span><a>Tin nổi bật</a></span></span></p>
                                     <h1 className="text-center fs-32 ff-bold">{article.title}</h1>
-                                    <div className="description_info cl-gray text-center">{article.createdDate}</div>
+                                    <div className="description_info cl-gray text-center">{formatDateTimeDDmmYYYY(article.createdDate)}</div>
                                 </div>
                             </div>
                         </div>
