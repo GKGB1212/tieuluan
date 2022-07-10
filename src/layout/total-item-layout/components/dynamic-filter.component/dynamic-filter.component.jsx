@@ -3,7 +3,7 @@ import './dynamic-filter.styles.css'
 import { useDispatch } from "react-redux";
 import { fetchFilterPosts } from "../../../../redux/product/productSlice";
 
-const DynamicFilter = ({ lstCity, Search, type, categoryId, changeIsShow }) => {
+const DynamicFilter = ({ lstCity, Search, type,provinceId, categoryId, changeIsShow }) => {
     const dispatch=useDispatch()
     const [ProvinceID, setProvinceID] = useState(0);
     const [PostTypeID, setPostTypeID] = useState(0);
@@ -15,7 +15,11 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId, changeIsShow }) => {
         if(categoryId!=null){
             setCategoryID(categoryId);
         }
-    }, [type,categoryId])
+        if(provinceId!=null){
+            alert("gia binh",provinceId)
+            setProvinceID(provinceId);
+        }
+    }, [type,categoryId,provinceId])
     const handleClickSearch = () => {
         var objSearch={Search};
         if(ProvinceID!=0){
@@ -34,7 +38,7 @@ const DynamicFilter = ({ lstCity, Search, type, categoryId, changeIsShow }) => {
             <div className="WrapperScroll_wrapperOverflow">
                 <div className="DynamicFilterStyle_dynamicFilter">
                     <div className="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
-                        <select className="select" onChange={(e) => setProvinceID(e.target.value)}>
+                        <select value={ProvinceID} className="select" onChange={(e) => setProvinceID(e.target.value)}>
                             <option value="0">Chọn Tỉnh/ Thành phố</option>
                             {lstCity.map((item) => {
                                 return <option key={item.code} value={item.code}>{item.name}</option>

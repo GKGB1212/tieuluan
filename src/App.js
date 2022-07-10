@@ -81,6 +81,7 @@ function App() {
                   <Redirect to='/' />
                 )} />
               <Route exact path='/tim-kiem-bds' component={TotalItemLayout} />
+              <Route path='/tim-kiem-bds' component={TotalItemLayout} />
               <Route exact path='/products/:id' component={DetailItemLayout} />
               <Route exact path='/products/:id' component={DetailItemLayout} />
               <Route exact path='/news/:id' component={ArticleLayout} />

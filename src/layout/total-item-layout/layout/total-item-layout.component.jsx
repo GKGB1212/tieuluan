@@ -16,9 +16,10 @@ const TotalItemLayout = (props) => {
     const lstPostSearch = useSelector(state => state.product.lstPostSearch);
     const [lstCity, setLstCity] = useState([]);
     const [type, setType] = useState(null);
-    const [categoryId,setCategoryId]=useState(null);
-    const [isShowModalFilter,setIsShowModalFilter]=useState(false);
-
+    const [categoryId, setCategoryId] = useState(null);
+    const [provinceId, setProvinceId] = useState(null);
+    const [isShowModalFilter, setIsShowModalFilter] = useState(false);
+    let query = new URLSearchParams(location.search);
     useEffect(() => {
         try {
             setType(location.state.type);
@@ -28,13 +29,13 @@ const TotalItemLayout = (props) => {
         }
         if (location.pathname == '/tim-kiem-bds') {
             if (type != null) {
-                if(categoryId==undefined){
+                if (categoryId == undefined) {
                     dispatch(fetchFilterPosts({
                         PostTypeID: type,
                         Page: 1,
                         Size: 12
                     }))
-                }else{
+                } else {
                     dispatch(fetchFilterPosts({
                         PostTypeID: type,
                         Page: 1,
@@ -43,6 +44,28 @@ const TotalItemLayout = (props) => {
                     }))
                 }
             }
+        }
+        let province = query.get("province");
+        let postType = query.get("postType");
+        let category = query.get("category");
+        let objSearch = {
+            Page: 1,
+            Size: 12
+        }
+        if (province != null) {
+            objSearch.ProvinceID = province
+            setProvinceId(provinceId)
+        }
+        if (postType != null) {
+            objSearch.PostTypeID = postType
+            setType(postType)
+        }
+        if (category != null) {
+            objSearch.CategoryID = category
+            setCategoryId(category)
+        }
+        if (province != null || postType != null || category != null) {
+            dispatch(fetchFilterPosts(objSearch));
         }
     }, [type])
     useEffect(() => {
@@ -59,14 +82,14 @@ const TotalItemLayout = (props) => {
             })
     }, [])
 
-    const changeIsShow=()=>{
+    const changeIsShow = () => {
         setIsShowModalFilter(!isShowModalFilter);
     }
     return (
         // type?(
         <div className="container ct-listing">
-            <ModalFilter isShowModalFilter={isShowModalFilter} changeIsShow={changeIsShow}/>
-            <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId} changeIsShow={changeIsShow}/>
+            <ModalFilter isShowModalFilter={isShowModalFilter} changeIsShow={changeIsShow} />
+            <DynamicFilter lstCity={lstCity} Search={Search} type={type} categoryId={categoryId} provinceId={provinceId} changeIsShow={changeIsShow} />
             <h1>{props.location.type}</h1>
             <TotalItemContainer lstPostSearch={lstPostSearch} Search={Search} />
         </div>
