@@ -56,7 +56,7 @@ function App() {
     setLoading(1);
   }, []);
   return (
-    <div className="App" style={{ marginBottom: "50px" }}>
+    <div className="App">
       {
         loading != 0
           ? (<BrowserRouter>
@@ -160,6 +160,7 @@ function App() {
               <Page href="https://www.facebook.com/Atlanta-B%E1%BA%A5t-%C4%90%E1%BB%99ng-S%E1%BA%A3n-108923665216134" tabs="timeline" />
 
             </FacebookProvider> */}
+            <Footer/>
           </BrowserRouter>)
           : (<LoadingComponent isLoading={true} />)
       }

@@ -196,7 +196,7 @@ const DetailItemLayout = () => {
             <ModalReport changeIsShow={changeIsShow} isShowModalReport={isShowModalReport} details={details} setDetails={setDetails} email={email} setEmail={setEmail} phoneNumber={phoneNumber} setPhoneNumber={setPhoneNumber} onHandleReportClick={onHandleReportClick} />
             <div className="row base">
                 <div style={{ margin: "10px 0px" }}><div></div></div>
-                <div className="col-md-8">
+                <div className="col-md-8" style={{marginBottom:"20px"}}>
                     <div className="AdImage_adImageWrapper">
                         <SliderImages imageUrls={post.imageUrls} />
                         <AdDecriptionWrapper item={post} handleSavePost={handleSavePost} />

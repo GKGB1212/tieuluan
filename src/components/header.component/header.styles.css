@@ -344,14 +344,12 @@ body {
 }
 
 #notification_Count {
-    padding: 3px 7px 3px 7px;
+    padding: 3px 6px 3px 6px;
     background: red;
     color: #ffffff;
     font-weight: bold;
-    margin-left: 102px;
+    margin-left: 5px;
     border-radius: 9px;
-    position: absolute;
-    margin-top: -16px;
     font-size: 11px;
 }
 

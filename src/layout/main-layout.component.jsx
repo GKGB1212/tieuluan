@@ -45,7 +45,7 @@ const MainLayout = ({ children }) => {
                 <MessengerCustomerChat
                     pageId="108923665216134"
                     appId="5429323507132483"
-                />,
+                />
                 <Consumer products={lstPostLease} totalArtical='124777' title="Cho thuê bất động sản" type="lease" />
                 {
                     lstNews.news ? (

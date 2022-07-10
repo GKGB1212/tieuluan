@@ -18,7 +18,7 @@ const ChangePasswordLayout = () => {
     const history = useHistory();
     const [currentError,setCurrentError]=useState(null);
     const handleClickChangePassword = () => {
-        let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        let regex = /^(?=.*[0-9])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
         if (oldPassword == '' || password == '' || confirmPassword == '') {
             setCurrentError("Vui lòng nhập đủ 3 trường!");
         } else if (regex.test(password) == false) {

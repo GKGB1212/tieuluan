@@ -64,11 +64,11 @@ const ForgotPasswordForm = () => {
             } else if (password != confirmPassword) {
                 setCurrentError('Mật khẩu không khớp nhau!');
             } else {
-                let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                let regex = /^(?=.*[0-9])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
                 if (regex.test(password)) {
                     dispatch(fetchResetPassword({ phoneNumber, password, confirmPassword, code }))
                 } else {
-                    setCurrentError("Mật khẩu yêu cầu: Tối thiểu tám ký tự, ít nhất một chữ cái viết hoa, một chữ cái viết thường, một số và một ký tự đặc biệt")
+                    setCurrentError("Mật khẩu yêu cầu: Tối thiểu sáu ký tự, ít nhất một chữ cái, một số và một ký tự đặc biệt")
                 }
             }
         }

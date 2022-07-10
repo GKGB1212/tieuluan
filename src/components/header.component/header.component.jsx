@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchFilterPosts } from "../../redux/product/productSlice";
-import { setUp, signOut } from "../../redux/user/userSlice";
 import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component';
-import LikeAndShare from "../likeAndShare.component/likeAndShare.component";
 import logo from '../../assets/images/logo-full.png'
 import $ from 'jquery';
+import { fetchUpdateStatusNotifications } from "../../redux/report/reportSlice";
 const HeaderM = () => {
     const [Search, setSearch] = useState('');
     const [hidden, sethHidden] = useState(true);
     const [isShowNotification, setIsShowNotification] = useState(false);
+    const [notificationCount, setNotificationCount] = useState(0);
     const history = useHistory();
     const dispatch = useDispatch();
     const currentUser = useSelector(state => state.user.currentUser);
@@ -52,6 +52,10 @@ const HeaderM = () => {
 
     });
 
+    useEffect(() => {
+        setNotificationCount(lstNotification.filter((item) => !item.status).length)
+    }, [lstNotification]);
+
 
     const loadScript = () => {
         let script = document.createElement("script");
@@ -78,11 +82,12 @@ const HeaderM = () => {
                             {currentUser != null
                                 ? (<li><Link to="/postssaved"><i className="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)
                                 : (<li><Link to="/Login"><i className="fa fa-user-o" aria-hidden="true"></i> Tin yêu thích</Link></li>)}
-                            <li onClick={() => sethHidden(!hidden)}><i className="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</li>
                             {currentUser != null
                                 ? (<li id="notification_li" className="li-notification"><i className="fa"></i>
-                                    <span id="notification_Count">3</span>
-                                    <a href="#" id="notification_Link" onClick={() => setIsShowNotification(!isShowNotification)}>Thông báo</a>
+                                    <a href="#" id="notification_Link" onClick={() => {
+                                        setIsShowNotification(!isShowNotification);
+                                        dispatch(fetchUpdateStatusNotifications())}}>Thông báo</a>
+                                    <span id="notification_Count">{notificationCount}</span>
                                     <div id="notification_Wrapper" style={isShowNotification ? { display: 'block' } : { display: 'none' }}>
                                         <div id="notificationTitle">THÔNG BÁO</div>
                                         <div id="notificationsBody style-2" className="notifications scrollbar">
@@ -133,6 +138,7 @@ const HeaderM = () => {
 
                                 </li>)
                                 : ('')}
+                            <li onClick={() => sethHidden(!hidden)}><i className="fa fa-ellipsis-h" aria-hidden="true"></i> Thêm</li>
                         </ul>
                     </div>
                 </div>

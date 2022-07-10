@@ -43,7 +43,7 @@ const LoginSignupForm = () => {
         } else if (passWord != confirmPassword) {
             toast.notifyError("Mật khẩu xác nhận không khớp!")
         } else {
-            let regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            let regex = /^(?=.*[0-9])(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
             if (regex.test(passWord)) {
                 await dispatch(fetchSignIn({ name, passWord, confirmPassword, phoneNumber }));
                 if (succeeded == true) {

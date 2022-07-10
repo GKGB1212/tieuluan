@@ -43,7 +43,7 @@ const PostsSaved = () => {
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
                         <h4 className="TitleHeading">Tin đã lưu</h4>
-                        <div className="row list">
+                        <div className="row">
                             <div className="listt">
                                 {lstPostLike && lstPostLike.length > 0 ? (
                                     lstPostLike.map((item) => (

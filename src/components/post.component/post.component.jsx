@@ -264,9 +264,9 @@ const PostCreate = () => {
                                 <div className="rs">
                                     <div className="c8">
                                         <div className="form-group">
-                                            <label className="flex-center">Hướng nhà </label>
+                                            <label className="flex-center">Hướng nhà/ đất </label>
                                             <select className="form-input" value={directionID} onChange={(e) => setDirection(e.target.value)} style={{ minWidth: "245px" }}>
-                                                <option value="0">Chọn hướng nhà</option>
+                                                <option value="0">Chọn hướng nhà/ đất</option>
                                                 <option value="1">Đông</option>
                                                 <option value="2">Tây</option>
                                                 <option value="3">Nam</option>

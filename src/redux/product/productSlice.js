@@ -298,6 +298,7 @@ export const fetchInsertPost = createAsyncThunk(
 export const fetchUpdatePost = createAsyncThunk(
     'product/fetchUpdatePost',
     async (objPost, thunkAPI) => {
+        console.log("ssss",objPost)
         var result;
         var accessToken = localStorage.getItem('accessToken');
         var refreshToken = localStorage.getItem('refreshToken');
@@ -371,7 +372,9 @@ export const fetchUpdatePost = createAsyncThunk(
         formData.append('creatorID', decoded.id);
         formData.append('postTypeID', objPost.typeRealEstate);
         formData.append('categoryID', objPost.categoryID);
-
+        for (const value of formData.values()) {
+            console.log(value);
+          }
         var requestOptions = {
             method: 'PUT',
             headers: myHeaders,
