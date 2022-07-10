@@ -23,7 +23,7 @@ export const fetchNews = createAsyncThunk(
             redirect: 'follow'
         };
 
-        await fetch(`http://localhost:50804/api/News?page=${objFetchNews.page}&size=${objFetchNews.size}&display=true`, requestOptions)
+        await fetch(`https://realestateute.azurewebsites.net/api/News?page=${objFetchNews.page}&size=${objFetchNews.size}&display=true`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
@@ -46,7 +46,7 @@ export const fetchNewByID = createAsyncThunk(
             redirect: 'follow'
         };
 
-       await fetch(`http://localhost:50804/api/News/${id}`, requestOptions)
+       await fetch(`https://realestateute.azurewebsites.net/api/News/${id}`, requestOptions)
             .then(response => result = response.json())
             // Displaying results to console
             .then(json => { result = json; })
