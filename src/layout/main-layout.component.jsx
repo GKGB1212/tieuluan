@@ -35,12 +35,8 @@ const MainLayout = ({ children }) => {
             size: 8
         }))
     }, []);
-    useEffect(() => {
-        console.log("ffffffff", lstNews)
-    }, [lstNews])
     return (
         <div>
-
             <ContainerMain>
                 {/* <ArticleLayout/> */}
                 <Slider />

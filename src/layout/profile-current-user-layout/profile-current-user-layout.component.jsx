@@ -93,7 +93,7 @@ const ProfileCurrentUserLayout = () => {
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
                         <h4 className="TitleHeading">Tin đang đăng</h4>
-                        <div className="row list">
+                        <div className="row listPostOfUser">
                             <div className="listt">
                                 {
                                     post.postShowing ? (
@@ -207,7 +207,7 @@ const ProfileCurrentUserLayout = () => {
                 < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
                         <h4 className="TitleHeading">Tin chưa được duyệt</h4>
-                        <div className="row list">
+                        <div className="row listPostOfUser">
                             <div className="listt">
                                 {
                                     post.postPending ?
@@ -280,7 +280,7 @@ const ProfileCurrentUserLayout = () => {
                 < div className="indexPage PaperContainer" >
                     <div className="PaperWrapper">
                         <h4 className="TitleHeading">Tin bị từ chối</h4>
-                        <div className="row list">
+                        <div className="row listPostOfUser">
                             <div className="listt">
                                 {
                                     post.postDenied ?

@@ -235,7 +235,7 @@ const DetailItemLayout = () => {
                                 <div style={{ margin: "5px 0px 0px", borderTop: "1px solid rgb(238, 238, 238)" }}>
                                 </div>
                                 <div style={{ marginBottom: "10px" }}>
-                                    <LikeAndShare title='Chia sẻ tin đăng' url='https://realestateute.herokuapp.com/products/5' />
+                                    <LikeAndShare title='Chia sẻ tin đăng' url={window.location.href} />
                                 </div>
                             </div>
                         </div>
@@ -260,9 +260,10 @@ const DetailItemLayout = () => {
 
                 </div>
                 <div className="col-md-4 no-padding dtView">
-                    <div className="d-lg-block d-none">
+                    {/* <div className="d-lg-block d-none">
                         <SellerProfileMini name={post.creatorName} id={post.creatorID} />
-                    </div>
+                    </div> */}
+                    <SellerProfileMini name={post.creatorName} id={post.creatorID} />
                     <ButtonPhone phone={post.creatorPhone} />
                     <SafeTip />
                 </div>

@@ -49,8 +49,8 @@
 
 .header .nav img {
     display: inline-block;
-    width: 70px;
-    height: 40px;
+    width: 125px;
+    height: 35px;
     margin: 5px 10px;
 }
 
@@ -452,4 +452,5 @@ h1 {
 	overflow-y: scroll;
 	margin-bottom: 25px;
     max-height: 400px;
+    width: 100%;
 }

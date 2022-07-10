@@ -7,6 +7,7 @@ import { fetchFilterPosts } from "../../redux/product/productSlice";
 import { setUp, signOut } from "../../redux/user/userSlice";
 import DropDownMenu from '../drop-downmenu.component/drop-downmenu.component';
 import LikeAndShare from "../likeAndShare.component/likeAndShare.component";
+import logo from '../../assets/images/logo-full.png'
 import $ from 'jquery';
 const HeaderM = () => {
     const [Search, setSearch] = useState('');
@@ -70,7 +71,7 @@ const HeaderM = () => {
 
             <section className="header">
                 <div className="nav">
-                    <img src="https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Editable-Real-Estate-Logo-Design-PNG-Transparent.png" alt="" onClick={goBackHome} />
+                    <img src={logo} alt="" onClick={goBackHome} />
                     <div className="nav-links">
                         <ul>
                             <li><Link to='/'><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
