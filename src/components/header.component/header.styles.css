@@ -130,10 +130,9 @@
 
 }
 
-.info .search input {
-    padding: 3px;
+.info .search input:active {
 
-    border: 2px solid black;
+    border: 0;
 }
 
 .info .login {

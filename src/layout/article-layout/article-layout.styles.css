@@ -44,7 +44,8 @@
 
 @media (min-width: 576px){
     .article .container-article {
-        max-width: 540px;
+        max-width: 640px;
+        font-size: medium;
     }
 }
 .article .justify-content-center-article {

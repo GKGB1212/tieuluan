@@ -37,7 +37,7 @@ const MainLayout = ({ children }) => {
     }, []);
     return (
         <div>
-            <ContainerMain>
+            <ContainerMain className="containerMain">
                 {/* <ArticleLayout/> */}
                 <Slider />
                 <Category />

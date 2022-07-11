@@ -8,31 +8,24 @@ const Footer = () => {
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-sm-4 col-md-3 item">
-                            <h3>Services</h3>
+                            <h3>Hỗ trợ khách hàng</h3>
                             <ul>
-                                <li><a href="#">Web design</a></li>
-                                <li><a href="#">Development</a></li>
-                                <li><a href="#">Hosting</a></li>
+                                <li><a href="#">Trung tâm trợ giúp</a></li>
+                                <li><a href="#">An toàn mua bán</a></li>
+                                <li><a href="#">Quy định cần biết</a></li>
                             </ul>
                         </div>
                         <div class="col-sm-4 col-md-3 item">
-                            <h3>About</h3>
+                            <h3>Về Atlanta</h3>
                             <ul>
-                                <li><a href="#">Company</a></li>
-                                <li><a href="#">Team</a></li>
-                                <li><a href="#">Legacy</a></li>
+                                <li><a href="#">Công ty</a></li>
+                                <li><a href="#">Giới thiệu</a></li>
+                                <li><a href="#">Liên hệ</a></li>
                             </ul>
                         </div>
-                        <div class="col-sm-4 col-md-3 item">
-                            <h3>Careers</h3>
-                            <ul>
-                                <li><a href="#">Job openings</a></li>
-                                <li><a href="#">Employee success</a></li>
-                                <li><a href="#">Benefits</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a>
-                            <p class="copyright">Company Name © 2018</p>
+                       
+                        <div class="col-lg-3 item social"><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-facebook"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-twitter"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-linkedin"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-instagram"></i></a>
+                            <p class="copyright">Atlanta © Gia Bình & Thủy Tiên</p>
                         </div>
                     </div>
                 </div>
