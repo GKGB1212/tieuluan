@@ -24,7 +24,7 @@ const Footer = () => {
                             </ul>
                         </div>
                        
-                        <div class="col-lg-3 item social"><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-facebook"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-twitter"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-linkedin"></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-instagram"></i></a>
+                        <div class="col-lg-3 item social"><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-facebook" style={{backgroundColor: "#3B5998"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-twitter" style={{backgroundColor: "#55ACEE"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-linkedin" style={{backgroundColor: "#0976B4"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-instagram" style={{backgroundColor: "#B7242A"}}></i></a>
                             <p class="copyright">Atlanta © Gia Bình & Thủy Tiên</p>
                         </div>
                     </div>
