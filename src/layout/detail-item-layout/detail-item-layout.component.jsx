@@ -181,7 +181,6 @@ const DetailItemLayout = () => {
             <MetaTags>
                 <title>{post.title}</title>
                 <meta name="description" content={post.details} />
-                <meta property="og:title" content={post.title} />
                 <meta property="og:image" content="path/to/image.jpg" />
 
                 {
