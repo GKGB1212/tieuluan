@@ -130,6 +130,7 @@ button, input, optgroup, select, textarea {
 .row {
   margin-left: -10px;
   margin-right: -10px;
+  display: flex;
 }
 .col-xs-12 {
   width: 100%;

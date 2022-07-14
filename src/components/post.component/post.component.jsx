@@ -244,7 +244,7 @@ const PostCreate = () => {
                                     <div className="button-group">
                                         <div className="rs">
                                             <div className="c5">
-                                                <input type="tel" className="v-money form-input wide" value={price} onChange={(e) => setPrice(helper.validateNumber(e.target.value))} />
+                                                <input type="number" max="99999999999" className="v-money form-input wide" value={price} onChange={(e) => { if(e.target.value<9999999999999){setPrice(helper.validateNumber(e.target.value))}else{toast.notifyWarning("Gía trị tiền không hợp lệ")}}} />
                                             </div>
                                         </div>
                                     </div>
@@ -307,11 +307,11 @@ const PostCreate = () => {
                                         <div>
                                             <div className="form-group">
                                                 <label className="flex-center">Số phòng ngủ: </label>
-                                                <input type="text" value={bedrooms} onChange={(e) => setBedrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng ngủ" className="form-input" />
+                                                <input type="number" value={bedrooms} onChange={(e) => setBedrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng ngủ" className="form-input" />
                                             </div>
                                             <div className="form-group">
                                                 <label className="flex-center">Số phòng tắm: </label>
-                                                <input type="text" value={bathrooms} onChange={(e) => setBathrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng tắm" className="form-input" />
+                                                <input type="number" value={bathrooms} onChange={(e) => setBathrooms(helper.validateNumber(e.target.value))} placeholder="Nhập số phòng tắm" className="form-input" />
                                             </div>
                                         </div>
                                     ) : ''

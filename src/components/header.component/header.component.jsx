@@ -75,7 +75,8 @@ const HeaderM = () => {
 
             <section className="header">
                 <div className="nav">
-                    <img src={logo} alt="" onClick={goBackHome} />
+                <img src={logo} alt="" onClick={goBackHome} />
+
                     <div className="nav-links">
                         <ul>
                             <li><Link to='/'><i className="fa fa-home" aria-hidden="true"></i> Trang chủ</Link></li>
@@ -86,7 +87,8 @@ const HeaderM = () => {
                                 ? (<li id="notification_li" className="li-notification"><i className="fa"></i>
                                     <a href="#" id="notification_Link" onClick={() => {
                                         setIsShowNotification(!isShowNotification);
-                                        dispatch(fetchUpdateStatusNotifications())}}>Thông báo</a>
+                                        dispatch(fetchUpdateStatusNotifications())
+                                    }}>Thông báo</a>
                                     <span id="notification_Count">{notificationCount}</span>
                                     <div id="notification_Wrapper" style={isShowNotification ? { display: 'block' } : { display: 'none' }}>
                                         <div id="notificationTitle">THÔNG BÁO</div>
@@ -167,7 +169,7 @@ const HeaderM = () => {
                                 <Link to="/user">
                                     <div className="login">
                                         {
-                                            currentUser.avatar != "empty" ? (
+                                            currentUser.avatar != "empty"&&currentUser.avatar !=null&&currentUser.avatar ? (
                                                 <img className="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src={currentUser.avatar} alt={currentUser.name} />
                                             ) : (
                                                 <img className="appWrapper-Header-icon-circle appWrapper-Header-icon-circle-avatar" src="http://365.chotot.com/wp-content/plugins/all-in-one-seo-pack/images/default-user-image.png" alt={currentUser.name} />

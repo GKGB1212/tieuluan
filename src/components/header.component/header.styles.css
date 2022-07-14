@@ -156,12 +156,12 @@
     flex-basis: 14%;
     text-decoration: none;
     display: inline-block;
-    background-color: rgb(252, 152, 7);
+    background: linear-gradient( 67.33deg, #e64b00 7.92%, rgba(255,115,0,0.9) 51.93%, #fe9900 90.76% );
     margin-right: 10px;
     text-align: center;
     color: white;
     border-radius: 4px;
-    /* margin-bottom: 150px; */
+    margin-bottom: 10px;
 }
 
 .info .btn:hover {

@@ -76,9 +76,9 @@ const DynamicFilter = ({ lstCity, Search, type,provinceId, categoryId, changeIsS
                     <div className="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
                         <button onClick={handleClickSearch}>Tìm kiếm</button>
                     </div>
-                    <div className="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
+                    {/* <div className="ItemStyles_filterItem ItemStyles_filterItemSelected" role="button" tabindex="0">
                         <button onClick={changeIsShow}>Lọc</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

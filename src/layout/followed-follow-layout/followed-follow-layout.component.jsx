@@ -47,7 +47,7 @@ const FollowLayout = () => {
                 <div className="indexPage PaperContainer">
                     <div className="PaperWrapper">
                         <h4 className="TitleHeading">{title}</h4>
-                        <div className="row list">
+                        <div className="row">
                             <div className="listt">
                                 {
                                     type == 1
@@ -55,7 +55,7 @@ const FollowLayout = () => {
                                             lstFollow.map((user, index) => (
                                                 <div className="user-container" onClick={() => history.push(`user/${user.id}`)}>
                                                     {
-                                                        user.imageUrl == null
+                                                        !user.imageUrl|| user.imageUrl == null ||user.imageUrl=="empty"
                                                             ? (
                                                                 <img className="user-avt" height="50" width="50" src={default_avt} />
 

@@ -3,6 +3,8 @@ import "./modal-filter.style.css";
 import SelectCustom from '../../components/select-custom/select-custom';
 import RadioButtonCustom from "../radio-button-custom/radio-button-custom";
 import React, { useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 // import './notify.styles.css'
 const ModalFilter = (props) => {
     const {
@@ -11,6 +13,14 @@ const ModalFilter = (props) => {
         handleChangeStatusPost,
         isShowModalFilter
     } = props;
+    const [lstCity, setLstCity] = useState([]);
+    const [lstDistrict, setLstDistrict] = useState([]);
+    const [lstWard, setLstWard] = useState([]);
+    const [minPrice,setMinPrice]=useState();
+    const [maxPrice,setMaxPrice]=useState();
+    const [ProvinceID, setProvinceID] = useState(0);
+    const [PostTypeID, setPostTypeID] = useState(0);
+    const [CategoryID, setCategoryID] = useState(0);
     const notifyPopup = useRef(null);
     useEffect(() => {
         if (!isShowModalFilter) return;
@@ -24,7 +34,7 @@ const ModalFilter = (props) => {
                 <div className="body-popup">
                     <div className="Styles_sectionWrapper">
                         <div className="Styles_priceFromTo">
-                            <div>Giá từ <b><input className="input-price" /></b> đến <b><input className="input-price" /></b></div>
+                            <div>Giá từ <b><input className="input-price" value={minPrice} onChange={(e)=>setMinPrice(e.target.value)}/></b> đến <b><input className="input-price"  value={maxPrice} onChange={(e)=>setMaxPrice(e.target.value)} /></b></div>
                         </div>
                     </div>
                     <div className="Styles_sectionWrapper">

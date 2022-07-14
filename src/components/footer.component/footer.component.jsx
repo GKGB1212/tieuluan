@@ -23,8 +23,12 @@ const Footer = () => {
                                 <li><a href="#">Liên hệ</a></li>
                             </ul>
                         </div>
-                       
-                        <div class="col-lg-3 item social"><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-facebook" style={{backgroundColor: "#3B5998"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-twitter" style={{backgroundColor: "#55ACEE"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-linkedin" style={{backgroundColor: "#0976B4"}}></i></a><a href="https://www.facebook.com/AtlantaBatDongSan/"><i class="fa fa-instagram" style={{backgroundColor: "#B7242A"}}></i></a>
+
+                        <div class="col-lg-3 item social">
+                            <a href="https://www.facebook.com/AtlantaBatDongSan/" style={{ backgroundColor: "#3B5998", color: "white" }}><i class="fa fa-facebook"></i></a>
+                            <a href="https://www.facebook.com/AtlantaBatDongSan/" style={{ backgroundColor: "#55ACEE", color: "white" }}><i class="fa fa-twitter" ></i></a>
+                            <a href="https://www.facebook.com/AtlantaBatDongSan/" style={{ backgroundColor: "#0976B4", color: "white" }}><i class="fa fa-linkedin"></i></a>
+                            <a href="https://www.facebook.com/AtlantaBatDongSan/" style={{ backgroundColor: "#B7242A", color: "white" }}><i class="fa fa-instagram"></i></a>
                             <p class="copyright">Atlanta © Gia Bình & Thủy Tiên</p>
                         </div>
                     </div>

@@ -68,7 +68,7 @@ const ProfileCurrentUserLayout = () => {
                             <div className="BasicInfo">
                                 <div className="AvatarWrapper">
                                     {
-                                        currentUser.avatar != "empty"
+                                        currentUser.avatar != "empty"&&currentUser.avatar !=null&&currentUser.avatar
                                             ? (
                                                 <img size="80" alt={post.name} src={currentUser.avatar} className="imgAvt" />
                                             ) : (

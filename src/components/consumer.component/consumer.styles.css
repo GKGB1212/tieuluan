@@ -8,10 +8,6 @@
     border-radius: 12px;
     box-shadow: 0 0 1px 0 rgb(8 11 14 / 6%), 0 16px 16px -1px rgb(8 11 14 / 10%);
 }
-.list :last-child{
-    margin-bottom: 0;
-    padding-bottom: 20px;
-}
 .list h4{
 
     padding: 20px 10px;
