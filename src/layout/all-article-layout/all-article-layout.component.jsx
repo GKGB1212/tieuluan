@@ -144,23 +144,21 @@ const AllArticleLayout = () => {
                                                     </div>
                                                 ))
                                             }
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                ) : ('')
-            }
-            <Pagination
+                                             <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={7}
                 totalItemsCount={article.totalSize}
                 pageRangeDisplayed={5}
                 onChange={(pageNumber) => onChangePage(pageNumber)}
             />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ) : ('')
+            }
         </div>
     ) : ('');
 }

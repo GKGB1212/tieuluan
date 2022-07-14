@@ -164,8 +164,8 @@
     margin-bottom: 10px;
 }
 
-.info .btn:hover {
-    background-color: rgb(230, 141, 12);
+.info .btn:hover{
+    background: rgba(255,115,0,0.9);
 }
 
 .info .btn .fa {
